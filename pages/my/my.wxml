@@ -1,7 +1,7 @@
 <view class='headtop'></view>
 <view class='headlogo'>
   <block wx:if="{{!hasUserInfo && canIUse}}">
-    <image src='../../img/nologin.png'></image>
+    <image src='{{img}}nologin.png'></image>
     <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='logbtn'> 点击登录 </button>
   </block>
   <block wx:else>

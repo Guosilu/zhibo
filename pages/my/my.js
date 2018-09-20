@@ -1,4 +1,4 @@
-// pages/4/4.js
+
 const app = getApp();
 const config = require("../../config/config.js");
 Page({
@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    img:config.img,
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
