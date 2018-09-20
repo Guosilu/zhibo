@@ -5,14 +5,43 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //画质
+    mode: [
+      { name: 'SD', value: 'SD（标清）：', checked: ''},
+      { name: 'HD', value: 'HD（高清）：', checked: ''},
+      { name: 'FHD', value: 'FHD（超清）：', checked: ''},
+      { name: 'RTC', value: 'RTC（实时通话）：', checked: ''}
+    ],
+    autopush: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
 
+    //画质
+    var query = 'SD';
+    var mode = that.data.mode;
+    //设置选择画质回显
+    for (let a = 0; a < mode.length;a++){
+      if (mode[a]['name']==query){
+        mode[a]['checked'] = 'true';
+      }else{
+        mode[a]['checked'] = '';
+      }
+    }
+
+
+
+
+    that.setData({
+      mode: mode,    //画质
+      autopush:'',   //自动推流
+      muted:'',     //是否静音
+      //enable-camera:""//开启摄像头
+    })
   },
 
   /**
