@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/my/my",
+    "pages/index/index",
+    "pages/category/category",
+    "pages/collect/collect",
+    "pages/list/list",
+    "pages/5/5",
+    "pages/6/6",
+    "pages/player/player",
+    "pages/pusher/pusher",
+    "pages/setRoom/setRoom"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffd200",
+    "navigationBarTitleText": "教育",
+    "navigationBarTextStyle": "#000"
+  },
+  "tabBar": {
+    "selectedColor": "#2e5e86",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "img/1.png",
+        "selectedIconPath": "img/11.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "img/2.png",
+        "selectedIconPath": "img/22.png"
+      },
+      {
+        "pagePath": "pages/collect/collect",
+        "text": "收藏",
+        "iconPath": "img/3.png",
+        "selectedIconPath": "img/33.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "img/4.png",
+        "selectedIconPath": "img/44.png"
+      }
+    ]
+  },
+  "debug": true
+}

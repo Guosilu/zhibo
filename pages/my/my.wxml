@@ -1,0 +1,18 @@
+<view class='headtop'></view>
+<view class='headlogo'>
+  <block wx:if="{{!hasUserInfo && canIUse}}">
+    <image src='../../img/nologin.png'></image>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='logbtn'> 点击登录 </button>
+  </block>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </block>
+</view>
+<view class='mymsg'>
+  <view class='bcom'><text bindtap='gotozb'>成为主播</text> <view> > </view> </view>
+  <view class='rcord'>浏览记录</view>
+  <view class='rclist'>
+    
+  </view>
+</view>

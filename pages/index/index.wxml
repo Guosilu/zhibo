@@ -1,0 +1,66 @@
+<!--index.wxml-->
+<view class='container'>
+<view class='main serch'>
+  <view class='search'>
+    <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
+    <view id='search'>搜索</view>
+  </view>
+</view>
+  <view class='index-nav'>
+    <view>教育</view><view>军事</view><view>音乐</view><view>游戏</view><view>娱乐</view><view>新闻</view><view>搞笑</view><view>更多</view>
+  </view>
+<view class='main'>
+  <view class='td-new'>
+    <text class='new-t'>今日新课</text>
+    <text class='new-d'>2018-08-13</text>
+  </view>
+  <view class='td-art'>
+    <view class='td-art-t'>让孩子流利说英语：超简单美式发音……</view>
+    <view class='td-btn'>查看详情</view>
+  </view>
+</view>
+<view class='main'>
+  <view class='jy-title'>
+    <view class='jy-tit-l'>必听课程</view>
+    <view class='jy-tit-m'>更多></view>
+  </view>
+  <view class='bt-list'>
+    <view class='bt-det' wx:for="{{userListInfo}}">
+      <view class='bt-img'>
+        <image src="{{item.icon}}"></image>
+      </view>
+      <view class='bt-txt'>
+        <text class='bt-txt-tit'>{{item.text1}}</text>
+        <text class='bt-txt-con'>{{item.btcon}}</text>
+        <text class='bt-txt-btn'>了解详情</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='main'>
+  <view class='jy-title'>
+    <view class='jy-tit-l'>热门课程</view>
+    <view class='jy-tit-m'>更多></view>
+  </view>
+  <view class='bt-list'>
+    <view class='rm-det' wx:for="{{rmary}}">
+      <image class='rm-img' src='{{item.rmimg}}'></image>
+      <text class='rm-txt-tit'>{{item.rmtit}}</text>
+      <text class='rm-txt-con'>{{item.rmcon}}</text>
+    </view>
+  </view>
+</view>
+<view class='main'>
+  <view class='jy-title'>
+    <view class='jy-tit-l'>名家专栏</view>
+    <view class='jy-tit-m'>更多></view>
+  </view>
+  <view class='bt-list'>
+    <view class='zj-det' wx:for="{{mjary}}">
+      <image class='zj-img' src='{{item.mjimg}}'></image>
+      <text class='zj-txt-name'>{{item.mjtit}}</text>
+      <text class='zj-txt-con'>{{item.mjcon}}</text>
+    </view>
+  </view>
+</view>
+</view>

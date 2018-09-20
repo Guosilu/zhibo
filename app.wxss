@@ -1,0 +1,45 @@
+/**app.wxss**/
+
+.container {
+  
+} 
+.main{
+  box-sizing: border-box;padding: 20rpx;overflow: hidden;
+}
+.jy-title{
+  width: 100%;overflow: hidden;box-sizing: border-box;
+  margin: 10px auto;
+
+}
+.jy-tit-l{
+  border-left: 5rpx solid orange;font-size:32rpx;
+  padding-left: 20rpx;float: left;font-weight: bold;
+}
+.jy-tit-m{
+  float: right;font-size:32rpx;
+}
+.search{
+  width: 100%;overflow: hidden;background: #fff;border-radius: 20rpx;
+  height: 60rpx;line-height: 60rpx;box-sizing: border-box;
+}
+#sousuo{
+  float: left;width: 80%;font-size: 28rpx;padding:5px 0 5px 20rpx;box-sizing: border-box;line-height: 60rpx;height: 60rpx;
+}
+#search{
+  float: left;width: 20%;background: #7db6fd;text-align: center;color: #fff;font-size: 28rpx;font-weight: bold;
+}
+.serch{
+  background: #eeeeee;
+}
+
+
+
+
+
+
+
+
+
+
+
+
