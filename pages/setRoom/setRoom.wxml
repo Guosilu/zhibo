@@ -1,25 +1,99 @@
 <view>
+<form bindsubmit="formSubmit">
   <view>
     <view>基础设置</view>
-    <view>直播间名：<input placeholder='直播间名：'></input></view>
-    <view>直播间介绍：<textarea placeholder='直播间介绍：'></textarea></view>
-    <view>主播名称：<input placeholder='主播名称：'></input></view>
-    <view>主播简介：<textarea placeholder='主播简介：'></textarea></view>
+    <view><text>直播间名：</text><input placeholder='直播间名：' name='roomName'></input></view>
+    <view><text>直播间介绍：</text><textarea placeholder='直播间介绍：' name='roomIntroduce'></textarea></view>
+    <view><text>主播名称：</text><input placeholder='主播名称：' name='anchorName'></input></view>
+    <view><text>主播简介：</text><textarea placeholder='主播简介：' name='anchorIntroduce'></textarea></view>
   </view>
-
   <view>
     <view>高级设置</view>
+
     <view>
-      画质选择：
-      <radio-group>
+      <text>画质选择：</text>
+      <radio-group name='mode'>
         <label class="radio" wx:for="{{mode}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
     </view>
-    <view>自动1111111111111111111推流：<switch checked='{{autopush}}' bindchange="autopush"/></view>
-    <view>是否静音：<switch checked='{{muted}}' bindchange="muted"/></view>
-    <view>开启摄像头：<switch checked='{{enable-camera}}' bindchange="enable-camera"/></view>
-  </view>
 
+    <view>
+      <text>自动推流：</text>
+      <switch checked='{{autopush}}' name="autopush"/>
+    </view>
+
+    <view>
+      <text>是否静音：</text>
+      <switch checked='{{muted}}' name="muted"/>
+    </view>
+
+    <view><text>开启摄像头：</text><switch checked='{{camera}}' name='camera'/></view>
+    <view><text>自动聚集：</text><switch checked='{{focus}}' name='focus'/></view>
+
+    <view>
+      <text>方向：</text>
+      <radio-group name='orientation'>
+        <label class="radio" wx:for="{{orientation}}">
+          {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view>
+
+    <view>
+      <text>美颜：</text>
+      <view class="body-view">
+        <slider step="1" max='10' name='beauty' value="{{beauty}}" show-value='true'/>
+      </view>
+    </view>
+
+    <view>
+     <text>美白：</text>
+      <view class="body-view">
+        <slider step="1" max='10' name='whiteness' value="{{whiteness}}" show-value='true'/>
+      </view>
+    </view>
+
+    <view>
+        <text>宽高比：</text>
+        <radio-group name='aspect'>
+        <label class="radio" wx:for="{{aspect}}">
+          {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view>
+
+    <view>
+     <text>最小码率：</text>
+      <view class="body-view">
+        <slider step="1" max='1000' disabled='true' name='min_bitrate' value="{{min_bitrate?min_bitrate:200}}" show-value='true'/>
+      </view>
+    </view>
+
+    <view>
+     <text>最大码率：</text>
+      <view class="body-view">
+        <slider step="1" max='2000'disabled='true' name='max_bitrate' value="{{max_bitrate?max_bitrate:1000}}" show-value='true'/>
+      </view>
+    </view>
+    <!-- 进入后台时推流的等待画面 -->
+    <!-- 等待画面资源的MD5值 -->
+    
+    <view><text>调整焦距：</text><switch checked='{{zoom}}' name='zoom'/></view>
+    
+    <view>
+        <text>前置或后置：</text>
+        <radio-group name='device_position'>
+        <label class="radio" wx:for="{{device_position}}">
+          {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view> background_mute 
+
+    <view><text>进入后台时是否静音：</text><switch checked='{{background_mute}}' name='background_mute'/></view>
+
+  </view>
+  <button formType="submit">Submit</button>
+</form>
 </view>
