@@ -1,0 +1,25 @@
+<view>
+  <view>
+    <view>基础设置</view>
+    <view>直播间名：<input placeholder='直播间名：'></input></view>
+    <view>直播间介绍：<textarea placeholder='直播间介绍：'></textarea></view>
+    <view>主播名称：<input placeholder='主播名称：'></input></view>
+    <view>主播简介：<textarea placeholder='主播简介：'></textarea></view>
+  </view>
+
+  <view>
+    <view>高级设置</view>
+    <view>
+      画质选择：
+      <radio-group>
+        <label class="radio" wx:for="{{mode}}">
+          {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view>
+    <view>自动推流：<switch checked='{{autopush}}' bindchange="autopush"/></view>
+    <view>是否静音：<switch checked='{{muted}}' bindchange="muted"/></view>
+    <view>开启摄像头：<switch checked='{{enable-camera}}' bindchange="enable-camera"/></view>
+  </view>
+
+</view>

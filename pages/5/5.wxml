@@ -1,0 +1,43 @@
+
+<view class="list">
+<view class='list2' style='borckground:#ffffff'>
+<view class='list1'>请输入搜索内容</view>
+</view>
+</view>
+
+<view class="content">
+  <navigator url='../3/3' open-type='switchTab' class="content-item1" > 收藏 </navigator>
+  <view class="content-item2" > 通知 </view>
+
+</view>
+
+<view class='x1'></view>
+<view class='x2'></view>
+
+<view class='list3'>
+
+<view  class='tm'>
+  <view class='hezi1' ></view>
+  <view class='wenzi1'>系统用户
+  <view class='wenzi11'>孩子们最爱的辫子姐姐、儿童文学作家郁雨君...</view>
+
+  </view>
+</view>
+
+<view  class='tm2'>
+<view class='hezi2'></view>
+<view class='wenzi2'>系统用户
+<view class='wenzi22'>孩子们最爱的辫子姐姐、儿童文学作家郁雨君...</view>
+</view>
+</view>
+
+<view class='tm3'>
+<view class='hezi3'></view>
+<view class='wenzi3'>系统用户
+<view class='wenzi33'>孩子们最爱的辫子姐姐、儿童文学作家郁雨君...</view>
+</view>
+</view>
+
+</view>
+
+
