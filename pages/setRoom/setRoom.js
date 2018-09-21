@@ -1,10 +1,15 @@
-// pages/setRoom/setRoom.js
+const config = require("../../config/config.js");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    openId:"",
+    roomName:"",//直播间名
+    roomIntroduce:"",//直播间简介
+    anchorName:"",//主播名
+    anchorIntroduce:"",//主播简介
     //画质
     mode: [
       { name: 'SD', value: 'SD（标清）：', checked: ''},
@@ -28,8 +33,8 @@ Page({
     ],
     min_bitrate: "", //最小码率
     max_bitrate: "", //最大码率
-    waiting_image: "",//进入后台时推流的等待画面
-    waiting_image_hash: "",//等待画面资源的MD5值
+    // waiting_image: "",//进入后台时推流的等待画面
+    // waiting_image_hash: "",//等待画面资源的MD5值
     zoom: "",           //调整焦距
     device_position: [ //前置或后置，值为front, back
       { name: 'front', value: '前置', checked: '' },
@@ -42,40 +47,50 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wx.getStorage({
+      key: 'openId',
+      success: function (res) {
+        if (res.data != '') {
+          that.setData({
+            openId: res.data
+          })
+        } else {
+          wx.showToast({
+            title: "请返回登录",
+            icon: "none"
+          })
+          return
+        }
+      }
+    });
 
-    //画质
-    var mode = that.setSth('mode', 'RTC');
-    //自动推流
-    var autopush = true;
-    //是否静音
-    var muted = true;
-    //开启摄像头
-    var camera = true;
-    //自动聚集
-    var focus = true;
-    //方向
-    var orientation = that.setSth('orientation', 'vertical');
-    //美颜
-    var beauty = 2;
-    //美白
-    var whiteness = 3;
-    //宽高比
-    var aspect = that.setSth('aspect','3:4');
-    //最小码率
-    var min_bitrate = 200;
-    //最大码率
-    var max_bitrate = 1000;
-    //进去后台时推流的等待画面
-    var waiting_image = '';
-    //等待画面资源的MD5值
-    var waiting_image_hash = '';
-    //调整焦距
-    var zoom = true;
-    //前置或后置 device_position
-    var device_position = that.setSth('device_position', 'back');
-    //进入后台时是否静音
-    var background_mute = true;
+
+    var roomName = '';//直播间名
+    var roomIntroduce = '';//直播间简介
+    var anchorName = '';//主播名
+    var anchorIntroduce = '';//主播简介
+    var mode = that.setSth('mode', 'RTC');//画质
+    var autopush = true;//自动推流
+    var muted = true;//是否静音
+    var camera = true;//开启摄像头
+    var focus = true; //自动聚集
+    var orientation = that.setSth('orientation', 'vertical');//方向
+    var beauty = 2;//美颜
+    var whiteness = 3;//美白
+    var aspect = that.setSth('aspect', '3:4');//宽高比
+    var min_bitrate = 200;//最小码率
+    var max_bitrate = 1000;//最大码率
+    // var waiting_image = '';//进去后台时推流的等待画面
+    // var waiting_image_hash = '';//等待画面资源的MD5值
+    var zoom = true;//调整焦距
+    var device_position = that.setSth('device_position', 'back');//前置或后置 device_position
+    var background_mute = true;//进入后台时是否静音
+
     that.setData({
+      roomName: "",//直播间名
+      roomIntroduce: "",//直播间简介
+      anchorName: "",//主播名
+      anchorIntroduce: "",//主播简介
       mode: mode,    //画质
       autopush: autopush,   //自动推流
       muted: muted,     //是否静音
@@ -87,8 +102,8 @@ Page({
       aspect: aspect,  //宽高比  9:16  3:4
       min_bitrate: min_bitrate, //最小码率
       max_bitrate: max_bitrate, //最大码率
-      waiting_image: waiting_image,//进入后台时推流的等待画面
-      waiting_image_hash: waiting_image_hash,//等待画面资源的MD5值
+      // waiting_image: waiting_image,//进入后台时推流的等待画面
+      // waiting_image_hash: waiting_image_hash,//等待画面资源的MD5值
       zoom: zoom,           //调整焦距
       device_position: device_position, //前置或后置，值为front, back
       background_mute: background_mute,//进入后台时是否静音
@@ -99,7 +114,57 @@ Page({
    */
   // 表单提交
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e)
+    var that = this;
+    var result = e.detail.value;
+    if ((!result.roomName.trim()) || (!result.roomIntroduce.trim()) || (!result.anchorName.trim()) |(!result.anchorIntroduce.trim())){
+      wx.showToast({
+        title:"请全部填写完毕后提交",
+        icon:"none"
+      })
+      return;
+    }
+    wx.request({
+      url: config.coreUrl+'setRoom.php',
+      method:'post',
+      dataType:"JSON",
+      header: {
+        // 'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data:{
+        openId:that.data.openId,
+        roomName: result.roomName.trim(),//直播间名
+        roomIntroduce: result.roomIntroduce.trim(),//直播间简介
+        anchorName: result.anchorName.trim(),//主播名
+        anchorIntroduce: result.anchorIntroduce.trim(),//主播简介
+        mode: result.mode,//画质
+        autopush: result.autopush,//自动推流
+        muted: result.muted,//是否静音
+        camera: result.camera,//开启摄像头
+        focus: result.focus,//自动聚集
+        orientation: result.orientation,//方向
+        beauty: result.beauty,//美颜
+        whiteness: result.whiteness,//美白
+        aspect: result.aspect,//宽高比
+        min_bitrate: result.min_bitrate,//最小码率
+        max_bitrate: result.max_bitrate,//最大码率
+        zoom: result.zoom,//调整焦距
+        device_position: result.device_position,//前置或后置
+        background_mute: result.background_mute//进入后台时是否静音
+      },
+      success:function(data){
+        let result = data.data;
+        if (result){
+          console.log(JSON.parse(result))
+        }
+      },
+      fail:function(){
+        wx.showToast({
+          title: '添加异常,请稍后重试',
+          icon:'none'
+        })
+      }
+    })
   },
   //设置单选
   setSth: function (datas,param){

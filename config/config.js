@@ -3,7 +3,7 @@
 const appid = 'wxd3a3d4ee9ea470d4';
 const secret = '6a797e94a40bbb286594c461f621ae62';
 const jscode2session = 'https://api.weixin.qq.com/sns/jscode2session';
-const baseUrl = 'http://aa.zdcom.net.cn/';
+const baseUrl = 'https://aa.zdcom.net.cn/';
 const unionIdUrl = baseUrl + 'wechatProgram/user/unionId/unionIdApi.php';
 const coreUrl = baseUrl +"wechatProgram/core/";
 const img = baseUrl +"wechatProgram/images/";

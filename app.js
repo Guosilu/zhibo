@@ -53,19 +53,16 @@ App({
                   iv: msg.iv
                 },
                 success: function (data) {
-                  console.log(data);
                   if (data.data.openId) {
                     wx.setStorageSync('openId', data.data.openId);
                   }
                 },
                 fail: function (res) {
-                  console.log(res)
                 }
               })
             }
           })
         } else {
-          console.log('登录失败！' + login.errMsg)
         }
       }
     })
