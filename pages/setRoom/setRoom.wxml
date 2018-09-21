@@ -2,10 +2,10 @@
 <form bindsubmit="formSubmit">
   <view>
     <view>基础设置</view>
-    <view><text>直播间名：</text><input placeholder='直播间名：' name='roomName'></input></view>
-    <view><text>直播间介绍：</text><textarea placeholder='直播间介绍：' name='roomIntroduce'></textarea></view>
-    <view><text>主播名称：</text><input placeholder='主播名称：' name='anchorName'></input></view>
-    <view><text>主播简介：</text><textarea placeholder='主播简介：' name='anchorIntroduce'></textarea></view>
+    <view><text>直播间名：</text><input placeholder='直播间名：' name='roomName' value='{{roomName}}'></input></view>
+    <view><text>直播间介绍：</text><textarea placeholder='直播间介绍：' value='{{roomIntroduce}}' name='roomIntroduce'></textarea></view>
+    <view><text>主播名称：</text><input placeholder='主播名称：' value='{{anchorName}}' name='anchorName'></input></view>
+    <view><text>主播简介：</text><textarea placeholder='主播简介：' value='{{anchorIntroduce}}'       name='anchorIntroduce'></textarea></view>
   </view>
   <view>
     <view>高级设置</view>
@@ -44,14 +44,14 @@
     <view>
       <text>美颜：</text>
       <view class="body-view">
-        <slider step="1" max='10' name='beauty' value="{{beauty}}" show-value='true'/>
+        <slider step="0.1" max='10' name='beauty' value="{{beauty}}" show-value='true'/>
       </view>
     </view>
 
     <view>
      <text>美白：</text>
       <view class="body-view">
-        <slider step="1" max='10' name='whiteness' value="{{whiteness}}" show-value='true'/>
+        <slider step="0.1" max='10' name='whiteness' value="{{whiteness}}" show-value='true'/>
       </view>
     </view>
 
@@ -89,11 +89,11 @@
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
-    </view> background_mute 
+    </view> 
 
     <view><text>进入后台时是否静音：</text><switch checked='{{background_mute}}' name='background_mute'/></view>
 
   </view>
-  <button formType="submit">Submit</button>
+  <button formType="submit">提交</button>
 </form>
 </view>
