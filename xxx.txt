@@ -1,7 +1,0 @@
-
-首页  : index
-分类  : category
-收藏  : collect
-我的  : my
-主播  : pusher
-直播  : player
