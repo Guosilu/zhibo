@@ -4,7 +4,7 @@
     <view>基础设置</view>
     <view><text>直播间名：</text><input placeholder='直播间名：' name='roomName' value='{{roomName}}'></input></view>
     <view><text>直播间介绍：</text><textarea placeholder='直播间介绍：' value='{{roomIntroduce}}' name='roomIntroduce'></textarea></view>
-    <view><text>主播名称：</text><input placeholder='主播名称：' value='{{anchorName}}' name='anchorName'></input></view>
+    <view><text>主播名：</text><input placeholder='主播名：' value='{{anchorName}}' name='anchorName'></input></view>
     <view><text>主播简介：</text><textarea placeholder='主播简介：' value='{{anchorIntroduce}}'       name='anchorIntroduce'></textarea></view>
   </view>
   <view>
