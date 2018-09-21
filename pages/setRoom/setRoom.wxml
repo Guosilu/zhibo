@@ -17,7 +17,7 @@
         </label>
       </radio-group>
     </view>
-    <view>自动推流：<switch checked='{{autopush}}' bindchange="autopush"/></view>
+    <view>自动1111111111111111111推流：<switch checked='{{autopush}}' bindchange="autopush"/></view>
     <view>是否静音：<switch checked='{{muted}}' bindchange="muted"/></view>
     <view>开启摄像头：<switch checked='{{enable-camera}}' bindchange="enable-camera"/></view>
   </view>
