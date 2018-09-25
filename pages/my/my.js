@@ -78,6 +78,13 @@ Page({
           })
         }
       },
+      fail:function(){
+        wx.showToast({
+          title: "请先登录",
+          icon: 'none',
+          mask: "true"
+        })
+      }
     })
   },
   /**
