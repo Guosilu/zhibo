@@ -54,16 +54,15 @@ Page({
               openId: res.data
             },
             success: function (data) {
-              console.log(data);
-              if (data !="error"){
+              if (data.data !="error"){
                 //跳转直播页面
                 wx.navigateTo({
                   url: config.pusher
                 })
               } else {
                 //跳转创建直播页面
-                wx.redirectTo({
-                  url: config.createRoom
+                wx.navigateTo({
+                  url: config.setRoom
                 })
               }
             },

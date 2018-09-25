@@ -87,7 +87,7 @@ Page({
     var background_mute = true;//进入后台时是否静音
 
     that.setData({
-      roomName: "",//直播间名
+      roomName: "1",//直播间名
       roomIntroduce: "",//直播间简介
       anchorName: "",//主播名
       anchorIntroduce: "",//主播简介
@@ -154,8 +154,21 @@ Page({
       },
       success:function(data){
         let result = data.data;
-        if (result){
-          console.log(JSON.parse(result))
+        console.log(result);
+        if (result =='success'){
+          wx.showToast({
+            title: '添加成功'
+          })
+          setTimeout(function(){
+            wx.navigateBack({
+              delta: 1
+            })
+          },1500)
+        }else{
+          wx.showToast({
+            title: '添加异常,请稍后重试',
+            icon: 'none'
+          })
         }
       },
       fail:function(){
@@ -166,7 +179,9 @@ Page({
       }
     })
   },
-  //设置单选
+  /**
+   * 设置单选
+   */
   setSth: function (datas,param){
     var that = this;
     var data = that.data[datas];

@@ -1,8 +1,7 @@
 {
   "pages": [
-    
-    "pages/setRoom/setRoom",
     "pages/my/my",
+    "pages/setRoom/setRoom",
     "pages/index/index",
     "pages/category/category",
     "pages/collect/collect",

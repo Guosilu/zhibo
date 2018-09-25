@@ -38,7 +38,8 @@ module.exports = {
   index: index,
   list: list,
   my: my,
-  log: log
+  log: log,
+  setRoom: setRoom,
 
 
 }
