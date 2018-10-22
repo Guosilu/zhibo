@@ -12,5 +12,5 @@
         授权登录
     </button>
 </view>
- 
-<view wx:else>请升级微信版本</view>
+
+<view wx:else>请升级微信222版本</view>
