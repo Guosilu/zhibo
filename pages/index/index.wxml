@@ -16,7 +16,7 @@
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
-    <view class='bt-det' wx:for="{{userListInfo}}">
+    <view class='bt-det' wx:key="*this" wx:for="{{userListInfo}}">
       <view class='bt-img'>
         <image src="{{item.icon}}"></image>
       </view>
@@ -34,7 +34,7 @@
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
-    <view class='rm-det' wx:for="{{rmary}}">
+    <view class='rm-det' wx:key="*this" wx:for="{{rmary}}">
       <image class='rm-img' src='{{item.rmimg}}'></image>
       <text class='rm-txt-tit'>{{item.rmtit}}</text>
       <text class='rm-txt-con'>{{item.rmcon}}</text>
@@ -47,7 +47,7 @@
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
-    <view class='zj-det' wx:for="{{mjary}}">
+    <view class='zj-det' wx:key="*this" wx:for="{{mjary}}">
       <image class='zj-img' src='{{item.mjimg}}'></image>
       <text class='zj-txt-name'>{{item.mjtit}}</text>
       <text class='zj-txt-con'>{{item.mjcon}}</text>

@@ -13,7 +13,7 @@
     <view>
       <text>画质选择：</text>
       <radio-group name='mode'>
-        <label class="radio quality" wx:for="{{mode}}">
+        <label class="radio quality" wx:key="*this" wx:for="{{mode}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
@@ -41,7 +41,7 @@
     <view>
       <text>方向：</text>
       <radio-group name='orientation' class='column'>
-        <label class="radio" wx:for="{{orientation}}">
+        <label class="radio" wx:key="*this" wx:for="{{orientation}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
@@ -64,7 +64,7 @@
     <view>
       <text>宽高比：</text>
       <radio-group name='aspect' class='column'>
-        <label class="radio" wx:for="{{aspect}}">
+        <label class="radio" wx:key="*this" wx:for="{{aspect}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
@@ -91,7 +91,7 @@
     <view>
       <text>前置或后置：</text>
       <radio-group name='device_position' class='column'>
-        <label class="radio" wx:for="{{device_position}}">
+        <label class="radio" wx:key="*this" wx:for="{{device_position}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>

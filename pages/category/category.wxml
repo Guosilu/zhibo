@@ -10,7 +10,7 @@
 
 
 <view class='dabox'>
-  <block  wx:for='{{catList}}'>
+  <block wx:key="*this" wx:for='{{catList}}'>
   <view class='n'>
     <navigator url='../detail/detail?id={{item.id}}' open-type='redirect' open-type='navigate'  class='nn'></navigator>
     <view class='nw'>{{item.name}}</view>
