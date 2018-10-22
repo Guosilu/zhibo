@@ -1,1 +1,29 @@
 /* pages/setRoom/setRoom.wxss */
+.setform{
+  padding: 0 20rpx;font-size: 32rpx;
+}
+.formtit{
+  text-indent: 20rpx;border-left: 5rpx solid orange;font-size:32rpx;font-weight: bold;margin: 20rpx 0;
+}
+.formname{
+  float: left;line-height: 52rpx;
+}
+.textarea{
+  width: 100%;padding: 10rpx;text-indent: 2em;box-sizing: border-box;height: 100px;
+}
+.quality{
+  width: 50%;display: inline-block;margin-bottom: 5rpx;
+}
+.option{
+  margin:10rpx 0;display: inline-block;width: 50%;
+}
+.column{
+  display: inline-block;
+}
+.column label{
+  margin: 0 20rpx;
+}
+.submit{
+  margin: 30rpx 0;
+}
+

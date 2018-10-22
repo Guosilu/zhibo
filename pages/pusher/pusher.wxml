@@ -1,9 +1,40 @@
 <view class="page-body">
   <view class="page-section tc">
   <!-- rtmp://118.190.98.53:1935/live/test -->
-    <live-pusher id="pusher" url="{{pusherUrl}}" mode="RTC" autopush bindstatechange="statechange" />
-
-    <view class="btn-area">
+    <live-pusher
+     id="pusher"
+     url="{{pusherUrl}}"
+     mode="RTC" 
+     style="width:100%;height:100%; position:absolute;"
+     autopush 
+     beauty="{{beauty}}" 
+     enable-camera="{{!pureaudio}}" 
+     muted="{{muted}}" 
+     aspect="3:4" 
+     waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg"
+     background-mute="{{true}}" 
+     bindstatechange="onMainPush" 
+     binderror="onMainError"
+     bindstatechange="statechange" />
+      <cover-view class="operate">
+        <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
+          <cover-image class='img-view' src='../../img/camera.png' bindtap="switchCamera"></cover-image>
+          <cover-view class='text-view'>翻转</cover-view>
+        </cover-view>
+        <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
+          <cover-image class='img-view' src='../../img/{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="toggleBeauty"></cover-image>
+          <cover-view class='text-view'>美颜</cover-view>
+        </cover-view>
+        <cover-view class='img-box'>
+          <cover-image class='img-view' src='../../img/{{muted ? "mic-dis" : "mic"}}.png' bindtap="toggleMuted"></cover-image>
+           <cover-view class='text-view'>声音</cover-view>
+        </cover-view> 
+        <!-- <cover-view class='img-box'>
+          <cover-image class='img-view' src='../../img/{{debug? "log" : "log2"}}.png' bindtap="toggleDebug"></cover-image>
+          <cover-view class='text-view'>日志</cover-view> 
+        </cover-view>-->
+      </cover-view>
+    <view class="btn-area" style="display:none;">
       <button bindtap="bindStart" class="page-body-button" type="primary">播放推流</button>
       <button bindtap="bindPause" class="page-body-button" type="primary">暂停推流</button>
       <button bindtap="bindStop" class="page-body-button" type="primary">停止推流</button>
@@ -12,3 +43,7 @@
     </view>
   </view>
 </view>
+
+
+
+

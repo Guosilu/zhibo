@@ -1,40 +1,46 @@
-<view>
+<view class='setform'>
 <form bindsubmit="formSubmit">
   <view>
-    <view>基础设置</view>
-    <view><text>直播间名：</text><input placeholder='直播间名：' name='roomName' value='{{roomName}}'></input></view>
-    <view><text>直播间介绍：</text><textarea placeholder='直播间介绍：' value='{{roomIntroduce}}' name='roomIntroduce'></textarea></view>
-    <view><text>主播名：</text><input placeholder='主播名：' value='{{anchorName}}' name='anchorName'></input></view>
-    <view><text>主播简介：</text><textarea placeholder='主播简介：' value='{{anchorIntroduce}}'       name='anchorIntroduce'></textarea></view>
+    <view class='formtit'>基础设置</view>
+    <view><text class='formname'>直播间名：</text><input placeholder='请输入您的直播间名称' name='roomName' value='{{roomName}}'></input></view>
+    <view><text>直播间介绍：</text><textarea placeholder='请输入您的直播介绍' value='{{roomIntroduce}}' name='roomIntroduce' class='textarea'></textarea></view>
+    <view><text class='formname'>主播名：</text><input placeholder='请输入您的名字' value='{{anchorName}}' name='anchorName'></input></view>
+    <view><text>主播简介：</text><textarea placeholder='请输入您的详细介绍' value='{{anchorIntroduce}}'       name='anchorIntroduce' class='textarea'></textarea></view>
   </view>
   <view>
-    <view>高级设置</view>
+    <view class='formtit'>高级设置</view>
 
     <view>
       <text>画质选择：</text>
       <radio-group name='mode'>
-        <label class="radio" wx:for="{{mode}}">
+        <label class="radio quality" wx:for="{{mode}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
       </radio-group>
     </view>
 
-    <view>
+    <view class='option'>
       <text>自动推流：</text>
       <switch checked='{{autopush}}' name="autopush"/>
     </view>
 
-    <view>
+    <view class='option'>
       <text>是否静音：</text>
       <switch checked='{{muted}}' name="muted"/>
     </view>
 
-    <view><text>开启摄像头：</text><switch checked='{{camera}}' name='camera'/></view>
-    <view><text>自动聚集：</text><switch checked='{{focus}}' name='focus'/></view>
+    <view class='option'>
+      <text>开启摄像头：</text>
+      <switch checked='{{camera}}' name='camera'/>
+    </view>
+    <view class='option'>
+      <text>自动聚集：</text>
+      <switch checked='{{focus}}' name='focus'/>
+    </view>
 
     <view>
       <text>方向：</text>
-      <radio-group name='orientation'>
+      <radio-group name='orientation' class='column'>
         <label class="radio" wx:for="{{orientation}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
@@ -56,8 +62,8 @@
     </view>
 
     <view>
-        <text>宽高比：</text>
-        <radio-group name='aspect'>
+      <text>宽高比：</text>
+      <radio-group name='aspect' class='column'>
         <label class="radio" wx:for="{{aspect}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
@@ -83,8 +89,8 @@
     <view><text>调整焦距：</text><switch checked='{{zoom}}' name='zoom'/></view>
     
     <view>
-        <text>前置或后置：</text>
-        <radio-group name='device_position'>
+      <text>前置或后置：</text>
+      <radio-group name='device_position' class='column'>
         <label class="radio" wx:for="{{device_position}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
         </label>
@@ -94,6 +100,6 @@
     <view><text>进入后台时是否静音：</text><switch checked='{{background_mute}}' name='background_mute'/></view>
 
   </view>
-  <button formType="submit">提交</button>
+  <button formType="submit" class='submit'>提交</button>
 </form>
 </view>

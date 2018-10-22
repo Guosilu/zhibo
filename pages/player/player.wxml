@@ -17,7 +17,7 @@
      bindstatechange="onPlayEvent"
      bindfullscreenchange="onFullScreenChange" />
     <!-- <cover-image hidden="{{playing}}" style="width:100%; height: 100%; position:absolute;" src="https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png"></cover-image> -->
-      <cover-view wx:if="{{!debug || exterFlag}}" style="width:100%; height: 50px; position:absolute; bottom:60px;padding-left:calc(100% / 5);" >
+    <cover-view wx:if="{{!debug || exterFlag}}" style="width:100%; height: 50px; position:absolute; bottom:60px;padding-left:calc(100% / 5);" >
       <cover-view class='bottom_box'>       
         <cover-image class="bottom_button" src="{{img}}{{playing?'suspend':'start'}}.png" bindtap='onPlayClick'></cover-image>
         <cover-view class='bottom_text'>播放</cover-view>
@@ -38,22 +38,14 @@
         <cover-image class="bottom_button" src="{{img}}{{objectFit == 'contain'?'adjust':'fill'}}.png" bindtap='onObjectfitClick'></cover-image>
         <cover-view class='bottom_text'>{{objectFit == 'contain'?'适应':'填充'}}</cover-view>
       </cover-view>
-      </cover-view>   
-    <view class="btn-area" style="display:none;">
-      <button bindtap="bindPlay" class="page-body-button" type="primary">播放</button>
-      <button bindtap="bindPause" class="page-body-button" type="primary">暂停</button>
-      <button bindtap="bindStop" class="page-body-button" type="primary">停止</button>
-      <button bindtap="bindResume" class="page-body-button" type="primary">恢复</button>
-      <button bindtap="bindMute" class="page-body-button" type="primary">静音</button>
-    </view>
+    </cover-view>   
   </view>
   
 </view>
 
-    <view class="comment-container">
-      <view class="row1">
-        <input placeholder="此处输入弹幕内容"  bindinput="bindInput" value="{{msgContent}}"/>
-        <button class="btn-send" bindtap="bindSendDanmu">发送弹幕</button>
-      </view>
-      
+  <view class="comment-container">
+    <view class="row1">
+      <input placeholder="此处输入弹幕内容"  bindinput="bindInput" value="{{msgContent}}"/>
+      <button class="btn-send" bindtap="bindSendDanmu">发送弹幕</button>
+    </view>   
   </view>

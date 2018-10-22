@@ -2,7 +2,15 @@ const config = require("../../config/config.js");
 
 Page({
   data: {
-    pusherUrl:""
+    pusherUrl: "",
+    pusherContext: null,
+    playerContext: null,
+    linkedPlayerContext: null,
+    linkPusherInfo: {
+      url: '',
+      loading: true,
+      debug: true,
+    }
   },
 
   onLoad: function () {
@@ -113,5 +121,37 @@ Page({
         console.log('switchCamera fail')
       }
     })
-  }
+  },
+  toggleDebug() {
+    var self = this;
+    self.setData({
+      debug: !self.data.debug
+    }, () => {
+      console.log('>> Debug: ', self.data.debug);
+    })
+  },
+
+  toggleBeauty() {
+    var self = this;
+    var bty = self.data.beauty == 5 ? 0 : 5;
+    self.setData({
+      beauty: bty
+    }, () => {
+      console.log(bty > 0 ? '开启美颜' : '关闭美颜')
+    })
+
+  },
+  toggleMuted() {
+    var self = this;
+    self.setData({
+      muted: !self.data.muted
+    }, () => {
+      console.log(self.data.muted ? '静音' : '非静音')
+    })
+  },
+  switchCamera() {
+    var self = this;
+    console.log('切换摄像头: ', self.data.pusherContext)
+    self.data.pusherContext && self.data.pusherContext.switchCamera({});
+  },
 })

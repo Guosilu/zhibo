@@ -48,13 +48,15 @@ live-player {
   flex-direction:column;position: absolute;
 }
 .comment-container .row1{
-  margin: 30rpx 0;
+  margin: 30rpx 15rpx;
   display: flex;
   align-items:center;
   height: 70rpx;
   box-sizing: border-box;
   border-top: 1px #e3e3e3 solid;
   border-bottom: 1px #e3e3e3 solid;
+  border-left:1px #e3e3e3 solid;
+  border-radius: 10rpx;
 }
 
 .comment-container .row1 input{
@@ -66,8 +68,8 @@ live-player {
   font-size: 34rpx;
 }
 .comment-container .btn-send{
-  margin: 0 15rpx;
-  height: 80rpx;line-height: 80rpx;
+  /* margin: 0 15rpx; */
+  height: 70rpx;line-height: 70rpx;
   background-color: #0accac;
   color:#fff;
 }
