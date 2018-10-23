@@ -14,48 +14,32 @@ Page({
    * 获取缓存,判断是否登录
    */
   gotozb: function () {
-    wx.getStorage({
-      key: 'openId',
-      success: function (res) {
-        if (res.data) {
-          /**
-           * 获取PusherUrl
-           * 如果有跳转到直播页面
-           * 否则调转到创建直播页面
-           */
-          wx.request({
-            url: config.coreUrl + 'getLiveUrl.php',
-            method: 'POST',
-            header: {
-              // 'content-type': 'application/json'
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            data: {
-              type: "isRoom",
-              openId: res.data
-            },
-            success: function (data) {
-              if (data.data !="error"){
-                //跳转直播页面
-                wx.navigateTo({
-                  url: config.pusher
-                })
-              } else {
-                //跳转创建直播页面
-                wx.navigateTo({
-                  url: config.setRoom
-                })
-              }
-            },
-            fail: function (res) {
-              console.log(res)
-            }
+    /**
+     * 获取PusherUrl
+     * 如果有跳转到直播页面
+     * 否则调转到创建直播页面
+     */
+    wx.request({
+      url: config.coreUrl + 'getLiveUrl.php',
+      method: 'POST',
+      header: {
+        // 'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: "isRoom",
+        openId: app.globalData.openId
+      },
+      success: function (data) {
+        if (data.data != ''){
+          //跳转直播页面
+          wx.navigateTo({
+            url: config.pusher
           })
         } else {
-          wx.showToast({
-            title: "请先登录",
-            icon: 'none',
-            mask: "true"
+          //跳转创建直播页面
+          wx.navigateTo({
+            url: config.setRoom
           })
         }
       },

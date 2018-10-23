@@ -6,31 +6,22 @@
      url="{{pusherUrl}}"
      mode="RTC" 
      style="width:100%;height:100%; position:absolute;"
-     autopush 
-     beauty="{{beauty}}" 
-     enable-camera="{{!pureaudio}}" 
-     muted="{{muted}}" 
-     aspect="3:4" 
-     waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg"
-     background-mute="{{true}}" 
-     bindstatechange="onMainPush" 
-     binderror="onMainError"
-     bindstatechange="statechange" />
+     autopush/>
       <cover-view class="operate">
         <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
-          <cover-image class='img-view' src='../../img/camera.png' bindtap="switchCamera"></cover-image>
+          <cover-image class='img-view' src='{{img}}camera.png' bindtap="switchCamera"></cover-image>
           <cover-view class='text-view'>翻转</cover-view>
         </cover-view>
         <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
-          <cover-image class='img-view' src='../../img/{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="toggleBeauty"></cover-image>
+          <cover-image class='img-view' src='{{img}}{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="toggleBeauty"></cover-image>
           <cover-view class='text-view'>美颜</cover-view>
         </cover-view>
         <cover-view class='img-box'>
-          <cover-image class='img-view' src='../../img/{{muted ? "mic-dis" : "mic"}}.png' bindtap="toggleMuted"></cover-image>
+          <cover-image class='img-view' src='{{img}}{{muted ? "mic-dis" : "mic"}}.png' bindtap="toggleMuted"></cover-image>
            <cover-view class='text-view'>声音</cover-view>
         </cover-view> 
         <!-- <cover-view class='img-box'>
-          <cover-image class='img-view' src='../../img/{{debug? "log" : "log2"}}.png' bindtap="toggleDebug"></cover-image>
+          <cover-image class='img-view' src='{{img}}{{debug? "log" : "log2"}}.png' bindtap="toggleDebug"></cover-image>
           <cover-view class='text-view'>日志</cover-view> 
         </cover-view>-->
       </cover-view>

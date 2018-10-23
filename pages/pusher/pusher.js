@@ -1,16 +1,17 @@
 const config = require("../../config/config.js");
-
+const app = getApp();
 Page({
   data: {
-    pusherUrl: "",
+    pusherUrl: "rtmp://118.190.98.53:1935/live/test",
     pusherContext: null,
     playerContext: null,
     linkedPlayerContext: null,
     linkPusherInfo: {
-      url: '',
+      url: '11',
       loading: true,
       debug: true,
-    }
+    },
+    img: config.img,
   },
 
   onLoad: function () {
@@ -18,53 +19,29 @@ Page({
       keepScreenOn: true
     })
     var that = this;
-    wx.getStorage({
-      key: 'openId',
-      success: function (res) {
-        if (res.data!='') {
-          console.log(res);
-          wx.request({
-            url: config.coreUrl + 'getLiveUrl.php',
-            method: 'POST',
-            header: {
-              // 'content-type': 'application/json'
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            data: {
-              type: "pusher",
-              openId: res.data
-            },
-            success: function (data) {
-              console.log(data);
-              that.setData({
-                pusherUrl:data.data
-              })
-            },
-            fail: function (res) {
-              console.log(res)
-            }
-          })
 
+      // wx.request({
+      //   url: config.coreUrl + 'getLiveUrl.php',
+      //   method: 'POST',
+      //   header: {
+      //     // 'content-type': 'application/json'
+      //     'content-type': 'application/x-www-form-urlencoded'
+      //   },
+      //   data: {
+      //     type: "pusher",
+      //     openId: ''
+      //   },
+      //   success: function (data) {
+      //     console.log(data);
+      //     that.setData({
+      //       pusherUrl:data.data
+      //     })
+      //   },
+      //   fail: function (res) {
+      //     console.log(res)
+      //   }
+      // })
 
-
-        } else {
-          wx.showToast({
-            title: "请先登录",
-            icon: 'none',
-            mask: "true",
-            success:function(){
-              setTimeout(function(){
-                wx.switchTab({
-                  url: config.my
-                })
-              },1000)
-              
-            }
-          })
-          
-        }
-      },
-    })
   },
   onReady(res) {
     this.ctx = wx.createLivePusherContext('pusher')

@@ -1,4 +1,5 @@
 const config = require("../../config/config.js");
+const app = getApp();
 Page({
 
   /**
@@ -47,24 +48,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.getStorage({
-      key: 'openId',
-      success: function (res) {
-        if (res.data != '') {
-          that.setData({
-            openId: res.data
-          })
-        } else {
-          wx.showToast({
-            title: "请返回登录",
-            icon: "none"
-          })
-          return
-        }
-      }
-    });
-
-
     var roomName = '';//直播间名
     var roomIntroduce = '';//直播间简介
     var anchorName = '';//主播名
@@ -132,7 +115,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       data:{
-        openId:that.data.openId,
+        openId: app.globalData.openId,
         roomName: result.roomName.trim(),//直播间名
         roomIntroduce: result.roomIntroduce.trim(),//直播间简介
         anchorName: result.anchorName.trim(),//主播名
@@ -155,7 +138,7 @@ Page({
       success:function(data){
         let result = data.data;
         console.log(result);
-        if (result =='success'){
+        if (result){
           wx.showToast({
             title: '添加成功'
           })
@@ -166,7 +149,7 @@ Page({
           },1500)
         }else{
           wx.showToast({
-            title: '添加异常,请稍后重试',
+            title: '添加异常,请稍后重试1',
             icon: 'none'
           })
         }
