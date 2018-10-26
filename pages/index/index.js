@@ -5,19 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userListInfo: [{
-      icon: config.img+'bd1.png',
-      text1: '136堂自我管理课：培养孩子收益……',
-      btcon: '善用工具，帮助孩子管理好自己！'
-    }, {
-        icon: config.img +'bd1.png',
-      text1: '236堂自我管理课：培养孩子收益……',
-      btcon: '善用工具，帮助孩子管理好自己！'
-    }, {
-        icon: config.img +'bd1.png',
-      text1: '336堂自我管理课：培养孩子收益……',
-      btcon: '善用工具，帮助孩子管理好自己！'
-    }],
+    list: [],
+
+
     rmary: [{
       rmimg: config.img +'rm1.png',
       rmtit: '方法比努力更重要:21堂x小学生……',
@@ -59,7 +49,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'post',
+      dataType: "JSON",
+      data: {
+        action: "list",
+      },
+      success:function(res){
+        that.setData({
+          list: JSON.parse(res.data)
+        })
+        console.log(JSON.parse(res.data));
+      }
+    })
   },
 
   /**

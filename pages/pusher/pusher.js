@@ -3,14 +3,7 @@ const app = getApp();
 Page({
   data: {
     pusherUrl: "rtmp://118.190.98.53:1935/live/test",
-    pusherContext: null,
-    playerContext: null,
-    linkedPlayerContext: null,
-    linkPusherInfo: {
-      url: '11',
-      loading: true,
-      debug: true,
-    },
+    show: true,
     img: config.img,
   },
 
@@ -19,29 +12,28 @@ Page({
       keepScreenOn: true
     })
     var that = this;
-
-      // wx.request({
-      //   url: config.coreUrl + 'getLiveUrl.php',
-      //   method: 'POST',
-      //   header: {
-      //     // 'content-type': 'application/json'
-      //     'content-type': 'application/x-www-form-urlencoded'
-      //   },
-      //   data: {
-      //     type: "pusher",
-      //     openId: ''
-      //   },
-      //   success: function (data) {
-      //     console.log(data);
-      //     that.setData({
-      //       pusherUrl:data.data
-      //     })
-      //   },
-      //   fail: function (res) {
-      //     console.log(res)
-      //   }
-      // })
-
+    var openId = app.globalData.openId ? app.globalData.openId : "o1pr70BEvwaV8huWPFP3SFcdAFcM"
+    that.query(openId);
+  }, 
+  query: function (openId) {
+    var that = this;
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'post',
+      dataType: "JSON",
+      data: {
+        action: "show",
+        openId: openId
+      },
+      success: function (res) {
+        console.log(JSON.parse(res.data));
+        that.setData({
+          setting: JSON.parse(res.data),
+          pusherUrl: "rtmp://118.190.98.53:1935/live/" + openId
+        })
+        console.log(that.data.pusherUrl)
+      }
+    })
   },
   onReady(res) {
     this.ctx = wx.createLivePusherContext('pusher')
@@ -130,5 +122,19 @@ Page({
     var self = this;
     console.log('切换摄像头: ', self.data.pusherContext)
     self.data.pusherContext && self.data.pusherContext.switchCamera({});
+  },
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'post',
+      dataType: "JSON",
+      data: {
+        action: "unset",
+        openId: app.globalData.openId
+      }
+    })
   },
 })

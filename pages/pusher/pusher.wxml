@@ -4,15 +4,26 @@
     <live-pusher
      id="pusher"
      url="{{pusherUrl}}"
-     mode="RTC" 
+     mode="{{setting.mode}}" 
+     muted="{{setting.muted}}" 
+     enable-camera="{{setting.camera}}" 
+     auto-focus="{{setting.focus}}" 
+     orientation="{{setting.orientation}}" 
+     beauty="{{setting.beauty}}" 
+     whiteness="{{setting.whiteness}}" 
+     aspect="{{setting.aspect}}" 
+     zoom="{{setting.zoom}}" 
+     device-position="{{setting.device_position}}" 
+     background-mute="{{setting.background_mute}}"
+     autopush
      style="width:100%;height:100%; position:absolute;"
-     autopush/>
+     />
       <cover-view class="operate">
-        <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
+        <cover-view wx:if="{{show}}" class='img-box'>
           <cover-image class='img-view' src='{{img}}camera.png' bindtap="switchCamera"></cover-image>
           <cover-view class='text-view'>翻转</cover-view>
         </cover-view>
-        <cover-view wx:if="{{linkPusherInfo.url}}" class='img-box'>
+        <cover-view wx:if="{{show}}" class='img-box'>
           <cover-image class='img-view' src='{{img}}{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="toggleBeauty"></cover-image>
           <cover-view class='text-view'>美颜</cover-view>
         </cover-view>

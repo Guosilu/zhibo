@@ -47,49 +47,66 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var openId = app.globalData.openId ? app.globalData.openId :"o1pr70BEvwaV8huWPFP3SFcdAFcM"
+    this.query(openId);
+  },
+  query: function (openId){
     var that = this;
-    var roomName = '';//直播间名
-    var roomIntroduce = '';//直播间简介
-    var anchorName = '';//主播名
-    var anchorIntroduce = '';//主播简介
-    var mode = that.setSth('mode', 'RTC');//画质
-    var autopush = true;//自动推流
-    var muted = true;//是否静音
-    var camera = true;//开启摄像头
-    var focus = true; //自动聚集
-    var orientation = that.setSth('orientation', 'vertical');//方向
-    var beauty = 2;//美颜
-    var whiteness = 3;//美白
-    var aspect = that.setSth('aspect', '3:4');//宽高比
-    var min_bitrate = 200;//最小码率
-    var max_bitrate = 1000;//最大码率
-    // var waiting_image = '';//进去后台时推流的等待画面
-    // var waiting_image_hash = '';//等待画面资源的MD5值
-    var zoom = true;//调整焦距
-    var device_position = that.setSth('device_position', 'back');//前置或后置 device_position
-    var background_mute = true;//进入后台时是否静音
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'post',
+      dataType: "JSON",
+      data: {
+        action: "show",
+        openId: openId
+      },
+      success: function (res) {
+        var value = JSON.parse(res.data);
+        console.log(value);
+        var roomName = value.roomName;//直播间名
+        var roomIntroduce = value.roomIntroduce;//直播间简介
+        var anchorName = value.anchorName;//主播名
+        var anchorIntroduce = value.anchorIntroduce;//主播简介
+        var mode = that.setSth('mode', value.mode);//画质
+        var autopush = value.autopush;//自动推流
+        var muted = value.muted;//是否静音
+        var camera = value.camera;//开启摄像头
+        var focus = value.focus; //自动聚集
+        var orientation = that.setSth('orientation', value.orientation);//方向
+        var beauty = value.beauty;//美颜
+        var whiteness = value.whiteness;//美白
+        var aspect = that.setSth('aspect', value.aspect);//宽高比
+        var min_bitrate = 200;//最小码率
+        var max_bitrate = 1000;//最大码率
+        // var waiting_image = '';//进去后台时推流的等待画面
+        // var waiting_image_hash = '';//等待画面资源的MD5值
+        var zoom = value.zoom;//调整焦距
+        var device_position = that.setSth('device_position', value.device_position);//前置或后置 device_position
+        var background_mute = value.background_mute;//进入后台时是否静音
 
-    that.setData({
-      roomName: "1",//直播间名
-      roomIntroduce: "",//直播间简介
-      anchorName: "",//主播名
-      anchorIntroduce: "",//主播简介
-      mode: mode,    //画质
-      autopush: autopush,   //自动推流
-      muted: muted,     //是否静音
-      camera: camera,     //开启摄像头
-      focus: focus,       //自动聚集 
-      orientation: orientation,  //方向 vertical=>垂直 horizontal=>水平
-      beauty: beauty,     //美颜
-      whiteness: whiteness, //美白
-      aspect: aspect,  //宽高比  9:16  3:4
-      min_bitrate: min_bitrate, //最小码率
-      max_bitrate: max_bitrate, //最大码率
-      // waiting_image: waiting_image,//进入后台时推流的等待画面
-      // waiting_image_hash: waiting_image_hash,//等待画面资源的MD5值
-      zoom: zoom,           //调整焦距
-      device_position: device_position, //前置或后置，值为front, back
-      background_mute: background_mute,//进入后台时是否静音
+        that.setData({
+          roomName: roomName,//直播间名
+          roomIntroduce: roomIntroduce,//直播间简介
+          anchorName: anchorName,//主播名
+          anchorIntroduce: anchorIntroduce,//主播简介
+          mode: mode,    //画质
+          autopush: autopush,   //自动推流
+          muted: muted,     //是否静音
+          camera: camera,     //开启摄像头
+          focus: focus,       //自动聚集 
+          orientation: orientation,  //方向 vertical=>垂直 horizontal=>水平
+          beauty: beauty,     //美颜
+          whiteness: whiteness, //美白
+          aspect: aspect,  //宽高比  9:16  3:4
+          min_bitrate: min_bitrate, //最小码率
+          max_bitrate: max_bitrate, //最大码率
+          // waiting_image: waiting_image,//进入后台时推流的等待画面
+          // waiting_image_hash: waiting_image_hash,//等待画面资源的MD5值
+          zoom: zoom,           //调整焦距
+          device_position: device_position, //前置或后置，值为front, back
+          background_mute: background_mute,//进入后台时是否静音
+        })
+      }
     })
   },
   /**
@@ -142,6 +159,7 @@ Page({
           wx.showToast({
             title: '添加成功'
           })
+          //that.query(app.globalData.openId);
           setTimeout(function(){
             wx.navigateBack({
               delta: 1

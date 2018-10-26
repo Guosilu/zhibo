@@ -14,6 +14,16 @@ Page({
     exterFlag: false, //为了兼容微信iOS客户端的bug增加的控制字段，打开debug的时候把操作view remove再add
   },
 
+  /**
+     * 生命周期函数--监听页面加载
+     */
+  onLoad: function (options) {
+    var that = this;
+    console.log(options)
+    that.setData({
+      playUrl: "rtmp://118.190.98.53:1935/live/" + options.id
+    })
+  },
   onScanQR: function () {
     this.stop();
     this.createContext();
@@ -169,13 +179,6 @@ Page({
     })
   },
 
-  /**
-     * 生命周期函数--监听页面加载
-     */
-  onLoad: function (options) {
-
-
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -16,16 +16,20 @@
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
-    <view class='bt-det' wx:key="*this" wx:for="{{userListInfo}}">
-      <view class='bt-img'>
-        <image src="{{item.icon}}"></image>
-      </view>
-      <view class='bt-txt'>
-        <text class='bt-txt-tit'>{{item.text1}}</text>
-        <text class='bt-txt-con'>{{item.btcon}}</text>
-        <text class='bt-txt-btn'>了解详情</text>
-      </view>
+    <view class='bt-det' wx:key="*this" wx:for="{{list}}">
+      <navigator url='../player/player?id={{item.openId}}'>
+        <view class='bt-img'>
+          <image src="{{item.avatarUrl}}"></image>
+        </view>
+        <view class='bt-txt'>
+          <text class='bt-txt-tit'>{{item.roomName}}</text>
+          <text class='bt-txt-con'>{{item.roomIntroduce}}</text>
+          <text class='bt-txt-btn'>了解详情</text>
+          <text class='bt-txt-btn'>{{item.nickName}}</text>
+        </view>
+      </navigator>
     </view>
+    
   </view>
 </view>
 <view class='main'>

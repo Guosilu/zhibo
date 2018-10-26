@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/pusher/pusher",
+    "pages/setRoom/setRoom",
     "pages/my/my",
     "pages/category/category",
     "pages/collect/collect",
@@ -8,8 +10,6 @@
     "pages/5/5",
     "pages/6/6",
     "pages/player/player",
-    "pages/pusher/pusher",
-    "pages/setRoom/setRoom",
     "pages/login/login"
   ],
   "window": {
