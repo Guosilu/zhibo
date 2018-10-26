@@ -26,4 +26,6 @@
 .submit{
   margin: 30rpx 0;
 }
-
+.setup{
+  overflow: hidden;margin: 10rpx 0;
+}

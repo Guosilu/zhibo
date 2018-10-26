@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class='container'>
-<view class='main serch'>
+<!--<view class='main serch'>
   <view class='search'>
     <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
     <view id='search'>搜索</view>
@@ -9,10 +9,10 @@
   <view class='index-nav'>
     <view>教育</view><view>军事</view><view>音乐</view><view>游戏</view><view>娱乐</view><view>新闻</view><view>搞笑</view><view>更多</view>
   </view>
-
+-->
 <view class='main'>
   <view class='jy-title'>
-    <view class='jy-tit-l'>必听课程</view>
+    <view class='jy-tit-l'>正在直播</view>
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
@@ -34,7 +34,7 @@
 </view>
 <view class='main'>
   <view class='jy-title'>
-    <view class='jy-tit-l'>热门课程</view>
+    <view class='jy-tit-l'>热门直播</view>
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>
@@ -47,7 +47,7 @@
 </view>
 <view class='main'>
   <view class='jy-title'>
-    <view class='jy-tit-l'>名家专栏</view>
+    <view class='jy-tit-l'>新人主播</view>
     <view class='jy-tit-m'>更多></view>
   </view>
   <view class='bt-list'>

@@ -1,10 +1,10 @@
-<!--logs.wxml-->
+<!--logs.wxml
 <view class='main serch'>
   <view class='search'>
     <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
     <view id='search'>搜索</view>
   </view>
-</view>
+</view>-->
 
   <view class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>收藏</view>

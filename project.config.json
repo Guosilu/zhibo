@@ -11,9 +11,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wx3a21c23a0400ab65",
-	"projectname": "xx11",
+	"libVersion": "2.3.1",
+	"appid": "wxd3a3d4ee9ea470d4",
+	"projectname": "111",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -27,53 +27,13 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
-			"list": [
-				{
-					"id": -1,
-					"name": "index",
-					"pathName": "pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 1,
-					"name": "my",
-					"pathName": "pages/my/my",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "setRoom",
-					"pathName": "pages/setRoom/setRoom",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "list",
-					"pathName": "pages/list/list",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "pusher",
-					"pathName": "pages/pusher/pusher",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "player",
-					"pathName": "pages/player/player"
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }

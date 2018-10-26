@@ -2,9 +2,9 @@
 <form bindsubmit="formSubmit">
   <view>
     <view class='formtit'>基础设置</view>
-    <view><text class='formname'>直播间名：</text><input placeholder='请输入您的直播间名称' name='roomName' value='{{roomName}}'></input></view>
+    <view class='setup'><text class='formname'>直播间名：</text><input placeholder='请输入您的直播间名称' name='roomName' value='{{roomName}}'></input></view>
     <view><text>直播间介绍：</text><textarea placeholder='请输入您的直播介绍' value='{{roomIntroduce}}' name='roomIntroduce' class='textarea'></textarea></view>
-    <view><text class='formname'>主播名：</text><input placeholder='请输入您的名字' value='{{anchorName}}' name='anchorName'></input></view>
+    <view class='setup'><text class='formname'>主播名：</text><input placeholder='请输入您的名字' value='{{anchorName}}' name='anchorName'></input></view>
     <view><text>主播简介：</text><textarea placeholder='请输入您的详细介绍' value='{{anchorIntroduce}}'       name='anchorIntroduce' class='textarea'></textarea></view>
   </view>
   <view>
