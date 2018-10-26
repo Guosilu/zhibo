@@ -19,7 +19,6 @@ Page({
      */
   onLoad: function (options) {
     var that = this;
-    console.log(options)
     that.setData({
       playUrl: "rtmp://118.190.98.53:1935/live/" + options.id
     })
