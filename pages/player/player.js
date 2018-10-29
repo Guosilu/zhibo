@@ -22,6 +22,7 @@ Page({
     that.setData({
       playUrl: "rtmp://118.190.98.53:1935/live/" + options.id
     })
+    console.log("rtmp://118.190.98.53:1935/live/" + options.id)
   },
   onScanQR: function () {
     this.stop();

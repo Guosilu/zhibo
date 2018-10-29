@@ -1,5 +1,17 @@
 <view class="page-body">
   <view class="page-section tc">
+    <view class='live-follow'>
+      <view class='follow-left'>
+        <image src='{{userInfo.avatarUrl}}'></image>
+        <view>
+          <text>直播名称</text>
+          <text>直播介绍或者直播间名称</text>
+        </view>
+      </view>
+      <view class='follow-right'>
+        <view>+关注</view>
+      </view>
+    </view>
     <live-player
      style="width:100%;height:100%; position:absolute;"
      id="player"

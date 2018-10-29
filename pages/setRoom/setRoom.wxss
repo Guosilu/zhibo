@@ -9,7 +9,7 @@
   float: left;line-height: 52rpx;
 }
 .textarea{
-  width: 100%;padding: 10rpx;text-indent: 2em;box-sizing: border-box;height: 100px;
+  width: 100%;padding: 10rpx;box-sizing: border-box;height: 100px;
 }
 .quality{
   width: 50%;display: inline-block;margin-bottom: 5rpx;
