@@ -16,6 +16,7 @@ live-pusher {
   bottom: 6vh;
   width: fit-content;
   height: 8vw;
+  z-index: 999999;
 }
 .img-box {
   position: relative;
