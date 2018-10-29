@@ -28,9 +28,24 @@ Page({
       id: options.id
     })
     this.is_collect(options.id);
+    this.history(options.id);
     console.log("rtmp://118.190.98.53:1935/live/" + options.id)
   },
-
+  //足迹
+  history: function (id) {
+    var that = this;
+    var param = {
+      action: 'history',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configCol.requestFun(configCol.playerUrl, param).then(function (data) {
+      console.log(data);
+    });
+  },
+  //关注
   is_collect: function (id) {
     var that = this;
     var param = {
@@ -46,15 +61,15 @@ Page({
       })
     });
   },
-
+  //关注
   collect: function () {
     this.collectFun('add');
   },
-
+  //关注
   collect_cancel: function () {
     this.collectFun('minus');
   },
-
+  //关注
   collectFun: function (act) {
     var that = this, collect_status, confirm, tipTitle;
     var param = {
@@ -86,6 +101,7 @@ Page({
       }
     });
   },
+  //
   onScanQR: function () {
     this.stop();
     this.createContext();
