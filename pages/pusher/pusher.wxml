@@ -16,8 +16,8 @@
      device-position="{{setting.device_position}}" 
      background-mute="{{setting.background_mute}}"
      autopush
-     style="width:100%;height:100%; position:absolute;"
-     />
+     style="width:100%;height:100%; position:absolute;z-index:1;" />
+
       <cover-view class="operate">
         <cover-view wx:if="{{show}}" class='img-box'>
           <cover-image class='img-view' src='{{img}}camera.png' bindtap="switchCamera"></cover-image>
@@ -35,6 +35,12 @@
           <cover-image class='img-view' src='{{img}}{{debug? "log" : "log2"}}.png' bindtap="toggleDebug"></cover-image>
           <cover-view class='text-view'>日志</cover-view> 
         </cover-view>-->
+        <cover-view class='img-box'>
+          <navigator url='../setRoom/setRoom?id={{item.openId}}'>
+            <cover-image class='img-view' src='../../img/push_qr.png'></cover-image>
+            <cover-view class='text-view'>设置</cover-view> 
+          </navigator>
+        </cover-view>
       </cover-view>
     <view class="btn-area" style="display:none;">
       <button bindtap="bindStart" class="page-body-button" type="primary">播放推流</button>

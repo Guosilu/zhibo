@@ -103,7 +103,6 @@ Page({
     }, () => {
       console.log(bty > 0 ? '开启美颜' : '关闭美颜')
     })
-
   },
   toggleMuted() {
     var self = this;
@@ -148,7 +147,7 @@ Page({
       keepScreenOn: true
     })
     var that = this;
-    var openId = app.globalData.openId ? app.globalData.openId : "o1pr70BEvwaV8huWPFP3SFcdAFcM"
+    var openId = app.globalData.openId ? app.globalData.openId : ""
     that.query(openId);
   }
 })
