@@ -8,12 +8,7 @@ Page({
   },
 
   onLoad: function () {
-    wx.setKeepScreenOn({
-      keepScreenOn: true
-    })
-    var that = this;
-    var openId = app.globalData.openId ? app.globalData.openId : "o1pr70BEvwaV8huWPFP3SFcdAFcM"
-    that.query(openId);
+
   }, 
   query: function (openId) {
     var that = this;
@@ -137,4 +132,23 @@ Page({
       }
     })
   },
+  onHide:function(){
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'post',
+      dataType: "JSON",
+      data: {
+        action: "unset",
+        openId: app.globalData.openId
+      }
+    })
+  },
+  onShow(){
+    wx.setKeepScreenOn({
+      keepScreenOn: true
+    })
+    var that = this;
+    var openId = app.globalData.openId ? app.globalData.openId : "o1pr70BEvwaV8huWPFP3SFcdAFcM"
+    that.query(openId);
+  }
 })

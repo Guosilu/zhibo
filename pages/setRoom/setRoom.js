@@ -47,7 +47,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var openId = app.globalData.openId ? app.globalData.openId :"o1pr70BEvwaV8huWPFP3SFcdAFcM"
+    var openId = app.globalData.openId ? app.globalData.openId :""
     this.query(openId);
   },
   query: function (openId){
