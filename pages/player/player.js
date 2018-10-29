@@ -1,6 +1,10 @@
 const config = require("../../config/config.js");
+const configCol = require("../../config/collect.js");
+const app = getApp();
 Page({
   data: {
+    id: null,
+    collect_status: null,    
     playing: false,
     videoContext: {},
     img:config.img, //图片地址
@@ -20,10 +24,84 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      playUrl: "rtmp://118.190.98.53:1935/live/" + options.id
+      playUrl: "rtmp://118.190.98.53:1935/live/" + options.id,
+      id: options.id
     })
+    this.is_collect(options.id);
+    this.history(options.id);
     console.log("rtmp://118.190.98.53:1935/live/" + options.id)
   },
+  //足迹
+  history: function (id) {
+    var that = this;
+    var param = {
+      action: 'history',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configCol.requestFun(configCol.playerUrl, param).then(function (data) {
+      console.log(data);
+    });
+  },
+  //关注
+  is_collect: function (id) {
+    var that = this;
+    var param = {
+      action: 'is_collect',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configCol.requestFun(configCol.playerUrl, param).then(function (data) {
+      that.setData({
+        collect_status: data
+      })
+    });
+  },
+  //关注
+  collect: function () {
+    this.collectFun('add');
+  },
+  //关注
+  collect_cancel: function () {
+    this.collectFun('minus');
+  },
+  //关注
+  collectFun: function (act) {
+    var that = this, collect_status, confirm, tipTitle;
+    var param = {
+      action: 'collect_add_minus',
+      post: {
+        id: this.data.id,
+        openId: app.globalData.openId,
+        act: act
+      }
+    }
+    if (act == 'add') {
+      collect_status = 1;
+      confirm = '';
+      tipTitle = '已关注！';
+    } else if (act == 'minus') {
+      collect_status = 0;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configCol.requestFun(configCol.playerUrl, param, confirm).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          collect_status: collect_status,
+        })
+        wx.showToast({
+          icon: 'none',
+          title: tipTitle
+        });
+      }
+    });
+  },
+  //
   onScanQR: function () {
     this.stop();
     this.createContext();
