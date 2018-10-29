@@ -3,15 +3,17 @@
   overflow: hidden;
 }
 .bt-img{
-  float: left;
-  width: 35%;margin-right: 20rpx;
+  float: left;width:  150rpx;
+  /* width: 35%; */
+  margin-right: 20rpx;
 }
 .bt-img image{
   width: 100%;height: 150rpx;
 }
 .bt-txt{
   float: left;
-  width: 60%;
+  /* width: 60%; */
+  width: 75%;
 }
 .bt-txt-tit{
   white-space: nowrap;font-size: 28rpx;
