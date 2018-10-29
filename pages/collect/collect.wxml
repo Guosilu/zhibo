@@ -13,33 +13,14 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
-      <view  bindtap='player' class='tm'>
+      <view wx:for='{{list}}' class='tm'>
+      <navigator url='../player/player?id={{item.room_openId}}'>
         <view class='hezi1'>
-          <image src=''></image>
+          <image src='{{item.avatarUrl}}'></image>
         </view>
-        <view class='wenzi1'>系统用户</view>
-        <view class='wenzi11'>孩子们最爱的辫子姐...</view>
-      </view>
-      <view bindtap='player' class='tm'>
-        <view class='hezi1'>
-          <image src=''></image>
-        </view>
-        <view class='wenzi1'>系统用户</view>
-        <view class='wenzi11'>孩子们最爱的辫子姐...</view>
-      </view>
-      <view bindtap='player' class='tm'>
-        <view class='hezi1'>
-          <image src=''></image>
-        </view>
-        <view class='wenzi1'>系统用户</view>
-        <view class='wenzi11'>孩子们最爱的辫子姐...</view>
-      </view>
-      <view  class='tm'>
-        <view class='hezi1'>
-          <image src=''></image>
-        </view>
-        <view class='wenzi1'>系统用户</view>
-        <view class='wenzi11'>孩子们最爱的辫子姐...</view>
+        <view class='wenzi1'>{{item.nickName}}  </view>
+        <view class='wenzi11'>{{item.roomName}}</view>
+      </navigator>
       </view>
     </view>
   </swiper-item> 

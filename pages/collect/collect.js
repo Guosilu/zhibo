@@ -31,6 +31,9 @@ Page({
     }
     configCol.requestFun(configCol.collectUrl, param).then(function (data) {
       console.log(data);
+      that.setData({
+        list: data
+      })
     });
   },
   player:function(){
