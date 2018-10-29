@@ -103,7 +103,6 @@ Page({
     }, () => {
       console.log(bty > 0 ? '开启美颜' : '关闭美颜')
     })
-
   },
   toggleMuted() {
     var self = this;

@@ -1,163 +1,24 @@
-.head_img {
-  width:132rpx !important;
-  height:132rpx;
-  border-radius:132rpx;
+.allshow{
+  overflow: hidden;
 }
-.list{
-  display: flex;
-  background:#f0f0f0;
-  padding: 20rpx; 
+.showdetail{
+  float: left;width: 48%;overflow: hidden;margin-bottom: 10rpx;
 }
-
-.list1{
-  align-content: center;
-  display:flex;
-  width: 666rpx;
-  justify-content: center;
-  font-size: 30rpx;
-  color:#5e5e5e;
-
+.showdetail:nth-child(even){
+  float: right;
 }
-
-.list2{
-  background:#fff;
-  border-bottom-left-radius: 60rpx;
-  border-bottom-right-radius: 60rpx;
-  border-top-left-radius: 60rpx;
-  border-top-right-radius: 60rpx;
- padding: 20rpx;
+.showdetail view{
+  position: relative;font-size: 28rpx;
 }
-
-.content{
-  padding:20rpx ;
-  justify-content: center;
-  display: flex;
-  flex-direction:row;
-  font-size: 32rpx;
-  
+.showdetail view image{
+  width: 100%;height: 240rpx;
 }
-
-.content-item1{
- margin-right: 200rpx;
+.showdetail view text{
+  position: absolute;left: 0;
+  bottom: 0;z-index: 9;
 }
-.content-item2{
-  
-}
-
-.x1{
-  background-color:#ffd200;
-  width: 100rpx;
-  height: 4rpx; 
-  margin-left: 470rpx;
-
-}
-
-.x2{
-  background-color:#f0f0f0;
-  width: 100%;
-  height: 2rpx; 
-}
-
-
-
-.list3{
-  height: 1200rpx;
-  background-color: #fff;
-  width: 100%;
-  
-  flex-direction: column;
-  
-}
-
-.tm{
-  width:100%;
-  display: flex;
-}
-
-.hezi1{
-background-color:#000;
-height:110rpx;
-width:110rpx;
-border-bottom-left-radius: 10rpx;
-border-bottom-right-radius: 10rpx;
-border-top-left-radius: 10rpx;
-border-top-right-radius: 10rpx;
-margin-left: 30rpx;
-margin-top: 26rpx;
-  
-}
-
-.wenzi1{
- margin-top: 30rpx;
- margin-left: 26rpx;
- font-size: 32rpx;
-
-}
-.wenzi11{
-  margin-top: 10rpx;
- font-size: 26rpx;
- color: #5e5e5e;
-}
-
-.tm2{
-
- width:100%;
-  display: flex;
-}
-
-.hezi2{
-background-color:#000;
-height:110rpx;
-width:110rpx;
-border-bottom-left-radius: 10rpx;
-border-bottom-right-radius: 10rpx;
-border-top-left-radius: 10rpx;
-border-top-right-radius: 10rpx;
-margin-left: 30rpx;
-margin-top: 26rpx;
-  
-}
-
-.wenzi2{
- margin-top: 30rpx;
- margin-left: 26rpx;
- font-size: 32rpx;
-}
-.wenzi22{
-  margin-top: 10rpx;
- font-size: 26rpx;
- color: #5e5e5e;
-}
-
-.tm3{
-
- width:100%;
-  display: flex;
-}
-
-.hezi3{
-background-color:#000;
-height:110rpx;
-width:110rpx;
-border-bottom-left-radius: 10rpx;
-border-bottom-right-radius: 10rpx;
-border-top-left-radius: 10rpx;
-border-top-right-radius: 10rpx;
-margin-left: 30rpx;
-margin-top: 26rpx;
-  
-}
-
-.wenzi3{
- margin-top: 30rpx;
- margin-left: 26rpx;
- font-size: 32rpx;
-
-}
-.wenzi33{
-  margin-top: 10rpx;
- font-size: 26rpx;
- color: #5e5e5e;
+.introduce{
+  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;
 }
 
 
