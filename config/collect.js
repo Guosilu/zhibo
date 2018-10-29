@@ -1,6 +1,7 @@
 // interface
 const baseUrl = 'https://aa.zdcom.net.cn/';
 const playerUrl = baseUrl + 'wechatProgram/api/playerApi.php';
+const collectUrl = baseUrl + 'wechatProgram/api/collectApi.php';
 function requestFun(url, param, confirm) {
   var confirm = confirm || '';
   if (confirm) {
@@ -39,5 +40,6 @@ function requestFun(url, param, confirm) {
 
 module.exports = {
   requestFun: requestFun,
-  playerUrl: playerUrl
+  playerUrl: playerUrl,
+  collectUrl: collectUrl
 }
