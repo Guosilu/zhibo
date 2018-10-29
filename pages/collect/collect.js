@@ -8,6 +8,7 @@ Page({
    */
   data: {
     list: {},
+    history_list: {},
     currentData: 0,
   },
   /**
@@ -18,10 +19,10 @@ Page({
   },
 
   onShow: function (options) {
-    this.getList();
+    this.getCollectList();
+    this.getHistoryList();
   },
-  
-  getList: function(){
+  getCollectList: function () {
     var that = this;
     var param = {
       action: 'list',
@@ -33,6 +34,21 @@ Page({
       console.log(data);
       that.setData({
         list: data
+      })
+    });
+  },
+  getHistoryList: function(){
+    var that = this;
+    var param = {
+      action: 'history',
+      post: {
+        openId: app.globalData.openId
+      }
+    }
+    configCol.requestFun(configCol.collectUrl, param).then(function (data) {
+      console.log(data);
+      that.setData({
+        history_list: data
       })
     });
   },
