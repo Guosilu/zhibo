@@ -45,27 +45,33 @@ Page({
       url: config.log
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+
+  liveStreamingList: function () {
     var that = this;
     wx.request({
       url: config.coreUrl + 'getRoom.php',
-      method: 'post',
-      dataType: "JSON",
+      method: 'POST',
       data: {
         action: "list",
       },
-      success:function(res){
+      success: function (res) {
         that.setData({
-          list: JSON.parse(res.data)
+          list: res.data
         })
-        console.log(JSON.parse(res.data));
+        console.log(res.data);
       }
     })
   },
 
+  pullDownRefreshCustom: function (options) {
+    this.liveStreamingList();
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.liveStreamingList();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
