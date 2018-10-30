@@ -72,6 +72,13 @@ Page({
   //关注
   collectFun: function (act) {
     var that = this, collect_status, confirm, tipTitle;
+    if (this.data.id == app.globalData.openId) {
+      wx.showToast({
+        icon: 'none',
+        title: '您不能关注自己！'
+      });
+      return false;
+    }
     var param = {
       action: 'collect_add_minus',
       post: {
