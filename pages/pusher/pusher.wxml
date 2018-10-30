@@ -24,8 +24,8 @@
         <cover-view class='text-view'>翻转</cover-view>
       </cover-view>
       <cover-view wx:if="{{show}}" class='img-box'>
-        <cover-image class='img-view' src='{{img}}{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="toggleBeauty"></cover-image>
-        <cover-view class='text-view'>美颜</cover-view>
+        <cover-image class='img-view' src='{{img}}{{beauty > 0? "beauty" : "beauty-dis"}}.png' bindtap="pause"></cover-image>
+        <cover-view class='text-view'>暂停</cover-view>
       </cover-view>
       <cover-view class='img-box'>
         <cover-image class='img-view' src='{{img}}{{muted ? "mic-dis" : "mic"}}.png' bindtap="toggleMuted"></cover-image>

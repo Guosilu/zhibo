@@ -34,68 +34,6 @@ Page({
   onReady(res) {
     this.ctx = wx.createLivePusherContext('pusher')
   },
-  statechange(e) {
-    console.log('live-pusher code:', e.detail.code)
-  },
-  bindStart() {
-    this.ctx.start({
-      success: res => {
-        console.log('start success')
-      },
-      fail: res => {
-        console.log('start fail')
-      }
-    })
-  },
-  bindPause() {
-    this.ctx.pause({
-      success: res => {
-        console.log('pause success')
-      },
-      fail: res => {
-        console.log('pause fail')
-      }
-    })
-  },
-  bindStop() {
-    this.ctx.stop({
-      success: res => {
-        console.log('stop success')
-      },
-      fail: res => {
-        console.log('stop fail')
-      }
-    })
-  },
-  bindResume() {
-    this.ctx.resume({
-      success: res => {
-        console.log('resume success')
-      },
-      fail: res => {
-        console.log('resume fail')
-      }
-    })
-  },
-  bindSwitchCamera() {
-    this.ctx.switchCamera({
-      success: res => {
-        console.log('switchCamera success')
-      },
-      fail: res => {
-        console.log('switchCamera fail')
-      }
-    })
-  },
-  toggleDebug() {
-    var self = this;
-    self.setData({
-      debug: !self.data.debug
-    }, () => {
-      console.log('>> Debug: ', self.data.debug);
-    })
-  },
-
   toggleBeauty() {
     var self = this;
     var bty = self.data.beauty == 5 ? 0 : 5;
@@ -114,32 +52,39 @@ Page({
     })
   },
   switchCamera() {
-    var self = this;
-    
-    var setting = self.data.setting;
-    if (self.data.device_position){
-      if (self.data.device_position == "front") {
-        self.data.device_position = 'back';
-      } else {
-        self.data.device_position = 'front'
+    this.ctx.switchCamera({
+      success: res => {
+        console.log('switchCamera success')
+      },
+      fail: res => {
+        console.log('switchCamera fail')
       }
-    }else{
-      if (setting.device_position == "front") {
-        self.data.device_position = 'back';
-      } else {
-        self.data.device_position = 'front'
-      }
-    }
-    
-    
-    self.setData({
-      setting: setting
     })
 
-    console.log(self.data.setting.device_position);
-
-    // console.log('切换摄像头: ', self.data.pusherContext)
-    // self.data.pusherContext && self.data.pusherContext.switchCamera({});
+  }, 
+  pause() {
+    this.ctx.pause({
+      success: res => {
+        wx.showToast({
+          title: '暂停直播',
+        })
+      },
+      fail: res => {
+        console.log('snapshot fail')
+      }
+    })
+  },
+  resume() {
+    this.ctx.resume({
+      success: res => {
+        wx.showToast({
+          title: '恢复直播',
+        })
+      },
+      fail: res => {
+        console.log('snapshot fail')
+      }
+    })
   },
 /**
  * 设置页面
