@@ -28,8 +28,8 @@
         <cover-view class='text-view'>暂停</cover-view>
       </cover-view>
       <cover-view class='img-box'>
-        <cover-image class='img-view' src='{{img}}{{muted ? "mic-dis" : "mic"}}.png' bindtap="toggleMuted"></cover-image>
-        <cover-view class='text-view'>声音</cover-view>
+        <cover-image class='img-view' src='{{img}}{{muted ? "mic-dis" : "mic"}}.png' bindtap="resume"></cover-image>
+        <cover-view class='text-view'>恢复</cover-view>
       </cover-view> 
         <!-- <cover-view class='img-box'>
           <cover-image class='img-view' src='{{img}}{{debug? "log" : "log2"}}.png' bindtap="toggleDebug"></cover-image>
