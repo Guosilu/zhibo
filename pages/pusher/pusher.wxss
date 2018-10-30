@@ -8,40 +8,35 @@ live-pusher {
   height: 225px;
 }
 .operate {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  right: 0;
-  left: 0;
-  bottom: 6vh;
-  width: fit-content;
-  height: 8vw;
-  z-index: 999999;
+  bottom: 100rpx;
+  width: 100%;position: fixed;
+  text-align: center;
 }
 .img-box {
   position: relative;
   display:inline-block;
-  height: 8vw;
-  width: 13.6vw;
+  width:30px;
+  height:50px;
+  margin-left:calc(100% / 14 - 15px);
+  margin-right:calc(100% / 14 - 15px);
   vertical-align: middle;
 }
 
 .img-view {
   position: relative;
   display: block;
-  width: 8vw;
-  height: 8vw;
-  margin-left: 2.8vw;
+  width:30px;
+  height:30px;
 }
 .img-view:active{
   opacity: 0.55
 }
 
 .text-view {
-  position: relative;
+  position: absolute;
   display: block;
   color: #ffffff;
   width: 100%;
-  font-size:10px;
+  font-size:10px;bottom:0;
   text-align: center;
 } 
