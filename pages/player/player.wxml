@@ -1,18 +1,6 @@
 <block wx:if='{{collect_status !== null && id}}'>
 <view class="page-body">
   <view class="page-section tc">
-    <view class='live-follow'>
-      <view class='follow-left'>
-        <image src='{{userInfo.avatarUrl}}'></image>
-        <view>
-          <text>直播名称</text>
-          <text>直播介绍或者直播间名称</text>
-        </view>
-      </view>
-      <view class='follow-right' bindtap='{{collect_status ? "collect_cancel" : "collect"}}'>
-        <view>{{collect_status ? '已关注' : '+关注'}}</view>
-      </view>
-    </view>
     <live-player
      style="width:100%;height:100%; position:absolute;"
      id="player"
@@ -28,7 +16,20 @@
      max-cache="3"
      debug="{{debug}}"
      bindstatechange="onPlayEvent"
-     bindfullscreenchange="onFullScreenChange" />
+     bindfullscreenchange="onFullScreenChange">
+     
+    <cover-view class='live-follow'>
+      <cover-view class='follow-left'>
+        <cover-image src='{{userInfo.avatarUrl}}'></cover-image>
+        <cover-view>
+          <cover-view>直播名称</cover-view>
+          <cover-view>直播介绍或者直播间名称</cover-view>
+        </cover-view>
+      </cover-view>
+      <cover-view class='follow-right' bindtap='{{collect_status ? "collect_cancel" : "collect"}}'>
+        <cover-view>{{collect_status ? '已关注' : '+关注'}}</cover-view>
+      </cover-view>
+    </cover-view>
     <!-- <cover-image hidden="{{playing}}" style="width:100%; height: 100%; position:absolute;" src="https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png"></cover-image> -->
     <cover-view wx:if="{{!debug || exterFlag}}" style="width:100%; height: 50px; position:absolute; bottom:60px;padding-left:calc(100% / 5);" >
       <cover-view class='bottom_box'>       
@@ -51,7 +52,8 @@
         <cover-image class="bottom_button" src="{{img}}{{objectFit == 'contain'?'adjust':'fill'}}.png" bindtap='onObjectfitClick'></cover-image>
         <cover-view class='bottom_text'>{{objectFit == 'contain'?'适应':'填充'}}</cover-view>
       </cover-view>
-    </cover-view>   
+    </cover-view>  
+    </live-player> 
   </view>
   
 </view>

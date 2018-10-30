@@ -36,10 +36,10 @@
           <cover-view class='text-view'>日志</cover-view> 
         </cover-view>-->
       <cover-view class='img-box'>
-        <navigator url='../setRoom/setRoom?id={{item.openId}}'>
+        <!-- <navigator url='../setRoom/setRoom?id={{item.openId}}'> -->
         <cover-image class='img-view' src='../../img/push_qr.png'></cover-image>
         <cover-view class='text-view'>设置</cover-view> 
-        </navigator>
+        <!-- </navigator> -->
       </cover-view>
     </cover-view>
     </live-pusher>
