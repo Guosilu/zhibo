@@ -114,9 +114,28 @@ Page({
   },
   switchCamera() {
     var self = this;
-    console.log('切换摄像头: ', self.data.pusherContext)
-    self.data.pusherContext && self.data.pusherContext.switchCamera({});
+    
+    var setting = self.data.setting;
+    console.clear();
+    console.log(1);
+    console.log(setting);
+    if (setting.device_position == "front"){
+      setting['device_position'] = 'back';
+    }else{
+      setting['device_position'] = 'front'
+    }
+    that.setData({
+      setting: setting
+    })
+    // console.log('切换摄像头: ', self.data.pusherContext)
+    // self.data.pusherContext && self.data.pusherContext.switchCamera({});
   },
+/**
+ * 设置页面
+ */
+
+
+
   /**
    * 生命周期函数--监听页面卸载
    */

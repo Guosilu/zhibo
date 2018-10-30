@@ -13,7 +13,7 @@
 <view class='main'>
   <view class='jy-title'>
     <view class='jy-tit-l'>正在直播</view>
-    <view class='jy-tit-m'>更多></view>
+    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
   </view>
   <view class='bt-list'>
     <view class='bt-det' wx:key="*this" wx:for="{{list}}">
