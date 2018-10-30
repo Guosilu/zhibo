@@ -5,11 +5,17 @@ Page({
     pusherUrl: "rtmp://118.190.98.53:1935/live/test",
     show: true,
     img: config.img,
-    device_position: ""
+    setting:{
+      device_position: 'back'                                                   //wx.getStorageSync('device_position')
+    },
   },
 
   onLoad: function () {
-
+    var that = this;
+    console.log(that.data.setting.device_position);
+    console.log(wx.getStorageSync('device_position'));
+    var openId = app.globalData.openId ? app.globalData.openId : ""
+    that.query(openId);
   }, 
   query: function (openId) {
     var that = this;
@@ -32,7 +38,8 @@ Page({
     })
   },
   onReady(res) {
-    this.ctx = wx.createLivePusherContext('pusher')
+    this.ctx = wx.createLivePusherContext('pusher');
+    console.log(this.ctx)
   },
   toggleBeauty() {
     var self = this;
@@ -89,7 +96,11 @@ Page({
 /**
  * 设置页面
  */
-
+  move: function(e){
+    wx.navigateTo({
+      url: '../setRoom/setRoom?id='+this.data.setting.openId,
+    })
+  },
 
 
   /**

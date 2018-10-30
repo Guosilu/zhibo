@@ -85,7 +85,7 @@ Page({
     }
   },
   onLoad: function () {
-
+    wx.getStorageSync('device_position','back')
   },
   onShow: function () {
     this.getUserInfo();
