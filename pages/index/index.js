@@ -51,6 +51,7 @@ Page({
     wx.request({
       url: config.coreUrl + 'getRoom.php',
       method: 'POST',
+      dataType: 'json',
       data: {
         action: "list",
       },
