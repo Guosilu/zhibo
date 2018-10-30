@@ -5,6 +5,7 @@ Page({
     pusherUrl: "rtmp://118.190.98.53:1935/live/test",
     show: true,
     img: config.img,
+    device_position: ""
   },
 
   onLoad: function () {
@@ -116,17 +117,27 @@ Page({
     var self = this;
     
     var setting = self.data.setting;
-    console.clear();
-    console.log(1);
-    console.log(setting);
-    if (setting.device_position == "front"){
-      setting['device_position'] = 'back';
+    if (self.data.device_position){
+      if (self.data.device_position == "front") {
+        self.data.device_position = 'back';
+      } else {
+        self.data.device_position = 'front'
+      }
     }else{
-      setting['device_position'] = 'front'
+      if (setting.device_position == "front") {
+        self.data.device_position = 'back';
+      } else {
+        self.data.device_position = 'front'
+      }
     }
-    that.setData({
+    
+    
+    self.setData({
       setting: setting
     })
+
+    console.log(self.data.setting.device_position);
+
     // console.log('切换摄像头: ', self.data.pusherContext)
     // self.data.pusherContext && self.data.pusherContext.switchCamera({});
   },

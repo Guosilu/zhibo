@@ -8,7 +8,6 @@ const loginUrl = baseUrl + 'wechatProgram/api/loginApi.php';
 const coreUrl = baseUrl +"wechatProgram/core/";
 const img = baseUrl +"wechatProgram/images/";
 
-
 // 页面常量
 const pusher = '../pusher/pusher';
 const player = '../player/player';

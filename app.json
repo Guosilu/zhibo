@@ -13,10 +13,11 @@
     "pages/login/login"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#ffd200",
     "navigationBarTitleText": "直播",
-    "navigationBarTextStyle": "#000"
+    "navigationBarTextStyle": "#000",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "selectedColor": "#2e5e86",
