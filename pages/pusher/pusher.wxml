@@ -13,7 +13,7 @@
      whiteness="{{setting.whiteness}}" 
      aspect="{{setting.aspect}}" 
      zoom="{{setting.zoom}}" 
-     device-position="{{setting.device_position}}" 
+     device-position="{{device_position}}" 
      background-mute="{{setting.background_mute}}"
      autopush
      style="width:100%;height:100%; position:absolute;">

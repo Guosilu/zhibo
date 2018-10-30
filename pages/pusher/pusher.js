@@ -6,8 +6,9 @@ Page({
     show: true,
     img: config.img,
     setting:{
-      device_position: 'back'                                                   //wx.getStorageSync('device_position')
     },
+    device_position: 'back'                                                   //wx.getStorageSync('device_position')
+
   },
 
   onLoad: function () {
