@@ -52,8 +52,8 @@
         <cover-image class="bottom_button" src="{{img}}{{objectFit == 'contain'?'adjust':'fill'}}.png" bindtap='onObjectfitClick'></cover-image>
         <cover-view class='bottom_text'>{{objectFit == 'contain'?'适应':'填充'}}</cover-view>
       </cover-view>
-    </cover-view>  
-    </live-player> 
+    </cover-view>   
+    </live-player>
   </view>
   
 </view>
