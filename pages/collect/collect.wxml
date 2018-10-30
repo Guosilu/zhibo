@@ -29,13 +29,13 @@
 
       <view  wx:for='{{history_list}}' class='tm2'>
       <navigator url='../player/player?id={{item.room_openId}}'>
-        <view class='hezi2'><image src='{{item.avatarUrl}}'></image></view>
+        <image class='hezi2' src='{{item.avatarUrl}}'></image>
         <view class='wenzi2'>{{item.nickName}}</view>
-        <view class='wenzi22'>{{item.roomName}}</view>
-        <view class='wenzi22'>{{item.edittime}}</view>
+        <view class='wenzi2'>{{item.roomName}}</view>
+        <view class='wenzi2'>{{item.edittime}}</view>
       </navigator>
       </view>
-
+      
     </view>
   </swiper-item>
 </swiper>
