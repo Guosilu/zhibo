@@ -100,57 +100,69 @@ Page({
   onUnload: function () {
   
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  // 下拉刷新
   onPullDownRefresh: function () {
-  
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    var that = this;
+    wx.request({
+      url: 'https://aa.zdcom.net.cn/',
+      method: "GET",
+      header: {
+        'content-type': 'application/text'
+      },
+      success: function (res) {
+        that.setData({
+          moment: res.data.data
+        });
+        // 设置数组元素
+        that.setData({
+          moment: that.data.moment
+        });
+        console.log(that.data.moment);
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+      }
+    })
   },
 
   /**
-   * 页面上拉触底事件的处理函数
-   */
+     * 页面上拉触底事件的处理函数
+     */
   onReachBottom: function () {
     var that = this;
-    if (that.data.load) {//全局标志位，方式请求未响应是多次触发
-      if (that.data.list.length < that.data.count) {
-        that.setData({
-          load: false,
-          loading: true,//加载动画的显示
-        })
-        wx.request({
-          url: 'url',
-          data: {
-          },
-          method: 'POST',
-          success: function (res) {
-            console.log(res)
-            var content = that.data.list.concat(res.data.data.list)//将放回结果放入content
-            that.setData({
-              list: content,
-              page: that.data.page * 1 + 1,
-              load: true,
-              loading: false,
-            })
-          },
-          fail: function (res) {
-            that.setData({
-              loading: false,
-              load: true,
-            })
-            wx.showToast({
-              title: '数据异常',
-              icon: 'none',
-              duration: 2000,
-            })
-          },
-          complete: function (res) { },
-        })
-      }
-    }
-  },
+    // 显示加载图标
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    // 页数+1
+    page = page + 1;
+    wx.request({
+      url: 'https://aa.zdcom.net.cn/' + page,
+      method: "GET",
+      // 请求头部
+      header: {
+        'content-type': 'application/text'
+      },
+      success: function (res) {
+        // 回调函数
+        var moment_list = that.data.moment;
 
+        for (var i = 0; i < res.data.data.length; i++) {
+          moment_list.push(res.data.data[i]);
+        }
+        // 设置数据
+        that.setData({
+          moment: that.data.moment
+        })
+        // 隐藏加载框
+        wx.hideLoading();
+      }
+    })
+
+  },
   /**
    * 用户点击右上角分享
    */

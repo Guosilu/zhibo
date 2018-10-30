@@ -16,8 +16,7 @@
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#ffd200",
     "navigationBarTitleText": "直播",
-    "navigationBarTextStyle": "#000",
-    "enablePullDownRefresh": true
+    "navigationBarTextStyle": "#000"
   },
   "tabBar": {
     "selectedColor": "#2e5e86",
