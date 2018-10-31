@@ -7,9 +7,29 @@ Page({
   data: {
     loading: 0,
     allList: {},
-    startTimeList: [],
-    hotList: [],
-    newList: [],
+    dataList: [
+      {
+        name: 'startTimeList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`start_time` DESC', pagesize: 2,
+        }
+      },
+      {
+        name: 'hotList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`collect` DESC', pagesize: 4,
+        }
+      },
+      {
+        name: 'newList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`createTime` DESC', pagesize: 3,
+        }
+      }
+    ]
   },
   //事件处理函数
   bindViewTap: function () {
@@ -39,30 +59,8 @@ Page({
   },
 
   getList: function (options) {
-    var that = this;
-    var dataList = [
-      {
-        name: 'startTimeList',
-        url: config.coreUrl + 'getRoom.php',
-        data: {
-        action: "list", order: '`start_time` DESC', pagesize: 2,
-        }
-      },
-      {
-        name: 'hotList',
-        url: config.coreUrl + 'getRoom.php',
-        data: {
-          action: "list", order: '`collect` DESC', pagesize: 4,
-        }
-      },
-      {
-        name: 'newList',
-        url: config.coreUrl + 'getRoom.php',
-        data: {
-          action: "list", order: '`createTime` DESC', pagesize: 3,
-        }
-      }
-    ]
+    let that = this;
+    let dataList = this.data.dataList;
     let promiseArr = [];
     for (let i = 0; i < dataList.length; i++) {
       let promise = this.getListFun(dataList[i].url, dataList[i].data, dataList[i].name);
