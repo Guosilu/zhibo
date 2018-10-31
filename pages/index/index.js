@@ -5,9 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading: 0,
+    loadingComplate: 0,
     allList: {},
-    dataObjList: [
+  },
+  //事件处理函数
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: config.log
+    })
+  },
+
+  //列表
+  getList: function () {
+    let that = this;
+    let dataObjList = [
       {
         name: 'startTimeList',
         url: config.coreUrl + 'getRoom.php',
@@ -29,38 +40,19 @@ Page({
           action: "list", order: '`createTime` DESC', pagesize: 3,
         }
       }
-    ]
-  },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: config.log
-    })
-  },
-
-  getList: function () {
-    let that = this;
-    let dataObjList = this.data.dataObjList;
-    let promiseArr = [];
-    for (let i = 0; i < dataObjList.length; i++) {
-      let promise = common.indexListFun(dataObjList[i]);
-      promiseArr.push(promise)
-    }
-    Promise.all(promiseArr).then(function (res) {
-      let allList = {};
-      for (let i = 0; i < res.length; i++) {
-        allList[res[i].name] = res[i].data
-      }
+    ];
+    common.getList(dataObjList).then(function (res) {
       that.setData({
-        allList: allList
+        allList: res
       });
       that.stopRefresh();
-      console.log(allList);
+      console.log(res);
     });
   },
+
   stopRefresh: function() {
     this.setData({
-      loading: 1,
+      loadingComplate: 1,
     })
     wx.hideLoading();
     // 隐藏导航栏加载框

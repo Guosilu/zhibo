@@ -11,8 +11,11 @@ Page({
     list: {},
     history_list: {},
     allList: {},
+    loadingComplate: 0,
     currentData: 0,
   },
+
+  //列表
   getList: function () {
     let dataObjList = [
       {
@@ -37,27 +40,18 @@ Page({
       }
     ]
     let that = this;
-    //let dataObjList = this.data.dataObjList;
-    let promiseArr = [];
-    for (let i = 0; i < dataObjList.length; i++) {
-      let promise = common.indexListFun(dataObjList[i]);
-      promiseArr.push(promise)
-    }
-    Promise.all(promiseArr).then(function (res) {
-      let allList = {};
-      for (let i = 0; i < res.length; i++) {
-        allList[res[i].name] = res[i].data
-      }
+    common.getList(dataObjList).then(function (res) {
       that.setData({
-        allList: allList
+        allList: res
       });
       that.stopRefresh();
-      console.log(allList);
+      console.log(res);
     });
   },
+
   stopRefresh: function () {
     this.setData({
-      loading: 1,
+      loadingComplate: 1,
     })
     wx.hideLoading();
     // 隐藏导航栏加载框
@@ -65,6 +59,7 @@ Page({
     // 停止下拉动作
     wx.stopPullDownRefresh();
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -74,15 +69,24 @@ Page({
     })
     this.getList();
   },
+  
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    this.getList();
+  },
 
   onShow: function (options) {
     
   },
+
   player:function(){
     wx.navigateTo({
       url: config.player,
     })
   },
+
   //获取当前滑块的index
   bindchange: function (e) {
     const that = this;
@@ -90,6 +94,7 @@ Page({
       currentData: e.detail.current
     })
   },
+
   //点击切换，滑块index赋值
   checkCurrent: function (e) {
     const that = this;

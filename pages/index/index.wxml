@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class='container' wx:if='{{loading}}'>
+<view class='container' wx:if='{{loadingComplate}}'>
 <!--<view class='main serch'>
   <view class='search'>
     <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
