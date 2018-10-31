@@ -1,13 +1,35 @@
 const config = require("../../config/config.js");
-
+const common = require("../../js/common.js");
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    startTimeList: [],
-    hotList: [],
-    newList: [],
+    loading: 0,
+    allList: {},
+    dataObjList: [
+      {
+        name: 'startTimeList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`start_time` DESC', pagesize: 2,
+        }
+      },
+      {
+        name: 'hotList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`collect` DESC', pagesize: 4,
+        }
+      },
+      {
+        name: 'newList',
+        url: config.coreUrl + 'getRoom.php',
+        data: {
+          action: "list", order: '`createTime` DESC', pagesize: 3,
+        }
+      }
+    ]
   },
   //事件处理函数
   bindViewTap: function () {
@@ -16,71 +38,31 @@ Page({
     })
   },
 
-  getListFun: function (url , data) {
-    var that = this;
-    var ret = new Promise(function (resolve, reject) {
-      wx.request({
-        url: url,
-        method: 'POST',
-        dataType: 'json',
-        data: data,
-        success: function (res) {
-          resolve(res.data)
-        }
-      })
+  getList: function () {
+    let that = this;
+    let dataObjList = this.data.dataObjList;
+    let promiseArr = [];
+    for (let i = 0; i < dataObjList.length; i++) {
+      let promise = common.indexListFun(dataObjList[i]);
+      promiseArr.push(promise)
+    }
+    Promise.all(promiseArr).then(function (res) {
+      let allList = {};
+      for (let i = 0; i < res.length; i++) {
+        allList[res[i].name] = res[i].data
+      }
+      that.setData({
+        allList: allList
+      });
+      that.stopRefresh();
+      console.log(allList);
     });
-    return ret;
-  },
-
-  getList: function (options) {
-    var that = this;
-    let promise1 = function () {
-      let startTimeData = {
-        action: "list", order: '`start_time` DESC', pagesize: 2,
-      };
-      return new Promise(function (resolve, reject) {
-        that.getListFun(config.coreUrl + 'getRoom.php', startTimeData).then(function (res) {
-          console.log(res);
-          that.setData({
-            startTimeList: res
-          })
-        });
-      })
-    }
-    let promise2 = function () {
-      var hotData = {
-        action: "list", order: '`collect` DESC', pagesize: 4,
-      };
-      return new Promise(function (resolve, reject) {
-        that.getListFun(config.coreUrl + 'getRoom.php', hotData).then(function (res) {
-          console.log(res);
-          that.setData({
-            hotList: res
-          })
-        });
-      })
-    }
-    let promise3 = function () {
-      var newData = {
-        action: "list", order: '`createTime` DESC', pagesize: 3,
-      };
-      return new Promise(function (resolve, reject) {
-        that.getListFun(config.coreUrl + 'getRoom.php', newData).then(function (res) {
-          console.log(res);
-          that.setData({
-            newList: res
-          })
-        });
-      })
-    }
-    let exec = function() {
-      promise1()
-      promise2()
-      promise3()
-    }
-    exec();
   },
   stopRefresh: function() {
+    this.setData({
+      loading: 1,
+    })
+    wx.hideLoading();
     // 隐藏导航栏加载框
     wx.hideNavigationBarLoading();
     // 停止下拉动作
@@ -90,6 +72,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载...',
+    })
     this.getList();
   },
 
