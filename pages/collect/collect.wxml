@@ -5,7 +5,7 @@
     <view id='search'>搜索</view>
   </view>
 </view>-->
-
+<block wx:if='{{loadingComplate}}'>
   <view class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>关注</view>
     <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>足迹</view>
@@ -43,6 +43,7 @@
     </view>
   </swiper-item>
 </swiper>
+</block>
 
 
 

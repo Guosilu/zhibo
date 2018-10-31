@@ -33,8 +33,7 @@ function collectFun(url, param, confirm) {
   }
 }
 
-function indexListFun (dataObj) {
-  let that = this;
+function promiseFun (dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
       url: dataObj.url,
@@ -52,7 +51,24 @@ function indexListFun (dataObj) {
   });
 }
 
+function getList(dataObjList) {
+  return new Promise(function (resolve, reject) {
+    let promiseArr = [];
+    for (let i = 0; i < dataObjList.length; i++) {
+      let promise = promiseFun(dataObjList[i]);
+      promiseArr.push(promise)
+    }
+    Promise.all(promiseArr).then(function (res) {
+      let allList = {};
+      for (let i = 0; i < res.length; i++) {
+        allList[res[i].name] = res[i].data
+      }
+      resolve(allList);
+    });
+  });
+}
+
 module.exports = {
   collectFun: collectFun,
-  indexListFun: indexListFun,
+  getList: getList
 }
