@@ -63,13 +63,8 @@ Page({
         wx.hideNavigationBarLoading();
         // 停止下拉动作
         wx.stopPullDownRefresh();
-        console.log(res.data);
       }
     })
-  },
-
-  pullDownRefreshCustom: function (options) {
-    this.liveStreamingList();
   },
   /**
    * 生命周期函数--监听页面加载
