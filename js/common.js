@@ -33,7 +33,7 @@ function collectFun(url, param, confirm) {
   }
 }
 
-function indexListFun (dataObj) {
+function promiseFun (dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
       url: dataObj.url,
@@ -55,7 +55,7 @@ function getList(dataObjList) {
   return new Promise(function (resolve, reject) {
     let promiseArr = [];
     for (let i = 0; i < dataObjList.length; i++) {
-      let promise = indexListFun(dataObjList[i]);
+      let promise = promiseFun(dataObjList[i]);
       promiseArr.push(promise)
     }
     Promise.all(promiseArr).then(function (res) {
@@ -70,6 +70,5 @@ function getList(dataObjList) {
 
 module.exports = {
   collectFun: collectFun,
-  indexListFun: indexListFun,
   getList: getList
 }
