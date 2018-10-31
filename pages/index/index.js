@@ -59,6 +59,10 @@ Page({
         that.setData({
           list: res.data
         })
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
         console.log(res.data);
       }
     })
@@ -105,27 +109,7 @@ Page({
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
     var that = this;
-    wx.request({
-      url: 'https://aa.zdcom.net.cn/',
-      method: "GET",
-      header: {
-        'content-type': 'application/text'
-      },
-      success: function (res) {
-        that.setData({
-          moment: res.data.data
-        });
-        // 设置数组元素
-        that.setData({
-          moment: that.data.moment
-        });
-        console.log(that.data.moment);
-        // 隐藏导航栏加载框
-        wx.hideNavigationBarLoading();
-        // 停止下拉动作
-        wx.stopPullDownRefresh();
-      }
-    })
+    this.liveStreamingList();
   },
 
   /**
