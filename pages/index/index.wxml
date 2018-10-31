@@ -16,7 +16,7 @@
     <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
   </view>
   <view class='bt-list'>
-    <view class='bt-det' wx:key="*this" wx:for="{{list}}">
+    <view class='bt-det' wx:key="*this" wx:for="{{startTimeList}}">
       <navigator url='../player/player?id={{item.openId}}'>
         <view class='bt-img'>
           <image src="{{item.avatarUrl}}"></image>
@@ -35,26 +35,30 @@
 <view class='main'>
   <view class='jy-title'>
     <view class='jy-tit-l'>热门直播</view>
-    <view class='jy-tit-m'>更多></view>
+    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
   </view>
   <view class='bt-list'>
-    <view class='rm-det' wx:key="*this" wx:for="{{rmary}}">
-      <image class='rm-img' src='{{item.rmimg}}'></image>
-      <text class='rm-txt-tit'>{{item.rmtit}}</text>
-      <text class='rm-txt-con'>{{item.rmcon}}</text>
+    <view class='rm-det' wx:key="*this" wx:for="{{hotList}}">
+      <navigator url='../player/player?id={{item.openId}}'>
+        <image class='rm-img' src='{{item.avatarUrl}}'></image>
+        <text class='rm-txt-tit'>{{item.nickName}}</text>
+        <text class='rm-txt-con'>{{item.roomName}}</text>
+      </navigator>
     </view>
   </view>
 </view>
 <view class='main'>
   <view class='jy-title'>
     <view class='jy-tit-l'>新人主播</view>
-    <view class='jy-tit-m'>更多></view>
+    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
   </view>
   <view class='bt-list'>
-    <view class='zj-det' wx:key="*this" wx:for="{{mjary}}">
-      <image class='zj-img' src='{{item.mjimg}}'></image>
-      <text class='zj-txt-name'>{{item.mjtit}}</text>
-      <text class='zj-txt-con'>{{item.mjcon}}</text>
+    <view class='zj-det' wx:key="*this" wx:for="{{newList}}">
+      <navigator url='../player/player?id={{item.openId}}'>
+        <image class='zj-img' src='{{item.avatarUrl}}'></image>
+        <text class='zj-txt-name'>{{item.nickName}}</text>
+        <text class='zj-txt-con'>{{item.roomName}}</text>
+      </navigator>
     </view>
   </view>
 </view>
