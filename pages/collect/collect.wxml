@@ -28,12 +28,16 @@
     <view class='swiper_con'>
 
       <view  wx:for='{{history_list}}' class='tm2'>
-      <navigator url='../player/player?id={{item.room_openId}}'>
-        <image class='hezi2' src='{{item.avatarUrl}}'></image>
-        <view class='wenzi2'>{{item.nickName}}</view>
-        <view class='wenzi2'>{{item.roomName}}</view>
-        <view class='wenzi2'>{{item.edittime}}</view>
-      </navigator>
+        <navigator url='../player/player?id={{item.room_openId}}'>
+          <image class='hezi2' src='{{item.avatarUrl}}'></image>
+          <view class='wztop'>
+            <view class='wenzi2'>{{item.roomName}}</view>
+          </view>
+          
+            <view class='wenzi2'>{{item.nickName}}</view>
+            <view class='wenzi2'>{{item.edittime}}</view>
+          
+        </navigator>
       </view>
       
     </view>
