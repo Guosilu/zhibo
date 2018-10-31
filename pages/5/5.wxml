@@ -1,35 +1,9 @@
 <view class='allshow'>
-  <view class='showdetail'>
+
+  <view class='showdetail' wx:for='{{list}}'>
       <navigator url='../player/player?id={{item.openId}}'>
     <view>
-      <image src='http://mqyf.ficc.org.cn/file/image/rjfp.jpg'></image>
-      <text>{{item.roomName}}</text>
-    </view>
-    <view class='introduce'>{{item.roomIntroduce}}</view>
-      </navigator>
-  </view>
-  <view class='showdetail'>
-      <navigator url='../player/player?id={{item.openId}}'>
-    <view>
-      <image src='http://mqyf.ficc.org.cn/file/image/rjfp.jpg'></image>
-      <text>{{item.roomName}}</text>
-    </view>
-    <view class='introduce'>{{item.roomIntroduce}}</view>
-      </navigator>
-  </view>
-  <view class='showdetail'>
-      <navigator url='../player/player?id={{item.openId}}'>
-    <view>
-      <image src='http://mqyf.ficc.org.cn/file/image/rjfp.jpg'></image>
-      <text>{{item.roomName}}</text>
-    </view>
-    <view class='introduce'>{{item.roomIntroduce}}</view>
-      </navigator>
-  </view>
-  <view class='showdetail'>
-      <navigator url='../player/player?id={{item.openId}}'>
-    <view>
-      <image src='http://mqyf.ficc.org.cn/file/image/rjfp.jpg'></image>
+      <image src='{{item.avatarUrl}}'></image>
       <text>{{item.roomName}}</text>
     </view>
     <view class='introduce'>{{item.roomIntroduce}}</view>

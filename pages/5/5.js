@@ -1,125 +1,109 @@
-// pages/5/5.js
+const config = require("../../config/config.js");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
     limit: 4,//显示数据量
-    list: '',
-    page: 1,//当前页
-    load: true,
-    loading: false,//加载动画的显示
-
+    list: [],
+    page: 1,
+    pagesize: 10,
   },
- 
+  getList: function (refresh) {
+    var that = this;
+    var refresh = refresh || '';
+    if (refresh == 1) {
+      var page = 1;
+      var pagesize = this.data.pagesize;
+    } else {
+      var page = this.data.page;
+      var pagesize = this.data.pagesize;
+    }
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        action: "list",
+        order: '`start_time` DESC',
+        page: page,
+        pagesize: pagesize,
+      },
+      success: function (res) {
+        if(res.data.length > 0) {
+          if (refresh == 1) {
+            that.setData({
+              list: res.data,
+              page: 1,
+            })
+          } else {
+            that.setData({
+              list: that.data.list.concat(res.data),
+              page: page + 1,
+            })
+          }
+          console.log(res.data);
+        } else {
+          wx.showToast({
+            icon:'none',
+            title: '到底了~',
+          })
+        }
+      },
+      complete: function() {
+        that.stopRefresh();
+      }
+    })
+  },
+  stopRefresh: function () {
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getList();
   },
-
+  /**
+  * 页面相关事件处理函数--监听用户下拉动作
+  */
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.getList(1);
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.log(123)
+    this.getList();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
   
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
   
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
   
   },
-
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
   
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    console.log('--------下拉刷新-------')
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-
-    wx.request({
-      url: 'https://aa.zdcom.net.cn/',
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-        wx.hideNavigationBarLoading() //完成停止加载
-        wx.stopPullDownRefresh() //停止下拉刷新
-      }
-    })    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    console.log("123123123")
-    var that = this;
-    if (that.data.load) {//全局标志位，方式请求未响应是多次触发
-      if (that.data.list.length < that.data.count) {
-        that.setData({
-          load: false,
-          loading: true,//加载动画的显示
-        })
-        wx.request({
-          url: 'url',
-          data: {
-          },
-          method: 'POST',
-          success: function (res) {
-            console.log(res)
-            var content = that.data.list.concat(res.data.data.list)//将放回结果放入content
-            that.setData({
-              list: content,
-              page: that.data.page * 1 + 1,
-              load: true,
-              loading: false,
-            })
-          },
-          fail: function (res) {
-            that.setData({
-              loading: false,
-              load: true,
-            })
-            wx.showToast({
-              title: '数据异常',
-              icon: 'none',
-              duration: 2000,
-            })
-          },
-          complete: function (res) { },
-        })
-      }
-    }
-
-  },
-
   /**
    * 用户点击右上角分享
    */
