@@ -1,5 +1,6 @@
 const config = require('../../config/config.js');
 const configCol = require("../../config/collect.js");
+const common = require("../../js/common.js");
 const app = getApp();
 Page({
 
@@ -9,48 +10,73 @@ Page({
   data: {
     list: {},
     history_list: {},
+    allList: {},
     currentData: 0,
+  },
+  getList: function () {
+    let dataObjList = [
+      {
+        name: 'collectList',
+        url: configCol.collectUrl,
+        data: {
+          action: 'list',
+          post: {
+            openId: app.globalData.openId
+          }
+        }
+      },
+      {
+        name: 'historyList',
+        url: configCol.collectUrl,
+        data: {
+          action: 'history',
+          post: {
+            openId: app.globalData.openId
+          }
+        }
+      }
+    ]
+    let that = this;
+    //let dataObjList = this.data.dataObjList;
+    let promiseArr = [];
+    for (let i = 0; i < dataObjList.length; i++) {
+      let promise = common.indexListFun(dataObjList[i]);
+      promiseArr.push(promise)
+    }
+    Promise.all(promiseArr).then(function (res) {
+      let allList = {};
+      for (let i = 0; i < res.length; i++) {
+        allList[res[i].name] = res[i].data
+      }
+      that.setData({
+        allList: allList
+      });
+      that.stopRefresh();
+      console.log(allList);
+    });
+  },
+  stopRefresh: function () {
+    this.setData({
+      loading: 1,
+    })
+    wx.hideLoading();
+    // 隐藏导航栏加载框
+    wx.hideNavigationBarLoading();
+    // 停止下拉动作
+    wx.stopPullDownRefresh();
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //this.getList();
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.getList();
   },
 
   onShow: function (options) {
-    this.getCollectList();
-    this.getHistoryList();
-  },
-  getCollectList: function () {
-    var that = this;
-    var param = {
-      action: 'list',
-      post: {
-        openId: app.globalData.openId
-      }
-    }
-    configCol.requestFun(configCol.collectUrl, param).then(function (data) {
-      console.log(data);
-      that.setData({
-        list: data
-      })
-    });
-  },
-  getHistoryList: function(){
-    var that = this;
-    var param = {
-      action: 'history',
-      post: {
-        openId: app.globalData.openId
-      }
-    }
-    configCol.requestFun(configCol.collectUrl, param).then(function (data) {
-      console.log(data);
-      that.setData({
-        history_list: data
-      })
-    });
+    
   },
   player:function(){
     wx.navigateTo({
