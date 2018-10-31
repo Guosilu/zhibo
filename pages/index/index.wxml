@@ -47,7 +47,7 @@
     </view>
   </view>
 </view>
-<view class='main'>
+<!-- <view class='main'>
   <view class='jy-title'>
     <view class='jy-tit-l'>新人主播</view>
     <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
@@ -61,6 +61,6 @@
       </navigator>
     </view>
   </view>
-</view>
+</view> -->
 
 </view>
