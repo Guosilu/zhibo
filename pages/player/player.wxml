@@ -58,12 +58,12 @@
   
 </view>
 
-  <view class="comment-container">
+  <!-- <view class="comment-container">
     <view class="row1">
       <input placeholder="此处输入弹幕内容"  bindinput="bindInput" value="{{msgContent}}"/>
       <button class="btn-send" bindtap="bindSendDanmu">发送弹幕</button>
     </view>   
-  </view>
+  </view> -->
 </block>
 
   
