@@ -1,5 +1,5 @@
 const config = require("../../config/config.js");
-
+const common = require("../../js/common.js");
 Page({
   /**
    * 页面的初始数据
@@ -7,7 +7,7 @@ Page({
   data: {
     loading: 0,
     allList: {},
-    dataList: [
+    dataObjList: [
       {
         name: 'startTimeList',
         url: config.coreUrl + 'getRoom.php',
@@ -38,32 +38,12 @@ Page({
     })
   },
 
-  getListFun: function (url , data, name) {
-    var that = this;
-    var ret = new Promise(function (resolve, reject) {
-      wx.request({
-        url: url,
-        method: 'POST',
-        dataType: 'json',
-        data: data,
-        success: function (res) {
-          let resol = {
-            name: name,
-            data: res.data,
-          };
-          resolve(resol)
-        }
-      })
-    });
-    return ret;
-  },
-
-  getList: function (options) {
+  getList: function () {
     let that = this;
-    let dataList = this.data.dataList;
+    let dataObjList = this.data.dataObjList;
     let promiseArr = [];
-    for (let i = 0; i < dataList.length; i++) {
-      let promise = this.getListFun(dataList[i].url, dataList[i].data, dataList[i].name);
+    for (let i = 0; i < dataObjList.length; i++) {
+      let promise = common.indexListFun(dataObjList[i]);
       promiseArr.push(promise)
     }
     Promise.all(promiseArr).then(function (res) {
