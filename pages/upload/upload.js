@@ -54,6 +54,7 @@ Page({
   },
 
   fileParamConfig: function () {
+    let paramObjList = [];
     let thumbPatamObj = {
       url: config.uploadUrl,
       filePath: this.data.imagePath,
@@ -63,18 +64,17 @@ Page({
         action: 'upload',
       }
     };
-    let thumb1PatamObj = {
+    let videoPatamObj = {
       url: config.uploadUrl,
-      filePath: this.data.imagePath,
-      columnName: 'thumb1',
+      filePath: this.data.videoPath,
+      columnName: 'video',
       name: 'file',
       formData: {
         action: 'upload',
       }
     };
-    let paramObjList = [
-      thumbPatamObj, thumb1PatamObj,
-    ];
+    paramObjList.push(thumbPatamObj); 
+    paramObjList.push(videoPatamObj);
     return paramObjList;
   },
 
@@ -98,21 +98,25 @@ Page({
     let submitVal = e.detail.value;
     let post = submitVal;
     let paramObjList = this.fileParamConfig();
-    //console.log(post);
     if (!this.submitCheck(submitVal)) return false;
-
+    post['openId'] = app.globalData.openId;
     uploadFun.uploadFileNameList(paramObjList).then(res => {
       for (let i = 0; i < res.length; i++) {
         post[res[i].columnName] = res[i].fileUrl
       }
-      console.log(post);
-      common.promiseFun(dataObj);
+      let dataObj = {
+        url: config.videoUrl,
+        data: {
+          action: 'add',
+          post: post,
+        }
+      }
+      common.requestFun(dataObj);
     })
   },
 
   submitCheck: function (submitVal) {
-    //console.log(submitVal);
-    /*if (submitVal.catid < 1) {
+    if (submitVal.catid < 1) {
       this.showTip('请选择分类');
       return false;
     }
@@ -131,7 +135,7 @@ Page({
     if (parseFloat(this.data.videoSize) > 20) {
       this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
       return false;
-    }*/
+    }
     return true;
   },
   

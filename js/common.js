@@ -33,6 +33,20 @@ function collectFun(url, param, confirm) {
   }
 }
 
+function requestFun(dataObj) {
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: dataObj.url,
+      method: 'POST',
+      dataType: 'json',
+      data: dataObj.data,
+      success: function (res) {
+        resolve(res)
+      }
+    })
+  });
+}
+
 function promiseFun (dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
@@ -69,6 +83,6 @@ function getList(dataObjList) {
 }
 
 module.exports = {
-  collectFun: collectFun,
-  getList: getList
+  requestFun: requestFun,
+  getList: getList,
 }
