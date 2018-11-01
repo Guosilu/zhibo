@@ -14,61 +14,6 @@ Page({
     allList: {},
     loadingComplate: 0,
     currentData: 0,
-    video: '',
-    image: '',
-  },
-  chooseImage: function() {
-    let that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-        that.setData({
-          image: res.tempFilePaths[0]
-        });
-      }
-    })
-  },
-  uploadImage: function () {
-    let paramObj = {
-      url: config.uploadUrl,
-      filePath: this.data.image,
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    }
-    uploadFun.fileUpload(paramObj).then(function (res) {
-      console.log(res);
-    });
-  },
-  chooseVideo: function () {
-    let that = this;
-    wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      maxDuration: 60,
-      camera: 'back',
-      success(res) {
-        console.log(res.tempFilePath)
-        that.setData({
-          video: res.tempFilePath
-        });
-      }
-    })
-  },
-  uploadVideo: function () {
-    let paramObj = {
-      url: config.uploadUrl,
-      filePath: this.data.video,
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    }
-    uploadFun.fileUpload(paramObj).then(function(res) {
-      console.log(res);
-    });
   },
   //列表
   getList: function () {
