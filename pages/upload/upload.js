@@ -1,3 +1,5 @@
+const config = require('../../config/config.js');
+const uploadFun = require("../../js/uploadFun.js");
 const app = getApp();
 Page({
 
@@ -49,10 +51,36 @@ Page({
       }
     })
   },
+
+  fileParamConfig: function () {
+    let thumbPatamObj = {
+      url: config.uploadUrl,
+      filePath: this.data.imagePath,
+      columnName: 'thumb',
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    };
+    let thumb1PatamObj = {
+      url: config.uploadUrl,
+      filePath: this.data.imagePath,
+      columnName: 'thumb1',
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    };
+    let paramObjList = [
+      thumbPatamObj, thumb1PatamObj,
+    ];
+    return paramObjList;
+  },
+
   uploadVideo: function () {
     let paramObj = {
       url: config.uploadUrl,
-      filePath: this.data.video,
+      filePath: this.data.videoPath,
       name: 'file',
       formData: {
         action: 'upload',
@@ -62,29 +90,47 @@ Page({
       console.log(res);
     });
   },
+
   formSubmit: function (e) {
-    console.log(e);
     var that = this;
-    if (that.data.videoPath == '') {
+    let post = {};
+    let paramObjList = this.fileParamConfig();
+
+    if(!this.submitCheck()) return false;
+
+    uploadFun.uploadFileNameList(paramObjList).then(res => {
+      post = res;
+      console.log(res);
+    })
+
+    return false;
+    console.log(e);
+   
+  },
+
+  submitCheck: function () {
+    if (this.data.imagePath == '') {
       wx.showToast({
-        title: '请录制或选择一个小视频',
-      })
-      return false;
-    }
-    if (that.data.imagePath == '') {
-      wx.showToast({
+        icon: 'none',
         title: '至少传一个图',
       })
       return false;
     }
-
-    if (that.data.size > 1024 * 1024 * 20) {
-      wx.showModal({
-        title: '错误!',
-        content: '很抱歉，视频最大允许2M，当前为' + (that.data.size / (1024 * 1024)).toFixed(2) + 'M'
+    if (this.data.videoPath == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '请录制或选择一个小视频',
       })
       return false;
     }
+    if (parseFloat(this.data.videoSize) > 20) {
+      wx.showToast({
+        icon: 'none',
+        title: '很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M',
+      })
+      return false;
+    }
+    return true;
   },
 
   deleteImage: function () {
