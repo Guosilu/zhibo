@@ -15,8 +15,35 @@ Page({
     loadingComplate: 0,
     currentData: 0,
     video: '',
+    image: '',
   },
-  chooseVideo: function() {
+  chooseImage: function() {
+    let that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        that.setData({
+          image: res.tempFilePaths[0]
+        });
+      }
+    })
+  },
+  uploadImage: function () {
+    let paramObj = {
+      url: config.uploadUrl,
+      filePath: this.data.image,
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    }
+    uploadFun.fileUpload(paramObj).then(function (res) {
+      console.log(res);
+    });
+  },
+  chooseVideo: function () {
     let that = this;
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
@@ -31,7 +58,7 @@ Page({
     })
   },
   uploadVideo: function () {
-    let formData = {
+    let paramObj = {
       url: config.uploadUrl,
       filePath: this.data.video,
       name: 'file',
@@ -39,7 +66,7 @@ Page({
         action: 'upload',
       }
     }
-    uploadFun.fileUpload(formData).then(function(res) {
+    uploadFun.fileUpload(paramObj).then(function(res) {
       console.log(res);
     });
   },
