@@ -1,116 +1,117 @@
-// pages/2/2.js
+const config = require("../../config/config.js");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    limit: 4,//显示数据量
+    list: [],
+    page: 1,
+    pagesize: 10,
   },
-
+  getList: function (refresh) {
+    var that = this;
+    var refresh = refresh || '';
+    if (refresh == 1) {
+      var page = 1;
+      var pagesize = this.data.pagesize;
+    } else {
+      var page = this.data.page;
+      var pagesize = this.data.pagesize;
+    }
+    wx.request({
+      url: config.coreUrl + 'getRoom.php',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        action: "list",
+        order: '`start_time` DESC',
+        page: page,
+        pagesize: pagesize,
+      },
+      success: function (res) {
+        if (res.data.length > 0) {
+          if (refresh == 1) {
+            that.setData({
+              list: res.data,
+              page: 1,
+            })
+          } else {
+            that.setData({
+              list: that.data.list.concat(res.data),
+              page: page + 1,
+            })
+          }
+          console.log(res.data);
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
+      },
+      complete: function () {
+        that.stopRefresh();
+      }
+    })
+  },
+  stopRefresh: function () {
+    wx.hideLoading();
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.getList();
   },
-
+  /**
+  * 页面相关事件处理函数--监听用户下拉动作
+  */
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.getList(1);
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.log(123)
+    this.getList();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
-  },
 
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
-  },
 
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
-  },
 
+  },
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
-  },
-
-  // 下拉刷新
-  onPullDownRefresh: function () {
-    // 显示顶部刷新图标
-    wx.showNavigationBarLoading();
-    var that = this;
-    wx.request({
-      url: 'https://aa.zdcom.net.cn/',
-      method: "GET",
-      header: {
-        'content-type': 'application/text'
-      },
-      success: function (res) {
-        that.setData({
-          moment: res.data.data
-        });
-        // 设置数组元素
-        that.setData({
-          moment: that.data.moment
-        });
-        console.log(that.data.moment);
-        // 隐藏导航栏加载框
-        wx.hideNavigationBarLoading();
-        // 停止下拉动作
-        wx.stopPullDownRefresh();
-      }
-    })
-  },
-
-  /**
-     * 页面上拉触底事件的处理函数
-     */
-  onReachBottom: function () {
-    var that = this;
-    // 显示加载图标
-    wx.showLoading({
-      title: '玩命加载中',
-    })
-    // 页数+1
-    page = page + 1;
-    wx.request({
-      url: 'https://aa.zdcom.net.cn/' + page,
-      method: "GET",
-      // 请求头部
-      header: {
-        'content-type': 'application/text'
-      },
-      success: function (res) {
-        // 回调函数
-        var moment_list = that.data.moment;
-
-        for (var i = 0; i < res.data.data.length; i++) {
-          moment_list.push(res.data.data[i]);
-        }
-        // 设置数据
-        that.setData({
-          moment: that.data.moment
-        })
-        // 隐藏加载框
-        wx.hideLoading();
-      }
-    })
 
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })
