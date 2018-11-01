@@ -1,0 +1,26 @@
+.allshow{
+  overflow: hidden;
+}
+.tm2{overflow: hidden;}
+
+.hezi2{
+  background-color:#000;
+  height:110rpx;
+  width:110rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  margin-left: 30rpx;
+  margin-top: 26rpx;
+  float: left
+}
+
+.wenzi2{
+ margin-top: 30rpx;
+ margin-left: 26rpx;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+ font-size: 32rpx;float: left;
+}
+.wztop{
+  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+}
