@@ -117,10 +117,13 @@ Page({
       common.requestFun(dataObj).then(res=>{
         if(res > 0) {
           wx.hideLoading();
-          that.showTip('提交完成!');
-          wx.switchTab({
-            url: '/pages/my/my'
-          })
+          //that.showTip('提交完成!');
+          this.showLoading('提交完成...')
+          setTimeout(function(){
+            wx.switchTab({
+              url: '/pages/my/my'
+            })
+          },1000)
         }
       });
     })
