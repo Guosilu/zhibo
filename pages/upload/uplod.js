@@ -112,6 +112,11 @@ Page({
         content: '请选择相册'
       })
       return;
+
+      wx.showToast({
+        title: '请选择相册',
+      })
+      return;
     }
     var albumId = that.data.albums[that.data.albumIndex].id;
 
@@ -121,6 +126,12 @@ Page({
         content: '请录制或选择一个小视频'
       })
       return false;
+    }
+    if (that.data.photos.length == 0) {
+      wx.showToast({
+        title: '至少传一个图',
+      })
+      return;
     }
 
     if (that.data.size > 1024 * 1024 * 2) {
@@ -161,7 +172,7 @@ Page({
             success: function (r) {
               wx.hideLoading();
               wx.showModal({
-                title: '视频',
+                title: '小乖猴助手',
                 content: '上传成功',
               })
             },
@@ -169,9 +180,73 @@ Page({
 
             }
           })
+        } else {
+          wx.showModal({
+            title: '小乖猴助手',
+            content: res.data
+          })
         }
       }
     });
+  },
+
+  /**
+   * 上传图片
+   */
+  chooseImage: function () {
+    var that = this;
+    var items = that.data.photos;
+    wx.chooseImage({
+      count: 9, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths;
+
+        for (var i = 0; i < tempFilePaths.length; i++) {
+          items.push({
+            src: tempFilePaths[i]
+          });
+        }
+
+        that.setData({
+          photos: items
+        });
+      }
+    })
+  },
+
+  previewImage: function (e) {
+    var current = e.target.dataset.src
+
+    wx.previewImage({
+      current: current,
+      urls: this.data.photos
+    })
+  },
+
+  uploadImage: function (photo, img) {
+    var that = this;
+    wx.uploadFile({
+      url: 'http://xgh.local.com/xcx/photo-items',
+      method: 'POST',
+      filePath: img.src,
+      header: {
+        'content-type': 'multipart/form-data'
+      },
+      name: 'file',
+      formData: {
+        photo_id: photo.id,
+        album_id: photo.album_id
+      },
+      success: function (r) {
+
+      },
+      fail: function (r) {
+
+      }
+    })
   },
 
   bindPickerChange: function (e) {
@@ -179,4 +254,5 @@ Page({
       albumIndex: e.detail.value
     })
   },
+
 })
