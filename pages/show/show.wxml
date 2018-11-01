@@ -9,7 +9,7 @@
 <!-- 评论 -->
 
 <view class="tool">
-  <view class='videotit'>视频标题，</view> 
+  <view class='videotit'>视频标题111，</view> 
   <view class="tool-item">
     <image src=""></image>
     <text>视频发布者</text>
