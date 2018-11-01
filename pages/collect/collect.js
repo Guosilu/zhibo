@@ -1,6 +1,7 @@
 const config = require('../../config/config.js');
 const configCol = require("../../config/collect.js");
 const common = require("../../js/common.js");
+const uploadFun = require("../../js/uploadFun.js");
 const app = getApp();
 Page({
 
@@ -13,8 +14,35 @@ Page({
     allList: {},
     loadingComplate: 0,
     currentData: 0,
+    video: '',
   },
-
+  chooseVideo: function() {
+    let that = this;
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success(res) {
+        console.log(res.tempFilePath)
+        that.setData({
+          video: res.tempFilePath
+        });
+      }
+    })
+  },
+  uploadVideo: function () {
+    let formData = {
+      url: config.uploadUrl,
+      filePath: this.data.video,
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    }
+    uploadFun.fileUpload(formData).then(function(res) {
+      console.log(res);
+    });
+  },
   //列表
   getList: function () {
     let dataObjList = [
