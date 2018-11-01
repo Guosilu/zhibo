@@ -106,6 +106,7 @@ Page({
         post[res[i].columnName] = res[i].fileUrl
       }
       console.log(post);
+      common.promiseFun(dataObj);
     })
   },
 
