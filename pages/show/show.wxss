@@ -1,1 +1,97 @@
-/* pages/show/show.wxss */
+.vbox {
+  margin-top: 120rpx;
+  /* border: 1px solid red; */
+  height: 100%;
+  width: 100%;
+}
+
+.section video{
+  /* border: 1px solid red; */
+  /* margin-top: 100rpx; */
+  width: 100%;
+} 
+.vbox video{
+width: 100%;
+}
+
+/* 评论 */
+/*整体样式，就是黑色的容器*/
+.comment_release{
+  display: flex;
+  align-items: flex-end; 
+  justify-content: space-between; 
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 0 8px 13px;
+  background-color: #ffffff;
+  font-size: 12px;
+  z-index: 999;
+}
+/**第一个红色的容器
+ *大概想法就是给flex-direction赋一个colomn的值，并列放置
+ */
+.comment_release.left{
+  display: flex;
+  flex-direction: column;
+}
+/*输入框*/
+.comment_release .text{
+  width: 222px;
+  min-height: 17px;
+  max-height: 51px; /*最多显示三行*/
+  line-height: 17px;
+  font-size: 12px;
+  margin-bottom: 4px;
+  margin-left: 10px;
+}
+/*线*/
+.comment_release .line{
+margin-bottom: 0 ;
+width: 222px;
+height: 1rpx;
+background-color: #4B5CD7;
+}
+/*表情图标*/
+.comment_release .emoji{
+  width: 24px;
+  height: 24px;
+  line-height: 27px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+/*发送按钮*/
+.comment_release .submit{ 
+  width: 60px;
+  height: 27px;
+  line-height: 27px;
+  text-align: center;
+  margin-right: 10px;
+  background-color: #4B5CD7;
+  color: #ffffff;
+  font-size: 12px;
+}
+ 
+.tool{
+  text-align: left;
+  line-height: 50rpx;
+  margin:10rpx 0;
+}
+.videotit{
+  font-weight: bold;font-size: 32rpx;margin: 20rpx 0;
+  padding:0 20rpx;
+}
+.tool-item{
+  border-top:2rpx solid #ddd;
+  border-bottom:2rpx solid #ddd;
+  padding:10rpx 20rpx;overflow: hidden;
+}
+.tool-item image{
+  height: 80rpx;border-radius: 50%;
+  width: 80rpx;margin-right:50rpx;float: left;
+}
+.tool-item text{
+  font-size: 24rpx;float: left;line-height: 80rpx;
+}
