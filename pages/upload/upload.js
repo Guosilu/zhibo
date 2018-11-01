@@ -118,6 +118,9 @@ Page({
         if(res > 0) {
           wx.hideLoading();
           that.showTip('提交完成!');
+          wx.switchTab({
+            url: '/pages/my/my'
+          })
         }
       });
     })
