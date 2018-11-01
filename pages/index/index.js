@@ -34,10 +34,10 @@ Page({
         }
       },
       {
-        name: 'newList',
-        url: config.coreUrl + 'getRoom.php',
+        name: 'videoList',
+        url: config.videoUrl,
         data: {
-          action: "list", order: '`createTime` DESC', pagesize: 3,
+          action: "list", pagesize: 3,
         }
       }
     ];
