@@ -33,7 +33,6 @@
           <view class='wztop'>
             <view class='wenzi2'>{{item.roomName}}</view>
           </view>
-          
             <view class='wenzi2'>{{item.nickName}}</view>
             <view class='wenzi2'>{{item.edittime}}</view>
           

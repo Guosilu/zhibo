@@ -12,7 +12,9 @@
 .topTabSwiper:after{content: ""; clear: both;display: block;}
 .tabBorer{border-bottom: 6rpx solid orange; color: orange;}
 .swiper{width: 100%;}
-.swiper_con{ width: 100%; height: 100%; overflow: hidden;padding: 0 10rpx;box-sizing: border-box;}
+.swiper_con{ width: 100%;
+ height: 100%;
+  overflow: hidden;padding: 0 10rpx;box-sizing: border-box;}
 
 .hezi1 image{
 background-color:#f0f0f0;
