@@ -1,10 +1,16 @@
 <view class="photo-add">
     <form bindsubmit="formSubmit">
-    <view class="desc">
-        <input type='text' placeholder="填写视频标题" />
+    <view class="select-album">
+        <view class="title">请选择分类</view>
+        <picker name='catid' bindchange="bindPickerChange" value="{{catList[catIndex].catid}}" range="{{catList}}" range-key="name">
+            <view class="picker">当前选择：{{catList[catIndex].name}}</view>
+        </picker>
     </view>
     <view class="desc">
-        <textarea name="desc" placeholder="填写备注（可以不写）" />
+        <input name='title' type='text' placeholder="填写视频标题" />
+    </view>
+    <view class="desc">
+        <textarea name="introduce" placeholder="填写备注（可以不写）" />
     </view>
     
     <view class="weui-cells">
@@ -17,13 +23,14 @@
             </view>
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files">
-                <block wx:for="{{photos}}" wx:for-item="image">
                   <view class="weui-uploader__file">
-                    <image class="weui-uploader__img" src="{{image.src}}" data-src="{{image}}" bindtap="previewImage"></image>
+                    <image class="weui-uploader__img" src="{{imagePath}}" data-src="{{imagePath}}" bindtap="previewImage"></image>
                   </view>
-                </block>
               </view>
-              <view class="weui-uploader__input-box">
+               <view wx:if='{{imagePath}}'>
+                <view bindtap='deleteImage'>删除</view>
+              </view>
+              <view class="weui-uploader__input-box" wx:else>
                 <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
             </view>
@@ -31,23 +38,14 @@
         </view>
       </view>
     </view>
-    
-    <view class="select-album">
-        <view class="title">请选择一个相册</view>
-        <picker bindchange="bindPickerChange" value="{{albumIndex}}" range="{{albums}}" range-key="name">
-            <view class="picker">
-            当前选择：{{albums[albumIndex].name}}
-            </view>
-        </picker>
-    </view>
 
-    <view class="video-box" wx:if="{{video}}">
-        <video class="video" src="{{video}}"></video>
-        <view style="text-align:center;color:green;font-size:14px;padding-top:7px;">当前视频大小为{{size}}M</view>
+    <view class="video-box" wx:if="{{videoPath}}">
+        <video class="video" src="{{videoPath}}"></video>
+        <view style="text-align:center;color:green;font-size:14px;padding-top:7px;">当前视频大小为{{videoSize}}M</view>
     </view>
 
     <view class="add-video">
-    	<text bindtap="addVideo" style="color:blue;">选择或拍摄视频</text>
+    	<text bindtap="chooseVideo" style="color:blue;">选择或拍摄视频</text>
     </view>
     
     
