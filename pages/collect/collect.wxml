@@ -1,7 +1,3 @@
-<text bindtap='chooseVideo'>选择</text>
-<text bindtap='uploadVideo'>上传</text>
-<text bindtap='chooseImage'>选择</text>
-<text bindtap='uploadImage'>上传</text>
 <!--logs.wxml
 <view class='main serch'>
   <view class='search'>
