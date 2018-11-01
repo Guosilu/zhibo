@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/upload/upload",
     "pages/index/index",
     "pages/pusher/pusher",
     "pages/setRoom/setRoom",
@@ -12,8 +13,7 @@
     "pages/player/player",
     "pages/login/login",
     "pages/buy/buy",
-    "pages/show/show",
-    "pages/upload/upload"
+    "pages/show/show"
   ],
   "window": {
     "backgroundTextStyle": "dark",

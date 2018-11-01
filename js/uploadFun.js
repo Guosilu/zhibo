@@ -31,9 +31,14 @@ function uploadFileNameList (paramObjList) {
       promiseArr.push(promise);
     }
     Promise.all(promiseArr).then(res => {
-      let fileNameList = {};
+      let fileNameList = [];
       for (let i = 0; i < res.length; i++) {
-        fileNameList[res[i].columnName] = res[i].fileUrl
+        //fileNameList[res[i].columnName] = res[i].fileUrl
+        let fileNameList1 = {
+          columnName: res[i].columnName,
+          fileUrl: res[i].fileUrl
+        }
+        fileNameList.push(fileNameList1);
       }
       resolve(fileNameList);
     });

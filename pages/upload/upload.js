@@ -1,4 +1,5 @@
 const config = require('../../config/config.js');
+const common = require("../../js/common.js");
 const uploadFun = require("../../js/uploadFun.js");
 const app = getApp();
 Page({
@@ -91,51 +92,66 @@ Page({
     });
   },
 
+  //表单提交
   formSubmit: function (e) {
-    var that = this;
-    let post = {};
+    let that = this;
+    let submitVal = e.detail.value;
+    let post = submitVal;
     let paramObjList = this.fileParamConfig();
-
-    if(!this.submitCheck()) return false;
+    //console.log(post);
+    if (!this.submitCheck(submitVal)) return false;
 
     uploadFun.uploadFileNameList(paramObjList).then(res => {
-      post = res;
-      console.log(res);
+      for (let i = 0; i < res.length; i++) {
+        post[res[i].columnName] = res[i].fileUrl
+      }
+      console.log(post);
     })
-
-    return false;
-    console.log(e);
-   
   },
 
-  submitCheck: function () {
+  submitCheck: function (submitVal) {
+    //console.log(submitVal);
+    /*if (submitVal.catid < 1) {
+      this.showTip('请选择分类');
+      return false;
+    }
+    if (submitVal.title == '') {
+      this.showTip('请填写标题');
+      return false;
+    }
     if (this.data.imagePath == '') {
-      wx.showToast({
-        icon: 'none',
-        title: '至少传一个图',
-      })
+      this.showTip('至少传一个图');
       return false;
     }
     if (this.data.videoPath == '') {
-      wx.showToast({
-        icon: 'none',
-        title: '请录制或选择一个小视频',
-      })
+      this.showTip('请录制或选择一个小视频');
       return false;
     }
     if (parseFloat(this.data.videoSize) > 20) {
-      wx.showToast({
-        icon: 'none',
-        title: '很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M',
-      })
+      this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
       return false;
-    }
+    }*/
     return true;
+  },
+  
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
   },
 
   deleteImage: function () {
     this.setData({
-      imagePath: ''
+      imagePath: '',
+      imageSize: '',
+    })
+  },
+
+  deleteVideo: function () {
+    this.setData({
+      videoPath: '',
+      videoSize: '',
     })
   },
 
