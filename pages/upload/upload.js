@@ -1,5 +1,4 @@
-// pages/photo/add-video.js
-var app = getApp();
+const app = getApp();
 Page({
 
   /**
