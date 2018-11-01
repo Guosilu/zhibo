@@ -41,7 +41,7 @@ function requestFun(dataObj) {
       dataType: 'json',
       data: dataObj.data,
       success: function (res) {
-        resolve(res)
+        resolve(res.data)
       }
     })
   });

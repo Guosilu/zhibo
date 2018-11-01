@@ -100,6 +100,7 @@ Page({
     let paramObjList = this.fileParamConfig();
     if (!this.submitCheck(submitVal)) return false;
     post['openId'] = app.globalData.openId;
+    this.showLoading('正在上传文件...')
     uploadFun.uploadFileNameList(paramObjList).then(res => {
       for (let i = 0; i < res.length; i++) {
         post[res[i].columnName] = res[i].fileUrl
@@ -111,7 +112,14 @@ Page({
           post: post,
         }
       }
-      common.requestFun(dataObj);
+      wx.hideLoading();
+      this.showLoading('正在提交数据...')
+      common.requestFun(dataObj).then(res=>{
+        if(res > 0) {
+          wx.hideLoading();
+          that.showTip('提交完成!');
+        }
+      });
     })
   },
 
@@ -142,6 +150,12 @@ Page({
   showTip: function (msg) {
     wx.showToast({
       icon: 'none',
+      title: msg,
+    })
+  },
+
+  showLoading: function (msg) {
+    wx.showLoading({
       title: msg,
     })
   },
