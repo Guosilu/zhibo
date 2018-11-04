@@ -20,7 +20,7 @@ function getList(dataObjList) {
   return new Promise(function (resolve, reject) {
     let promiseArr = [];
     for (let i = 0; i < dataObjList.length; i++) {
-      let promise = promiseFun(dataObjList[i]);
+      let promise = getListPromise(dataObjList[i]);
       promiseArr.push(promise)
     }
     Promise.all(promiseArr).then(function (res) {
@@ -34,7 +34,7 @@ function getList(dataObjList) {
 }
 
 //获取列表方法-1
-function promiseFun(dataObj) {
+function getListPromise(dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
       url: dataObj.url,
