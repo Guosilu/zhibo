@@ -13,29 +13,35 @@ function upload() {
   */
   this.fileUpload = function (paramObj) {
     var that = this;
+   
     return new Promise(function (resolve, reject) {
-      var Task = wx.uploadFile({
-        url: paramObj.url,
-        filePath: paramObj.filePath,
-        name: paramObj.name,
-        formData: paramObj.formData,
-        success: function (res) {
-          let data = JSON.parse(res.data);
-          let success = data.success;
-          if (success == 1) {
-            let resol = {
-              columnName: paramObj.columnName,
-              fileUrl: data.file_url,
+      if (paramObj.filePath) {
+        var Task = wx.uploadFile({
+          url: paramObj.url,
+          filePath: paramObj.filePath,
+          name: paramObj.name,
+          formData: paramObj.formData,
+          success: function (res) {
+            let data = JSON.parse(res.data);
+            let success = data.success;
+            if (success == 1) {
+              let resol = {
+                columnName: paramObj.columnName,
+                fileUrl: data.file_url,
+              }
+              console.log(resol);
+              resolve(resol);
+            } else {
+              resolve(0);
             }
-            console.log(resol);
-            resolve(resol);
-          } else {
-            resolve(0);
           }
-        }
-      });
-      that.task.push(Task);
-      that.uploadTask(Task, paramObj.columnName);
+        });
+        that.task.push(Task);
+        that.uploadTask(Task, paramObj.columnName);
+      } else {
+        resolve(0);
+      }
+      
     });
   }
 
@@ -45,13 +51,14 @@ function upload() {
   this.uploadTask = function (Task, columnName) {
     var that = this;
     Task.onProgressUpdate((res) => {
-      var key = 'percent.' + columnName
+      var key = 'uploadProgress.' + columnName
       res.totalBytesSent = (res.totalBytesSent / 1024 / 1024).toFixed(2);
       res.totalBytesExpectedToSend = (res.totalBytesExpectedToSend / 1024 / 1024).toFixed(2);
       that.ele.setData({
         [key]: res,
+        showUploadProgress: Boolean(JSON.stringify(res) != '{}')
       })
-      console.log(that.ele.data.percent);
+      console.log(that.ele.data.uploadProgress);
     })
   }
 
@@ -59,11 +66,11 @@ function upload() {
    * 取消上传任务
   */
   this.stopTask = function () {
-    //console.log(this.task);
+    console.log(this.task);
     wx.hideLoading();
     var that = this;
     for (let i = 0; i < this.task.length; i++) {
-      this.task[i].abort();
+      if (this.task[i]) this.task[i].abort();
     }
   }
 

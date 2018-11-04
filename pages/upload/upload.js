@@ -20,11 +20,19 @@ Page({
     videoPath: '',
     videoSize: '',
     catIndex: 0,
-    percent: {},//进度百分比
+    uploadProgress: {},//上传进度
+    showUploadProgress: false,
+    submitDisabled: false,
   },
 
   //取消上传任务
   stopTask: function() {
+    //console.log(JSON.stringify(this.data.uploadProgress));
+    this.setData({
+      uploadProgress: {},
+      showUploadProgress: false,
+      submitDisabled: false,
+    });
     uploadObj.stopTask();
   },
 
@@ -89,39 +97,69 @@ Page({
 
   //表单提交
   formSubmit: function (e) {
+    this.setData({
+      submitDisabled: true,
+    })
     let that = this;
     let submitVal = e.detail.value;
     let post = submitVal;
     let paramObjList = this.fileParamConfig();
-    //if (!this.submitCheck(submitVal)) return false;
+    //表单验证
+    if (!this.submitCheck(submitVal)) return false;
+
     post['openId'] = app.globalData.openId;
-    this.showLoading('正在上传文件...')
-    //uploadFun.uploadFileNameList(paramObjList, "array", this).then(res => {
+    this.showLoading('正在上传文件...');
     uploadObj.uploadFileNameList(paramObjList, "array", this).then(res => {
+      
+      that.setData({
+        uploadProgress: {},
+        showUploadProgress: false,
+      })
+      let uploadStatus = 0;
       for (let i = 0; i < res.length; i++) {
-        post[res[i].columnName] = res[i].fileUrl
-      }
-      let dataObj = {
-        url: config.videoUrl,
-        data: {
-          action: 'add',
-          post: post,
+        if (res[i].columnName && res[i].fileUrl) {
+          post[res[i].columnName] = res[i].fileUrl;
+          uploadStatus += 1;
         }
       }
-      wx.hideLoading();
-      this.showLoading('正在提交数据...')
-      commonFun.request(dataObj).then(res=>{
-        if(res > 0) {
-          wx.hideLoading();
-          //that.showTip('提交完成!');
-          this.showLoading('提交完成...')
-          setTimeout(function(){
-            wx.switchTab({
-              url: '/pages/my/my'
-            })
-          },1000)
+      console.log(uploadStatus);
+      console.log(res.length);
+      if (uploadStatus == res.length) {
+        let dataObj = {
+          url: config.videoUrl,
+          data: {
+            action: 'add',
+            post: post,
+          }
         }
-      });
+        wx.hideLoading();
+        that.showLoading('正在提交数据...', true)
+        commonFun.request(dataObj).then(res => {
+          if (res > 0) {
+            wx.hideLoading();
+            //that.showTip('提交完成!');
+            this.showLoading('提交完成...', true)
+            setTimeout(function () {
+              wx.switchTab({
+                url: '/pages/my/my'
+              })
+            }, 1000)
+          }
+        });
+
+      } else if (uploadStatus > 0 && uploadStatus < res.length) {
+        this.setData({
+          submitDisabled: false,
+        })
+        that.showTip("文件上传不完整!");
+
+      } else if (uploadStatus == 0) {
+        this.setData({
+          submitDisabled: false,
+        })
+        that.showTip("文件上传失败!");
+
+      }
     })
   },
 
@@ -159,8 +197,10 @@ Page({
   },
 
   //加载方法
-  showLoading: function (msg) {
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
     wx.showLoading({
+      mask: mask,
       title: msg,
     })
   },
