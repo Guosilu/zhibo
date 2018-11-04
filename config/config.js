@@ -7,6 +7,8 @@ const baseUrl = 'https://aa.zdcom.net.cn/';
 const loginUrl = baseUrl + 'wechatProgram/api/loginApi.php';
 const coreUrl = baseUrl +"wechatProgram/core/";
 const img = baseUrl +"wechatProgram/images/";
+const playerUrl = baseUrl + 'wechatProgram/api/playerApi.php';
+const collectUrl = baseUrl + 'wechatProgram/api/collectApi.php';
 const videoUrl = baseUrl + 'wechatProgram/api/videoApi.php';
 const uploadUrl = baseUrl + 'wechatProgram/api/uploadApi.php';
 
@@ -31,6 +33,8 @@ module.exports = {
   img: img,
   videoUrl: videoUrl,
   uploadUrl: uploadUrl,
+  playerUrl: playerUrl,
+  collectUrl: collectUrl,
 
 
   // 页面

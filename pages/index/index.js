@@ -1,5 +1,5 @@
 const config = require("../../config/config.js");
-const common = require("../../js/common.js");
+const commonFun = require("../../js/commonFun.js");
 Page({
   /**
    * 页面的初始数据
@@ -41,7 +41,7 @@ Page({
         }
       }
     ];
-    common.getList(dataObjList).then(function (res) {
+    commonFun.getList(dataObjList).then(function (res) {
       that.setData({
         allList: res
       });

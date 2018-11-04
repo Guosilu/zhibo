@@ -1,5 +1,5 @@
 const config = require('../../config/config.js');
-const common = require("../../js/common.js");
+const commonFun = require("../../js/commonFun.js");
 const uploadFun = require("../../js/uploadFun.js");
 const app = getApp();
 Page({
@@ -21,7 +21,7 @@ Page({
     catIndex: 0,
   },
 
-  //上传图片
+  //选择图片
   chooseImage: function () {
     let that = this;
     wx.chooseImage({
@@ -36,7 +36,8 @@ Page({
       }
     })
   },
-  //选择 / 拍摄视频
+
+  //选择视频
   chooseVideo: function () {
     let that = this;
     wx.chooseVideo({
@@ -53,6 +54,7 @@ Page({
     })
   },
 
+  //上传文件参数配置
   fileParamConfig: function () {
     let paramObjList = [];
     let thumbPatamObj = {
@@ -78,20 +80,6 @@ Page({
     return paramObjList;
   },
 
-  uploadVideo: function () {
-    let paramObj = {
-      url: config.uploadUrl,
-      filePath: this.data.videoPath,
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    }
-    uploadFun.fileUpload(paramObj).then(function (res) {
-      console.log(res);
-    });
-  },
-
   //表单提交
   formSubmit: function (e) {
     let that = this;
@@ -114,7 +102,7 @@ Page({
       }
       wx.hideLoading();
       this.showLoading('正在提交数据...')
-      common.requestFun(dataObj).then(res=>{
+      commonFun.request(dataObj).then(res=>{
         if(res > 0) {
           wx.hideLoading();
           //that.showTip('提交完成!');
@@ -129,6 +117,7 @@ Page({
     })
   },
 
+  //验证表单
   submitCheck: function (submitVal) {
     if (submitVal.catid < 1) {
       this.showTip('请选择分类');
@@ -146,13 +135,14 @@ Page({
       this.showTip('请录制或选择一个小视频');
       return false;
     }
-    if (parseFloat(this.data.videoSize) > 20) {
+    if (parseFloat(this.data.videoSize) > 100) {
       this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
       return false;
     }
     return true;
   },
   
+  //提示方法
   showTip: function (msg) {
     wx.showToast({
       icon: 'none',
@@ -160,12 +150,14 @@ Page({
     })
   },
 
+  //加载方法
   showLoading: function (msg) {
     wx.showLoading({
       title: msg,
     })
   },
 
+  //删除图片
   deleteImage: function () {
     this.setData({
       imagePath: '',
@@ -173,6 +165,7 @@ Page({
     })
   },
 
+  //删除视频
   deleteVideo: function () {
     this.setData({
       videoPath: '',
@@ -180,6 +173,7 @@ Page({
     })
   },
 
+  //图片预览
   previewImage: function (e) {
     var image = e.target.dataset.src
     wx.previewImage({
@@ -188,11 +182,13 @@ Page({
     })
   },
 
+  //选择
   bindPickerChange: function (e) {
     this.setData({
       catIndex: e.detail.value
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
