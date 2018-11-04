@@ -88,7 +88,7 @@ App({
     this.login();
   },
   onShow: function () {
-
+    this.redirectTo();
   },
   globalData: {
     userInfo: null,
