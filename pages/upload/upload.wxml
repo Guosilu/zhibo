@@ -47,8 +47,20 @@
     <view class="add-video">
     	<text bindtap="{{videoPath ? 'deleteVideo' : 'chooseVideo'}}" style="color:blue;">{{videoPath ? '删除视频' : '选择或拍摄视频'}}</text>
     </view>
-    
-    
+
+    <view class="btn-box">
+        图片{{percent.thumb.progress}}%, 视频{{percent.video.progress}}%
+    </view>
+    <view class="btn-box">
+        图片{{percent.thumb.totalBytesSent}}M, 视频{{percent.video.totalBytesSent}}M
+    </view>
+    <view class="btn-box">
+        图片{{percent.thumb.totalBytesExpectedToSend}}M, 视频{{percent.video.totalBytesExpectedToSend}}M
+    </view>
+    <view class="btn-box">
+        <button type='button' bindtap='stopTask' size="default">取消上传</button>
+    </view>
+
     <view class="btn-box">
         <button type='primary' formType="submit" size="default">提交</button>
     </view>

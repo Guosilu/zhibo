@@ -1,7 +1,8 @@
+const app = getApp();
 const config = require('../../config/config.js');
 const commonFun = require("../../js/commonFun.js");
-const uploadFun = require("../../js/uploadFun.js");
-const app = getApp();
+const uploadObjFile = new require("../../js/uploadObj.js");
+const uploadObj = new uploadObjFile.upload();
 Page({
 
   /**
@@ -19,6 +20,12 @@ Page({
     videoPath: '',
     videoSize: '',
     catIndex: 0,
+    percent: {},//进度百分比
+  },
+
+  //取消上传任务
+  stopTask: function() {
+    uploadObj.stopTask();
   },
 
   //选择图片
@@ -86,10 +93,11 @@ Page({
     let submitVal = e.detail.value;
     let post = submitVal;
     let paramObjList = this.fileParamConfig();
-    if (!this.submitCheck(submitVal)) return false;
+    //if (!this.submitCheck(submitVal)) return false;
     post['openId'] = app.globalData.openId;
     this.showLoading('正在上传文件...')
-    uploadFun.uploadFileNameList(paramObjList).then(res => {
+    //uploadFun.uploadFileNameList(paramObjList, "array", this).then(res => {
+    uploadObj.uploadFileNameList(paramObjList, "array", this).then(res => {
       for (let i = 0; i < res.length; i++) {
         post[res[i].columnName] = res[i].fileUrl
       }
@@ -193,7 +201,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(this);
   },
 
   /**

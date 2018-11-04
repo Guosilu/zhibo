@@ -4,9 +4,9 @@
  * paramObj: {url: '', filePath: '', formData: '', name: '', columnName: ''}
  * resol: {columnName: '', fileUrl: ''}
 */
-function fileUpload(paramObj) {
+function fileUpload(paramObj, ele) {
   return new Promise(function (resolve, reject) {
-    wx.uploadFile({
+    let Task = wx.uploadFile({
       url: paramObj.url,
       filePath: paramObj.filePath,
       name: paramObj.name,
@@ -26,7 +26,23 @@ function fileUpload(paramObj) {
         }
       }
     });
+    uploadTask(Task, ele);
   });
+}
+
+/**
+ * 上传状况
+ */
+function uploadTask(Task, ele) {
+  Task.onProgressUpdate((res) => {
+    var key = 'percent.' + columnName;
+    ele.setData({
+      [key]: res.progress,
+    })
+    console.log(ele.data.percent);
+      /*console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)*/
+  })
 }
 
 /** 
@@ -35,12 +51,13 @@ function fileUpload(paramObj) {
  * fileNameList: [{columnName: '', fileUrl: ''}, {} ...] / {{columnName1: fileUrl1}, {}, ...}
  * objType: array, json
 */
-function uploadFileNameList (paramObjList, objType) {
+function uploadFileNameList(paramObjList, objType, ele) {
   var objType = objType || "array";
+  var ele = ele || null;
   return new Promise(function (resolve, reject) {
     let promiseArr = [];
     for (let i = 0; i < paramObjList.length; i++) {
-      let promise = fileUpload(paramObjList[i]);
+      let promise = fileUpload(paramObjList[i], ele);
       promiseArr.push(promise);
     }
     Promise.all(promiseArr).then(res => {
@@ -70,4 +87,5 @@ function uploadFileNameList (paramObjList, objType) {
 module.exports = {
   fileUpload: fileUpload,
   uploadFileNameList: uploadFileNameList,
+  uploadObj: uploadObj,
 }
