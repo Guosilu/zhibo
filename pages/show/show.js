@@ -1,4 +1,6 @@
-
+const app = getApp();
+const config = require('../../config/config.js');
+const commonFun = require("../../js/commonFun.js");
 function getRandomColor() {
   let rgb = []
   for (let i = 0; i < 3; ++i) {
@@ -10,9 +12,10 @@ function getRandomColor() {
 }
 
 Page({
-inputValue: '',
   data: {
-  src: '',
+    detail: {},
+    inputValue: '',
+    src: '',
     danmuList: [
       {
         text: '第 1s 出现的弹幕',
@@ -23,14 +26,56 @@ inputValue: '',
         text: '第 3s 出现的弹幕',
         color: '#ff00ff',
         time: 3
-      }]
-},
+      }
+    ]
+  },
+
+  //详情
+  getDetail: function (itemid) {
+    let that = this;
+    let dataObj = {
+      url: config.videoUrl,
+      data: {
+        action: 'detail',
+        post: {
+          itemid: itemid,
+        },
+      }
+    }
+    commonFun.request(dataObj).then(res => {
+      wx.hideLoading();
+      console.log(res);
+      that.setData({
+        detail: res,
+      })
+    });
+  },
+
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.showLoading('正在加载...');
+    let itemid = options.itemid
+    this.getDetail(itemid);
+    console.log(itemid);
   },
 
 

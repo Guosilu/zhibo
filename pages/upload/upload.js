@@ -138,7 +138,7 @@ Page({
           if (res > 0) {
             wx.hideLoading();
             //that.showTip('提交完成!');
-            this.showLoading('提交完成...', true)
+            that.showLoading('提交完成...', true)
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/my/my'
@@ -148,13 +148,13 @@ Page({
         });
 
       } else if (uploadStatus > 0 && uploadStatus < res.length) {
-        this.setData({
+        that.setData({
           submitDisabled: false,
         })
         that.showTip("文件上传不完整!");
 
       } else if (uploadStatus == 0) {
-        this.setData({
+        that.setData({
           submitDisabled: false,
         })
         that.showTip("文件上传失败!");
