@@ -12,23 +12,20 @@
 .topTabSwiper:after{content: ""; clear: both;display: block;}
 .tabBorer{border-bottom: 6rpx solid orange; color: orange;}
 .swiper{width: 100%;}
-.swiper_con{ width: 100%;
- height: 100%;
-  overflow: hidden;padding: 0 10rpx;box-sizing: border-box;}
-
-.hezi1 image{
-background-color:#f0f0f0;
-height:240rpx;
-width:100%;
-border-bottom-left-radius: 10rpx;
-border-bottom-right-radius: 10rpx;
-border-top-left-radius: 10rpx;
-border-top-right-radius: 10rpx;
-margin:0;
-margin-top:26rpx;
-
+.swiper_con{ 
+  width: 100%;
+  height: 100%;
+  overflow: hidden;padding: 0 10rpx;box-sizing: border-box;
 }
-
+.hezi1 image{
+  background-color:#f0f0f0;
+  height:240rpx;width:100%;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  margin:0;
+}
 .wenzi1{
   font-size:26rpx;
   margin-left: 10rpx;
@@ -38,29 +35,30 @@ margin-top:26rpx;
   color:#5e5e5e
 }
 .tm{
-  width: 50%;float: left;padding: 10rpx;box-sizing: border-box;
+  width: 47%;float: left;
+  box-sizing: border-box;overflow: hidden;
+  margin: 26rpx 10rpx 0;border-radius: 10px;
+  box-shadow: 0px 0px 10px 1px #ddd;
 }
 .tm:nth-child(even){
   float: right;
 }
-.tm,.tm2{overflow: hidden;}
+.tm2{
+  box-shadow: 0px 0px 10px 1px #ddd;border-radius: 10px;margin: 20rpx 0;overflow: hidden;
+}
 .hezi2{
   background-color:#000;
-  height:110rpx;
-  width:110rpx;
+  height:110rpx;width:110rpx;
   border-bottom-left-radius: 10rpx;
   border-bottom-right-radius: 10rpx;
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
-  margin-left: 30rpx;
-  margin-top: 26rpx;
-  float: left
+  margin: 15rpx;float: left
 }
-
 .wenzi2{
- margin-top: 30rpx;
- margin-left: 26rpx;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
- font-size: 32rpx;float: left;
+  margin: 15rpx 0;
+  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+  font-size: 32rpx;float: left;
 }
 .wztop{
   white-space: nowrap;overflow: hidden;text-overflow: ellipsis;

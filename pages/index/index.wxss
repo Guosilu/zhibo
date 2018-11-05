@@ -32,9 +32,12 @@
 .rm-det{
   width: 340rpx;
   float: left;overflow: hidden;
-  height: 440rpx;margin-top: 20rpx;
+  height: 440rpx;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px #ddd;
+}
+.rm-det:nth-child(1),.rm-det:nth-child(2){
+  margin-bottom: 20rpx;
 }
 .rm-det:nth-child(even){
   float: right;
