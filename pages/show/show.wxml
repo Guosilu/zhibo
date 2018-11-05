@@ -1,13 +1,8 @@
 <view class="section tc">
-  <video id="myVideo" src="{{detail.video}}"
-    danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
-  <view class="btn-area">
-
-  </view>
+  <video id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  <view class="btn-area"></view>
 </view>
-
 <!-- 评论 -->
-
 <view class="tool">
   <view class='videotit'>{{detail.title}}</view> 
   <view class="tool-item">
@@ -15,14 +10,11 @@
     <text>{{detail.nickName ? detail.nickName : "管理员"}}</text>
   </view>
 </view>
-
-
 <view class="comment_release">
   <view class="left">
     <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="写评论" />
     <view class="line" />
   </view>
   <!-- <button form-type="submit" class="submit">发送</button> -->
-  <button bindtap="bindSendDanmu" class='submit'>发送弹幕</button>
-
+    <button bindtap="bindSendDanmu" class='submit'>发送弹幕</button>
 </view>

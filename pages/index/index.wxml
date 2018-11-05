@@ -1,66 +1,63 @@
 <!--index.wxml-->
 <view class='container' wx:if='{{loadingComplate}}'>
-<!--<view class='main serch'>
-  <view class='search'>
-    <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
-    <view id='search'>搜索</view>
+  <!--<view class='main serch'>
+    <view class='search'>
+      <input type='text' placeholder='搜索课程或讲师'id='sousuo'></input>
+      <view id='search'>搜索</view>
+    </view>
   </view>
-</view>
   <view class='index-nav'>
-    <view>教育</view><view>军事</view><view>音乐</view><view>游戏</view><view>娱乐</view><view>新闻</view><view>搞笑</view><view>更多</view>
-  </view>
--->
-<view class='main'>
-  <view class='jy-title'>
-    <view class='jy-tit-l'>正在直播</view>
-    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
-  </view>
-  <view class='bt-list'>
-    <view class='bt-det' wx:key="*this" wx:for="{{allList.startTimeList}}">
-      <navigator url='../player/player?id={{item.openId}}'>
-        <view class='bt-img'>
-          <image src="{{item.avatarUrl}}"></image>
-        </view>
-        <view class='bt-txt'>
-          <text class='bt-txt-tit'>{{item.roomName}}</text>
-          <text class='bt-txt-con'>{{item.roomIntroduce}}</text>
-          <text class='bt-txt-btn'>了解详情</text>
-          <text class='bt-txt-btn'>{{item.nickName}}</text>
-        </view>
-      </navigator>
+    <view>教育</view><view>军事</view><view>音乐</view><view>游戏</view><view>娱乐</view><view>新闻</view><view>搞笑</view><view>更多   </view>
+  </view>-->
+  <view class='main'>
+    <view class='jy-title'>
+      <view class='jy-tit-l'>正在直播</view>
+      <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
     </view>
-    
-  </view>
-</view>
-<view class='main'>
-  <view class='jy-title'>
-    <view class='jy-tit-l'>热门直播</view>
-    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
-  </view>
-  <view class='bt-list'>
-    <view class='rm-det' wx:key="*this" wx:for="{{allList.hotList}}">
-      <navigator url='../player/player?id={{item.openId}}'>
-        <image class='rm-img' src='{{item.avatarUrl}}'></image>
-        <text class='rm-txt-tit'>{{item.nickName}}</text>
-        <text class='rm-txt-con'>{{item.roomName}}</text>
-      </navigator>
+    <view class='bt-list'>
+      <view class='bt-det' wx:key="*this" wx:for="{{allList.startTimeList}}">
+        <navigator url='../player/player?id={{item.openId}}'>
+          <view class='bt-img'>
+            <image src="{{item.avatarUrl}}"></image>
+          </view>
+          <view class='bt-txt'>
+            <text class='bt-txt-tit'>{{item.roomName}}</text>
+            <text class='bt-txt-con'>{{item.roomIntroduce}}</text>
+            <text class='bt-txt-btn'>了解详情</text>
+            <text class='bt-txt-btn'>{{item.nickName}}</text>
+          </view>
+        </navigator>
+      </view>    
     </view>
   </view>
-</view>
-<view class='main'>
-  <view class='jy-title'>
-    <view class='jy-tit-l'>视频中心</view>
-    <navigator url='../list/list?type={{video}}' class='jy-tit-m'>更多></navigator>
-  </view>
-  <view class='bt-list'>
-    <view class='zj-det' wx:key="*this" wx:for="{{allList.videoList}}">
-      <navigator url='../show/show?itemid={{item.itemid}}'>
-        <image class='zj-img' src='{{item.thumb}}'></image>
-        <text class='zj-txt-name'>{{item.title}}</text>
-        <text class='zj-txt-con'>{{item.introduce}}</text>
-      </navigator>
+  <view class='main'>
+    <view class='jy-title'>
+      <view class='jy-tit-l'>热门直播</view>
+      <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
+    </view>
+    <view class='bt-list'>
+      <view class='rm-det' wx:key="*this" wx:for="{{allList.hotList}}">
+        <navigator url='../player/player?id={{item.openId}}'>
+          <image class='rm-img' src='{{item.avatarUrl}}'></image>
+          <text class='rm-txt-tit'>{{item.nickName}}</text>
+          <text class='rm-txt-con'>{{item.roomName}}</text>
+        </navigator>
+      </view>
     </view>
   </view>
-</view>
-
+  <view class='main'>
+    <view class='jy-title'>
+      <view class='jy-tit-l'>视频中心</view>
+      <navigator url='../list/list?type={{video}}' class='jy-tit-m'>更多></navigator>
+    </view>
+    <view class='bt-list'>
+      <view class='zj-det' wx:key="*this" wx:for="{{allList.videoList}}">
+        <navigator url='../show/show?itemid={{item.itemid}}'>
+          <image class='zj-img' src='{{item.thumb}}'></image>
+          <text class='zj-txt-name'>{{item.title}}</text>
+          <!-- <text class='zj-txt-con'>{{item.introduce}}</text> -->
+        </navigator>
+      </view>
+    </view>
+  </view>
 </view>

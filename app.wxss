@@ -1,22 +1,20 @@
 /**app.wxss**/
-
 .container {
   
 } 
 .main{
-  box-sizing: border-box;padding: 20rpx;overflow: hidden;
+  box-sizing: border-box;padding:20rpx 20rpx 0;overflow: hidden;
 }
 .jy-title{
   width: 100%;overflow: hidden;box-sizing: border-box;
   margin: 10px auto;
-
 }
 .jy-tit-l{
   border-left: 5rpx solid orange;font-size:32rpx;
   padding-left: 20rpx;float: left;font-weight: bold;
 }
 .jy-tit-m{
-  float: right;font-size:32rpx;
+  float: right;font-size:32rpx;font-weight: bold;
 }
 .search{
   width: 100%;overflow: hidden;background: #fff;border-radius: 20rpx;

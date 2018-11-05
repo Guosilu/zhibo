@@ -4,14 +4,11 @@
   height: 100%;
   width: 100%;
 }
-
 .section video{
-  /* border: 1px solid red; */
-  /* margin-top: 100rpx; */
   width: 100%;
 } 
 .vbox video{
-width: 100%;
+  width: 100%;
 }
 
 /* 评论 */
@@ -22,9 +19,7 @@ width: 100%;
   justify-content: space-between; 
   box-sizing: border-box;
   position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  left: 0;bottom: 0;width: 100%;
   padding: 8px 0 8px 13px;
   background-color: #ffffff;
   font-size: 12px;
@@ -49,34 +44,25 @@ width: 100%;
 }
 /*线*/
 .comment_release .line{
-margin-bottom: 0 ;
-width: 222px;
-height: 1rpx;
-background-color: #4B5CD7;
+  margin-bottom: 0 ;
+  width: 222px;height: 1rpx;
+  background-color: #4B5CD7;
 }
 /*表情图标*/
 .comment_release .emoji{
-  width: 24px;
-  height: 24px;
-  line-height: 27px;
-  margin-right: 5px;
+  width: 24px;height: 24px;
+  line-height: 27px;margin-right: 5px;
   margin-left: 5px;
 }
 /*发送按钮*/
 .comment_release .submit{ 
-  width: 60px;
-  height: 27px;
-  line-height: 27px;
-  text-align: center;
-  margin-right: 10px;
-  background-color: #4B5CD7;
-  color: #ffffff;
-  font-size: 12px;
+  width: 60px;height: 27px;
+  line-height: 27px;text-align: center;
+  margin-right: 10px;background-color: #4B5CD7;
+  color: #ffffff;font-size: 12px;
 }
- 
 .tool{
-  text-align: left;
-  line-height: 50rpx;
+  text-align: left;line-height: 50rpx;
   margin:10rpx 0;
 }
 .videotit{

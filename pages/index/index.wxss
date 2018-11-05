@@ -1,6 +1,6 @@
 /**index.wxss**/
 .bt-det{
-  overflow: hidden;
+  overflow: hidden;box-shadow: 0px 0px 10px 0px #ddd;margin: 20rpx 0;border-radius: 5px;
 }
 .bt-img{
   float: left;width:  150rpx;
@@ -11,9 +11,8 @@
   width: 100%;height: 150rpx;
 }
 .bt-txt{
-  float: left;
+  float: left;width: 75%;
   /* width: 60%; */
-  width: 75%;
 }
 .bt-txt-tit{
   white-space: nowrap;font-size: 28rpx;
@@ -33,9 +32,9 @@
 .rm-det{
   width: 340rpx;
   float: left;overflow: hidden;
-  height: 440rpx;margin-bottom: 30rpx;
-  border-radius: 10rpx;
-  box-shadow: 1rpx 4rpx 6rpx #ddd;
+  height: 440rpx;margin-top: 20rpx;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px #ddd;
 }
 .rm-det:nth-child(even){
   float: right;
@@ -61,7 +60,7 @@
   display: block;
 }
 .zj-txt-name{
-  font-size: 28rpx;font-weight: bold;
+  font-size: 28rpx;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
 }
 .zj-txt-con{
   font-size: 24rpx;
