@@ -1,10 +1,10 @@
 
 //实例化upload对象
-function upload() {
+function upload(ele) {
   /**
    * ele: 页面元素对象
   */
-  this.ele = null;
+  this.ele = ele || null;
   this.task = [];
   /** 
    * 单文件上传
@@ -80,12 +80,10 @@ function upload() {
    * fileNameList: [{columnName: '', fileUrl: ''}, {} ...] / {{columnName1: fileUrl1}, {}, ...}
    * objType: array, json
   */
-  this.uploadFileNameList = function (paramObjList, objType, ele) {
+  this.uploadFileNameList = function (paramObjList, objType) {
     var that = this;
     this.task = [];
-    //var objType = objType || "array";
-    var ele = ele || null;
-    this.ele = ele;
+    var objType = objType || "array";
     return new Promise(function (resolve, reject) {
       let promiseArr = [];
       for (let i = 0; i < paramObjList.length; i++) {

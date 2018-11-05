@@ -2,7 +2,7 @@ const app = getApp();
 const config = require('../../config/config.js');
 const commonFun = require("../../js/commonFun.js");
 const uploadObjFile = new require("../../js/uploadObj.js");
-const uploadObj = new uploadObjFile.upload();
+//const uploadObj = new uploadObjFile.upload();
 Page({
 
   /**
@@ -38,7 +38,7 @@ Page({
 
   //选择图片
   chooseImage: function () {
-    let that = this;
+    var that = this;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -54,7 +54,7 @@ Page({
 
   //选择视频
   chooseVideo: function () {
-    let that = this;
+    var that = this;
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 60,
@@ -71,8 +71,8 @@ Page({
 
   //上传文件参数配置
   fileParamConfig: function () {
-    let paramObjList = [];
-    let thumbPatamObj = {
+    var paramObjList = [];
+    var thumbPatamObj = {
       url: config.uploadUrl,
       filePath: this.data.imagePath,
       columnName: 'thumb',
@@ -81,7 +81,7 @@ Page({
         action: 'upload',
       }
     };
-    let videoPatamObj = {
+    var videoPatamObj = {
       url: config.uploadUrl,
       filePath: this.data.videoPath,
       columnName: 'video',
@@ -100,22 +100,27 @@ Page({
     this.setData({
       submitDisabled: true,
     })
-    let that = this;
-    let submitVal = e.detail.value;
-    let post = submitVal;
-    let paramObjList = this.fileParamConfig();
+    var that = this;
+    var submitVal = e.detail.value;
+    var post = submitVal;
+    var paramObjList = this.fileParamConfig();
+    var uploadObj = new uploadObjFile.upload(this);
     //表单验证
-    if (!this.submitCheck(submitVal)) return false;
+    if (!this.submitCheck(submitVal)) {
+      this.setData({
+        submitDisabled: false,
+      })
+      return false;
+    }
 
     post['openId'] = app.globalData.openId;
     this.showLoading('正在上传文件...');
-    uploadObj.uploadFileNameList(paramObjList, "array", this).then(res => {
-      
+    uploadObj.uploadFileNameList(paramObjList, "array").then(res => {
       that.setData({
         uploadProgress: {},
         showUploadProgress: false,
       })
-      let uploadStatus = 0;
+      var uploadStatus = 0;
       for (let i = 0; i < res.length; i++) {
         if (res[i].columnName && res[i].fileUrl) {
           post[res[i].columnName] = res[i].fileUrl;
@@ -125,7 +130,7 @@ Page({
       console.log(uploadStatus);
       console.log(res.length);
       if (uploadStatus == res.length) {
-        let dataObj = {
+        var dataObj = {
           url: config.videoUrl,
           data: {
             action: 'add',
@@ -241,7 +246,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this);
+    console.log(this.data.uploadObj);
   },
 
   /**
