@@ -2,16 +2,16 @@
 <form bindsubmit="formSubmit">
   <view>
     <view class='formtit'>基础设置</view>
-    <view class='setup'><text class='formname'>直播间名：</text><input placeholder='请输入您的直播间名称' name='roomName' value='{{roomName}}'></input></view>
-    <view><text>直播间介绍：</text><textarea placeholder='请输入您的直播介绍' value='{{roomIntroduce}}' name='roomIntroduce' class='textarea'></textarea></view>
-    <view class='setup'><text class='formname'>主播名：</text><input placeholder='请输入您的名字' value='{{anchorName}}' name='anchorName'></input></view>
-    <view><text>主播简介：</text><textarea placeholder='请输入您的详细介绍' value='{{anchorIntroduce}}'       name='anchorIntroduce' class='textarea'></textarea></view>
+    <view class='setup'><text class='bold'>直播间名：</text><input placeholder='请输入您的直播间名称' name='roomName' value='{{roomName}}'></input></view>
+    <view><text class='bold'>直播间介绍：</text><textarea placeholder='请输入您的直播介绍' value='{{roomIntroduce}}' name='roomIntroduce' class='textarea'></textarea></view>
+    <view class='setup'><text class='bold'>主播名：</text><input placeholder='请输入您的名字' value='{{anchorName}}' name='anchorName'></input></view>
+    <view><text class='bold'>主播简介：</text><textarea placeholder='请输入您的详细介绍' value='{{anchorIntroduce}}'       name='anchorIntroduce' class='textarea'></textarea></view>
   </view>
   <view>
     <view class='formtit'>高级设置</view>
 
     <view>
-      <text>画质选择：</text>
+      <text class='bold'>画质选择：</text>
       <radio-group name='mode'>
         <label class="radio quality" wx:key="*this" wx:for="{{mode}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
@@ -39,7 +39,7 @@
     </view>
 
     <view>
-      <text>方向：</text>
+      <text class='bold'>方向：</text>
       <radio-group name='orientation' class='column'>
         <label class="radio" wx:key="*this" wx:for="{{orientation}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
@@ -48,21 +48,21 @@
     </view>
 
     <view>
-      <text>美颜：</text>
+      <text class='bold'>美颜：</text>
       <view class="body-view">
         <slider step="0.1" max='10' name='beauty' value="{{beauty}}" show-value='true'/>
       </view>
     </view>
 
     <view>
-     <text>美白：</text>
+     <text class='bold'>美白：</text>
       <view class="body-view">
         <slider step="0.1" max='10' name='whiteness' value="{{whiteness}}" show-value='true'/>
       </view>
     </view>
 
     <view>
-      <text>宽高比：</text>
+      <text class='bold'>宽高比：</text>
       <radio-group name='aspect' class='column'>
         <label class="radio" wx:key="*this" wx:for="{{aspect}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
@@ -71,14 +71,14 @@
     </view>
 
     <view>
-     <text>最小码率：</text>
+     <text class='bold'>最小码率：</text>
       <view class="body-view">
         <slider step="1" max='1000' disabled='true' name='min_bitrate' value="{{min_bitrate?min_bitrate:200}}" show-value='true'/>
       </view>
     </view>
 
     <view>
-     <text>最大码率：</text>
+     <text class='bold'>最大码率：</text>
       <view class="body-view">
         <slider step="1" max='2000'disabled='true' name='max_bitrate' value="{{max_bitrate?max_bitrate:1000}}" show-value='true'/>
       </view>
@@ -86,10 +86,10 @@
     <!-- 进入后台时推流的等待画面 -->
     <!-- 等待画面资源的MD5值 -->
     
-    <view><text>调整焦距：</text><switch checked='{{zoom}}' name='zoom'/></view>
+    <view><text class='bold'>调整焦距：</text><switch checked='{{zoom}}' name='zoom'/></view>
     
     <view>
-      <text>前置或后置：</text>
+      <text class='bold'>前置或后置：</text>
       <radio-group name='device_position' class='column'>
         <label class="radio" wx:key="*this" wx:for="{{device_position}}">
           {{item.value}}<radio value="{{item.name}}" checked="{{item.checked}}"/>
@@ -97,7 +97,7 @@
       </radio-group>
     </view> 
 
-    <view><text>进入后台时是否静音：</text><switch checked='{{background_mute}}' name='background_mute'/></view>
+    <view><text class='bold'>进入后台时是否静音：</text><switch checked='{{background_mute}}' name='background_mute'/></view>
 
   </view>
   <button formType="submit" class='submit'>提交</button>

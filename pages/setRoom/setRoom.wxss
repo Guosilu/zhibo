@@ -1,12 +1,12 @@
 /* pages/setRoom/setRoom.wxss */
 .setform{
-  padding: 0 20rpx;font-size: 32rpx;
+  padding: 0 20rpx;font-size: 24rpx;
 }
 .formtit{
   text-indent: 20rpx;border-left: 5rpx solid orange;font-size:32rpx;font-weight: bold;margin: 20rpx 0;
 }
 .formname{
-  float: left;line-height: 52rpx;
+  float: left;line-height: 52rpx;font-weight: bold;
 }
 .textarea{
   width: 100%;padding: 10rpx;box-sizing: border-box;height: 100px;
@@ -28,4 +28,7 @@
 }
 .setup{
   overflow: hidden;margin: 10rpx 0;
+}
+.bold{
+  font-weight: bold;
 }

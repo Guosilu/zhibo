@@ -8,7 +8,7 @@
 <view class='mymsg'>
   <view class='bcom' bindtap='gotozb'><text>我的直播间</text> <view> > </view> </view>
   <view class='bcom'><navigator url='../setRoom/setRoom?id={{item.openId}}'><text>直播设置</text> <view> > </view>  </navigator></view>
-  <view class='bcom'><navigator url=''><text>我的购买</text> <view> > </view>  </navigator></view>
+  <view class='bcom'><navigator url='../buy/buy'><text>我的购买</text> <view> > </view>  </navigator></view>
   <view class='bcom'><navigator url='../upload/upload'><text>上传视频</text> <view> > </view> </navigator></view>
   <!-- <view class='rcord'>浏览记录</view>
   <view class='rclist'>
