@@ -1,9 +1,8 @@
 <view class="photo-add">
     <form bindsubmit="formSubmit">
     <view class="select-album">
-        <view class="title">请选择分类</view>
         <picker name='catid' bindchange="bindPickerChange" value="{{catList[catIndex].catid}}" range="{{catList}}" range-key="name">
-            <view class="picker">当前选择：{{catList[catIndex].name}}</view>
+            <view class="picker">分类：{{catList[catIndex].name}}</view>
         </picker>
     </view>
     <view class="desc">
@@ -18,20 +17,20 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">点击可预览选好的图片</view>
+              <view class="weui-uploader__title">封面图片</view>
               <view class="weui-uploader__info"></view>
             </view>
-            <view class="weui-uploader__bd">
+            <view class="weui-uploader__bd item">
               <view class="weui-uploader__files">
                   <view class="weui-uploader__file">
-                    <image class="weui-uploader__img" src="{{imagePath}}" data-src="{{imagePath}}" bindtap="previewImage"></image>
+                    <image class="weui-uploader__img itemImg" src="{{imagePath}}" data-src="{{imagePath}}" bindtap="previewImage"></image>
                   </view>
-              </view>
-               <view wx:if='{{imagePath}}'>
-                <view bindtap='deleteImage'>删除</view>
-              </view>
-              <view class="weui-uploader__input-box" wx:else>
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  <view wx:if='{{imagePath}}'>
+                    <view bindtap='deleteImage' class='delete'>X</view>
+                  </view>
+                  <view class="weui-uploader__input-box itemImg" wx:else>
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
               </view>
             </view>
           </view>
