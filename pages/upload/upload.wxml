@@ -46,10 +46,22 @@
     <view class="add-video">
     	<text bindtap="{{videoPath ? 'deleteVideo' : 'chooseVideo'}}" style="color:blue;">{{videoPath ? '删除视频' : '选择或拍摄视频'}}</text>
     </view>
-    
-    
+    <block wx:if='{{showUploadProgress}}'>
+      <view class="btn-box">
+          图片{{uploadProgress.thumb.progress}}%, 视频{{uploadProgress.video.progress}}%
+      </view>
+      <view class="btn-box">
+          图片{{uploadProgress.thumb.totalBytesSent}}M, 视频{{uploadProgress.video.totalBytesSent}}M
+      </view>
+      <view class="btn-box">
+          图片{{uploadProgress.thumb.totalBytesExpectedToSend}}M, 视频{{uploadProgress.video.totalBytesExpectedToSend}}M
+      </view>
+      <view class="btn-box">
+          <button type='button' bindtap='stopTask' size="default">取消上传</button>
+      </view>
+    </block>
     <view class="btn-box">
-        <button type='primary' formType="submit" size="default">提交</button>
+        <button type='primary' disabled='{{submitDisabled}}' formType="submit" size="default">提交</button>
     </view>
     </form>
 </view>

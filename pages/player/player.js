@@ -1,5 +1,5 @@
 const config = require("../../config/config.js");
-const configCol = require("../../config/collect.js");
+const collectFun = require("../../js/collectFun.js");
 const app = getApp();
 Page({
   data: {
@@ -31,6 +31,7 @@ Page({
     this.history(options.id);
     console.log("rtmp://118.190.98.53:1935/live/" + options.id)
   },
+
   //足迹
   history: function (id) {
     var that = this;
@@ -41,10 +42,11 @@ Page({
         openId: app.globalData.openId
       }
     }
-    configCol.requestFun(configCol.playerUrl, param).then(function (data) {
+    collectFun.collect(config.playerUrl, param).then(function (data) {
       console.log(data);
     });
   },
+  
   //关注
   is_collect: function (id) {
     var that = this;
@@ -55,22 +57,24 @@ Page({
         openId: app.globalData.openId
       }
     }
-    configCol.requestFun(configCol.playerUrl, param).then(function (data) {
+    collectFun.collect(config.playerUrl, param).then(function (data) {
       that.setData({
         collect_status: data
       })
     });
   },
+
   //关注
   collect: function () {
-    this.collectFun('add');
+    this.collectFunPart('add');
   },
   //关注
   collect_cancel: function () {
-    this.collectFun('minus');
+    this.collectFunPart('minus');
   },
+
   //关注
-  collectFun: function (act) {
+  collectFunPart: function (act) {
     var that = this, collect_status, confirm, tipTitle;
     if (this.data.id == app.globalData.openId) {
       wx.showToast({
@@ -96,7 +100,7 @@ Page({
       confirm = 1;
       tipTitle = '已取消！';
     }
-    configCol.requestFun(configCol.playerUrl, param, confirm).then(function (data) {
+    collectFun.collect(config.playerUrl, param, confirm).then(function (data) {
       if (data.success == 1) {
         that.setData({
           collect_status: collect_status,
@@ -108,6 +112,7 @@ Page({
       }
     });
   },
+  
   //
   onScanQR: function () {
     this.stop();

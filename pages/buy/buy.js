@@ -1,6 +1,6 @@
 const config = require('../../config/config.js');
-const configCol = require("../../config/collect.js");
-const common = require("../../js/common.js");
+const collectFun = require("../../js/collectFun.js");
+const commonFun = require("../../js/commonFun.js");
 const app = getApp();
 Page({
 
@@ -20,7 +20,7 @@ Page({
     let dataObjList = [
       {
         name: 'collectList',
-        url: configCol.collectUrl,
+        url: config.collectUrl,
         data: {
           action: 'list',
           post: {
@@ -30,7 +30,7 @@ Page({
       },
       {
         name: 'historyList',
-        url: configCol.collectUrl,
+        url: config.collectUrl,
         data: {
           action: 'history',
           post: {
@@ -40,7 +40,7 @@ Page({
       }
     ]
     let that = this;
-    common.getList(dataObjList).then(function (res) {
+    commonFun.getList(dataObjList).then(function (res) {
       that.setData({
         allList: res
       });

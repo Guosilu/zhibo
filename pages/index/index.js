@@ -1,5 +1,5 @@
 const config = require("../../config/config.js");
-const common = require("../../js/common.js");
+const commonFun = require("../../js/commonFun.js");
 Page({
   /**
    * 页面的初始数据
@@ -34,14 +34,14 @@ Page({
         }
       },
       {
-        name: 'newList',
-        url: config.coreUrl + 'getRoom.php',
+        name: 'videoList',
+        url: config.videoUrl,
         data: {
-          action: "list", order: '`createTime` DESC', pagesize: 3,
+          action: "list", pagesize: 3,
         }
       }
     ];
-    common.getList(dataObjList).then(function (res) {
+    commonFun.getList(dataObjList).then(function (res) {
       that.setData({
         allList: res
       });

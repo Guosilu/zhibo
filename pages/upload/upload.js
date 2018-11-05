@@ -1,7 +1,8 @@
-const config = require('../../config/config.js');
-const common = require("../../js/common.js");
-const uploadFun = require("../../js/uploadFun.js");
 const app = getApp();
+const config = require('../../config/config.js');
+const commonFun = require("../../js/commonFun.js");
+const uploadObjFile = new require("../../js/uploadObj.js");
+//const uploadObj = new uploadObjFile.upload();
 Page({
 
   /**
@@ -19,11 +20,25 @@ Page({
     videoPath: '',
     videoSize: '',
     catIndex: 0,
+    uploadProgress: {},//上传进度
+    showUploadProgress: false,
+    submitDisabled: false,
   },
 
-  //上传图片
+  //取消上传任务
+  stopTask: function() {
+    //console.log(JSON.stringify(this.data.uploadProgress));
+    this.setData({
+      uploadProgress: {},
+      showUploadProgress: false,
+      submitDisabled: false,
+    });
+    uploadObj.stopTask();
+  },
+
+  //选择图片
   chooseImage: function () {
-    let that = this;
+    var that = this;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -36,9 +51,10 @@ Page({
       }
     })
   },
-  //选择 / 拍摄视频
+
+  //选择视频
   chooseVideo: function () {
-    let that = this;
+    var that = this;
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 60,
@@ -53,9 +69,10 @@ Page({
     })
   },
 
+  //上传文件参数配置
   fileParamConfig: function () {
-    let paramObjList = [];
-    let thumbPatamObj = {
+    var paramObjList = [];
+    var thumbPatamObj = {
       url: config.uploadUrl,
       filePath: this.data.imagePath,
       columnName: 'thumb',
@@ -64,7 +81,7 @@ Page({
         action: 'upload',
       }
     };
-    let videoPatamObj = {
+    var videoPatamObj = {
       url: config.uploadUrl,
       filePath: this.data.videoPath,
       columnName: 'video',
@@ -78,57 +95,80 @@ Page({
     return paramObjList;
   },
 
-  uploadVideo: function () {
-    let paramObj = {
-      url: config.uploadUrl,
-      filePath: this.data.videoPath,
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    }
-    uploadFun.fileUpload(paramObj).then(function (res) {
-      console.log(res);
-    });
-  },
-
   //表单提交
   formSubmit: function (e) {
-    let that = this;
-    let submitVal = e.detail.value;
-    let post = submitVal;
-    let paramObjList = this.fileParamConfig();
-    if (!this.submitCheck(submitVal)) return false;
+    this.setData({
+      submitDisabled: true,
+    })
+    var that = this;
+    var submitVal = e.detail.value;
+    var post = submitVal;
+    var paramObjList = this.fileParamConfig();
+    var uploadObj = new uploadObjFile.upload(this);
+    //表单验证
+    if (!this.submitCheck(submitVal)) {
+      this.setData({
+        submitDisabled: false,
+      })
+      return false;
+    }
+
     post['openId'] = app.globalData.openId;
-    this.showLoading('正在上传文件...')
-    uploadFun.uploadFileNameList(paramObjList).then(res => {
+    this.showLoading('正在上传文件...');
+    uploadObj.uploadFileNameList(paramObjList, "array").then(res => {
+      that.setData({
+        uploadProgress: {},
+        showUploadProgress: false,
+      })
+      var uploadStatus = 0;
       for (let i = 0; i < res.length; i++) {
-        post[res[i].columnName] = res[i].fileUrl
-      }
-      let dataObj = {
-        url: config.videoUrl,
-        data: {
-          action: 'add',
-          post: post,
+        if (res[i].columnName && res[i].fileUrl) {
+          post[res[i].columnName] = res[i].fileUrl;
+          uploadStatus += 1;
         }
       }
-      wx.hideLoading();
-      this.showLoading('正在提交数据...')
-      common.requestFun(dataObj).then(res=>{
-        if(res > 0) {
-          wx.hideLoading();
-          //that.showTip('提交完成!');
-          this.showLoading('提交完成...')
-          setTimeout(function(){
-            wx.switchTab({
-              url: '/pages/my/my'
-            })
-          },1000)
+      console.log(uploadStatus);
+      console.log(res.length);
+      if (uploadStatus == res.length) {
+        var dataObj = {
+          url: config.videoUrl,
+          data: {
+            action: 'add',
+            post: post,
+          }
         }
-      });
+        wx.hideLoading();
+        that.showLoading('正在提交数据...', true)
+        commonFun.request(dataObj).then(res => {
+          if (res > 0) {
+            wx.hideLoading();
+            //that.showTip('提交完成!');
+            that.showLoading('提交完成...', true)
+            setTimeout(function () {
+              wx.switchTab({
+                url: '/pages/my/my'
+              })
+            }, 1000)
+          }
+        });
+
+      } else if (uploadStatus > 0 && uploadStatus < res.length) {
+        that.setData({
+          submitDisabled: false,
+        })
+        that.showTip("文件上传不完整!");
+
+      } else if (uploadStatus == 0) {
+        that.setData({
+          submitDisabled: false,
+        })
+        that.showTip("文件上传失败!");
+
+      }
     })
   },
 
+  //验证表单
   submitCheck: function (submitVal) {
     if (submitVal.catid < 1) {
       this.showTip('请选择分类');
@@ -146,13 +186,14 @@ Page({
       this.showTip('请录制或选择一个小视频');
       return false;
     }
-    if (parseFloat(this.data.videoSize) > 20) {
+    if (parseFloat(this.data.videoSize) > 100) {
       this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
       return false;
     }
     return true;
   },
   
+  //提示方法
   showTip: function (msg) {
     wx.showToast({
       icon: 'none',
@@ -160,12 +201,16 @@ Page({
     })
   },
 
-  showLoading: function (msg) {
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
     wx.showLoading({
+      mask: mask,
       title: msg,
     })
   },
 
+  //删除图片
   deleteImage: function () {
     this.setData({
       imagePath: '',
@@ -173,6 +218,7 @@ Page({
     })
   },
 
+  //删除视频
   deleteVideo: function () {
     this.setData({
       videoPath: '',
@@ -180,6 +226,7 @@ Page({
     })
   },
 
+  //图片预览
   previewImage: function (e) {
     var image = e.target.dataset.src
     wx.previewImage({
@@ -188,16 +235,18 @@ Page({
     })
   },
 
+  //选择
   bindPickerChange: function (e) {
     this.setData({
       catIndex: e.detail.value
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(this.data.uploadObj);
   },
 
   /**

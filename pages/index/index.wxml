@@ -47,20 +47,20 @@
     </view>
   </view>
 </view>
-<!-- <view class='main'>
+<view class='main'>
   <view class='jy-title'>
-    <view class='jy-tit-l'>新人主播</view>
-    <navigator url='../5/5' class='jy-tit-m'>更多></navigator>
+    <view class='jy-tit-l'>视频中心</view>
+    <navigator url='../list/list?type={{video}}' class='jy-tit-m'>更多></navigator>
   </view>
   <view class='bt-list'>
-    <view class='zj-det' wx:key="*this" wx:for="{{allList.newList}}">
-      <navigator url='../player/player?id={{item.openId}}'>
-        <image class='zj-img' src='{{item.avatarUrl}}'></image>
-        <text class='zj-txt-name'>{{item.nickName}}</text>
-        <text class='zj-txt-con'>{{item.roomName}}</text>
+    <view class='zj-det' wx:key="*this" wx:for="{{allList.videoList}}">
+      <navigator url='../show/show?itemid={{item.itemid}}'>
+        <image class='zj-img' src='{{item.thumb}}'></image>
+        <text class='zj-txt-name'>{{item.title}}</text>
+        <text class='zj-txt-con'>{{item.introduce}}</text>
       </navigator>
     </view>
   </view>
-</view> -->
+</view>
 
 </view>
