@@ -59,7 +59,7 @@ page {
   position:relative;
   margin:0 60rpx;box-sizing: border-box;
   height:400rpx;
-  border:2rpx solid #f9c4c2;
+  border:1rpx solid #D9D9D9;
   overflow:hidden;
 }
 .itemImg{
@@ -75,7 +75,6 @@ page {
   position:absolute;
   right:0;
   top:0;
-  /* background:#ccc; */
   opacity:1;
   height: 36rpx;
   font-size:22rpx;
@@ -84,12 +83,3 @@ page {
   color: #999;
   z-index: 9999;
 }
-
-
-
-
-
-
-
-
-
