@@ -1,8 +1,8 @@
 const app = getApp();
 const config = require('../../config/config.js');
 const commonFun = require("../../js/commonFun.js");
-const uploadObjFile = new require("../../js/uploadObj.js");
-//const uploadObj = new uploadObjFile.upload();
+const fileHandleObjFile = require("../../js/fileHandleObj.js");
+const fileHandleObj = new fileHandleObjFile.upload();  //实例化
 Page({
 
   /**
@@ -15,9 +15,9 @@ Page({
       { 'name': '新闻', 'catid': 5},
       { 'name': 'MV' , 'catid': 6},
     ],
-    imagePath: '',
-    imageSize: '',
-    videoPath: '',
+    thumbPath: [],
+    thumbSize: '',
+    videoPath: [],
     videoSize: '',
     catIndex: 0,
     uploadProgress: {},//上传进度
@@ -25,74 +25,11 @@ Page({
     submitDisabled: false,
   },
 
-  //取消上传任务
-  stopTask: function() {
-    //console.log(JSON.stringify(this.data.uploadProgress));
-    this.setData({
-      uploadProgress: {},
-      showUploadProgress: false,
-      submitDisabled: false,
-    });
-    uploadObj.stopTask();
-  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
 
-  //选择图片
-  chooseImage: function () {
-    var that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-        that.setData({
-          imagePath: res.tempFiles[0].path,
-          imageSize: res.tempFiles[0].size,
-        });
-      }
-    })
-  },
-
-  //选择视频
-  chooseVideo: function () {
-    var that = this;
-    wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      maxDuration: 60,
-      camera: 'back',
-      success(res) {
-        console.log(res)
-        that.setData({
-          videoPath: res.tempFilePath,
-          videoSize: (res.size / (1024 * 1024)).toFixed(2),
-        });
-      }
-    })
-  },
-
-  //上传文件参数配置
-  fileParamConfig: function () {
-    var paramObjList = [];
-    var thumbPatamObj = {
-      url: config.uploadUrl,
-      filePath: this.data.imagePath,
-      columnName: 'thumb',
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    };
-    var videoPatamObj = {
-      url: config.uploadUrl,
-      filePath: this.data.videoPath,
-      columnName: 'video',
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    };
-    paramObjList.push(thumbPatamObj); 
-    paramObjList.push(videoPatamObj);
-    return paramObjList;
   },
 
   //表单提交
@@ -103,8 +40,8 @@ Page({
     var that = this;
     var submitVal = e.detail.value;
     var post = submitVal;
-    var paramObjList = this.fileParamConfig();
-    var uploadObj = new uploadObjFile.upload(this);
+    fileHandleObj.ele = this;
+    fileHandleObj.fileObjList = this.fileParamConfig();
     //表单验证
     if (!this.submitCheck(submitVal)) {
       this.setData({
@@ -112,10 +49,9 @@ Page({
       })
       return false;
     }
-
     post['openId'] = app.globalData.openId;
     this.showLoading('正在上传文件...');
-    uploadObj.uploadFileNameList(paramObjList, "array").then(res => {
+    fileHandleObj.uploadFileNameList().then(res => {
       that.setData({
         uploadProgress: {},
         showUploadProgress: false,
@@ -168,6 +104,20 @@ Page({
     })
   },
 
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var fileObjList = [];
+    fileObjList.push({
+      filePath: this.data.thumbPath[0],
+      columnName: 'thumb',
+    });
+    fileObjList.push({
+      filePath: this.data.videoPath[0],
+      columnName: 'video',
+    });
+    return fileObjList;
+  },
+
   //验证表单
   submitCheck: function (submitVal) {
     if (submitVal.catid < 1) {
@@ -178,7 +128,7 @@ Page({
       this.showTip('请填写标题');
       return false;
     }
-    if (this.data.imagePath == '') {
+    if (this.data.thumbPath == '') {
       this.showTip('至少传一个图');
       return false;
     }
@@ -192,29 +142,49 @@ Page({
     }
     return true;
   },
-  
-  //提示方法
-  showTip: function (msg) {
-    wx.showToast({
-      icon: 'none',
-      title: msg,
+
+  //选择图片
+  chooseImage: function () {
+    var that = this;
+    var thumbPath = [];
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        that.setData({
+          thumbPath: thumbPath.concat(res.tempFiles[0].path),
+          thumbSize: res.tempFiles[0].size,
+        });
+      }
     })
   },
 
-  //加载方法
-  showLoading: function (msg, mask) {
-    var mask = mask || false;
-    wx.showLoading({
-      mask: mask,
-      title: msg,
+  //选择视频
+  chooseVideo: function () {
+    var that = this;
+    var thumbPath = [];
+    var videoPath = [];
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success(res) {
+        console.log(res)
+        that.setData({
+          thumbPath: thumbPath.concat(res.thumbTempFilePath),
+          videoPath: videoPath.concat(res.tempFilePath),
+          videoSize: (res.size / (1024 * 1024)).toFixed(2),
+        });
+      }
     })
   },
 
   //删除图片
   deleteImage: function () {
     this.setData({
-      imagePath: '',
-      imageSize: '',
+      thumbPath: '',
+      thumbSize: '',
     })
   },
 
@@ -224,6 +194,16 @@ Page({
       videoPath: '',
       videoSize: '',
     })
+  },
+
+  //取消上传任务
+  stopTask: function () {
+    this.setData({
+      uploadProgress: {},
+      showUploadProgress: false,
+      submitDisabled: false,
+    });
+    fileHandleObj.stopTask();
   },
 
   //图片预览
@@ -242,11 +222,21 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(this.data.uploadObj);
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
+    })
   },
 
   /**
