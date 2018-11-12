@@ -1,0 +1,58 @@
+<!--pages/publication/Publication.wxml-->
+<view wx:if="{{isLogin}}">
+  <block wx:if="{{pageDataLock}}">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="page__modules modules__shadow">
+      <input class="activityName" name='title' value='{{detail.title}}' placeholder="请填写作品名称"></input>
+      <view class="activityType">
+        <picker bindchange="bindAccountChange" name='type' value="{{detail.type}}" range="{{activityType}}">
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[detail.type]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="page__modules modules__shadow">
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传图片</view>
+                  <view class="weui-uploader__info">{{filePath.length}}/4</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{filePath}}" wx:key="*this">
+                      <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-index="{{index}}" binderror='imageError' />
+                        <view style='z-index: 999' data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
+                      </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box" wx:if="{{filePath.length < 4}}">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="page__modules modules__shadow">
+      <textarea name="introduce" placeholder="请填写作品说明" value="{{detail.introduce}}"></textarea>
+    </view>
+    <view style="overflow:hidden;">
+      <navigator url="" class="uploadRuler">
+        了解上传协议？
+      </navigator>
+    </view>
+    <view class="weui-btn-area">
+       <button class="weui-btn" type="warn" disabled='{{submitDisabled1}}' formType="submit">提交</button>
+    </view>
+  </form>
+  </block>
+</view>
+<view wx:else>未登录</view>
