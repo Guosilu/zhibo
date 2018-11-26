@@ -49,7 +49,7 @@
   border-radius: 10rpx;margin: 15rpx;float: left
 }
 .wenzi2{
-  margin: 15rpx 0;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+  margin: 12rpx 0;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
   font-size: 32rpx;float: left;
 }
 .wztop{
