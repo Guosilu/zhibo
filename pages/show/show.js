@@ -31,6 +31,19 @@ Page({
     ]
   },
 
+  //生命周期函数onReady
+  onReady: function (res) {
+    this.videoContext = wx.createVideoContext('myVideo');
+  },
+
+  //生命周期函数onLoad
+  onLoad: function (options) {
+    this.showLoading('正在加载...');
+    let itemid = options.itemid
+    this.getDetail(itemid);
+    console.log(itemid);
+  },
+
   //详情
   getDetail: function (itemid) {
     let that = this;
@@ -52,6 +65,57 @@ Page({
     });
   },
 
+  //提示支付
+  payTip: function (e) {
+    let currentTime = e.detail.currentTime;
+    if(currentTime > 5) {
+      this.videoContext.stop();
+      //this.videoContext.pause();
+      wx.showModal({
+        title: '进度条没了~',
+        content: '是否要付费观看？',
+        confirmText: "买吧",
+        cancelText: "算了",
+        success(res) {
+          if (res.confirm) {
+            console.log('支付成功')
+          } else if (res.cancel) {
+          }
+        }
+      })
+    }
+  },
+
+  //调起支付
+  wxPay: function () {
+    payFile.pay({
+      body: "山东正大视频消费",
+      total_fee: '1',
+      openId: app.globalData.openId,
+      onExec: (res) => {
+        if (res.errMsg == "requestPayment:ok") {
+          console.log("存储数据")
+        }
+      }
+    });
+  },
+
+  //支付成功后操作
+  addData: function () {
+    let dataObj = {
+      url: config.payApi,
+      data: {
+        action: "AddData",
+        "id": that.data.detail.id
+      }
+    }
+    commonFun.request(dataObjList).then(function (res) {
+      wx.showToast({
+        title: '赞赏成功！',
+      })
+    });
+  },
+  
   //提示方法
   showTip: function (msg) {
     wx.showToast({
@@ -69,43 +133,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.showLoading('正在加载...');
-    let itemid = options.itemid
-    this.getDetail(itemid);
-    console.log(itemid);
-  },
-
-  wxPay: function () {
-    payFile.pay({
-      body: "山东正大视频消费",
-      total_fee: '1',
-      openId: app.globalData.openId,
-      onExec: (res) => {
-        if (res.errMsg == "requestPayment:ok") {
-          console.log("存储数据")
-        }
-      } 
-    });
-  },
-
-  addData: function () {
-    let dataObj = {
-      url: config.payApi,
-      data: {
-        action: "AddData",
-        "id": that.data.detail.id
-      }
-    }
-    commonFun.request(dataObjList).then(function (res) {
-      wx.showToast({
-        title: '赞赏成功！',
-      })
-    });
-  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -147,9 +174,6 @@ Page({
   onShareAppMessage: function () {
 
   },
-  onReady: function (res) {
-    this.videoContext = wx.createVideoContext('myVideo')
-  },
 
   getRandomColor: function () {
     let rgb = []
@@ -159,10 +183,6 @@ Page({
       rgb.push(color)
     }
     return '#' + rgb.join('')
-  },
-
-  onReady: function (res) {
-    this.videoContext = wx.createVideoContext('myVideo')
   },
 
   bindInputBlur: function (e) {

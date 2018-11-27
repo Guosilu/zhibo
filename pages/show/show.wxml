@@ -1,5 +1,5 @@
 <view class="section tc">
-  <video id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  <video bindtimeupdate="payTip" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
   <view class="btn-area"></view>
 </view>
 <!-- 评论 -->
