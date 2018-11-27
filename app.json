@@ -14,7 +14,7 @@
     "pages/buy/buy",
     "pages/show/show",
     "pages/upload/upload",
-    "pages/load"
+    "pages/load/load"
   ],
   "window": {
     "backgroundTextStyle": "dark",
