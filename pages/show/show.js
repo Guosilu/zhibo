@@ -81,34 +81,30 @@ Page({
 
   wxPay: function () {
     payFile.pay({
-      body: "直播",
-      total_fee: 1,
+      body: "山东正大视频消费",
+      total_fee: '1',
       openId: app.globalData.openId,
       onExec: (res) => {
         if (res.errMsg == "requestPayment:ok") {
-
+          console.log("存储数据")
         }
       } 
     });
   },
 
   addData: function () {
-    wx.request({
+    let dataObj = {
       url: config.payApi,
-      dataType: "json",
-      method: "post",
       data: {
-        "action": "AddData",
-        "total_fee": that.data.money,
-        "type": 'activity_order',
+        action: "AddData",
         "id": that.data.detail.id
-      },
-      success: function (res) {
-        wx.showToast({
-          title: '赞赏成功',
-        })
       }
-    })
+    }
+    commonFun.request(dataObjList).then(function (res) {
+      wx.showToast({
+        title: '赞赏成功！',
+      })
+    });
   },
   /**
    * 生命周期函数--监听页面显示

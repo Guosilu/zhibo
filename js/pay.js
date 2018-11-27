@@ -11,11 +11,7 @@ class pay {
     console.log(this.body);
     console.log(this.total_fee);
     console.log(this.openId);
-    this.unifiedOrder()
-      .catch(function (error) {
-        console.log('error: ' + error);
-      })
-      .then(this.getSign)
+    this.getSign()
       .catch(function (error) {
         console.log('error: ' + error);
       })
@@ -23,23 +19,26 @@ class pay {
       .catch(function (error) {
         console.log('error: ' + error);
       })
-      .then(this.onExec);
+      .then(this.onExec);//支付成功回调函数
   }
 
-  unifiedOrder() {
+  //获取paySign
+  getSign() {
+    this.showLoading({title: "正在调起支付..."});
     let randa = new Date().getTime().toString();
     let randb = Math.round(Math.random() * 10000).toString();
     let body = this.body;
     let out_trade_no = randa + randb;
     let total_fee = this.total_fee;
     let openId = this.openId;
+    console.log(openId);
     return new Promise((resolve, reject) => {
       wx.request({
         url: config.payApi,
         dataType: "json",
         method: "post",
         data: {
-          action: "unifiedOrder",
+          action: "getSign",
           body: body, //商品描述
           out_trade_no: randa + randb, //商户订单号
           total_fee: total_fee, //金额 单位:分
@@ -47,30 +46,14 @@ class pay {
           openId: openId
         },
         success: (res) => {
+          wx.hideLoading();
           resolve(res.data);
         }
       })
     })
   }
 
-  getSign(data) {
-    console.log(data);
-    return new Promise((resolve, reject) => {
-      wx.request({
-        url: config.payApi,
-        dataType: "json",
-        method: "post",
-        data: {
-          "action": "getSign",
-          'package': "prepay_id=" + data.prepay_id
-        },
-        success: (res) => {
-          resolve(res.data);
-        }
-      })
-    })
-  }
-
+  //调起支付
   requestPayment(data) {
     console.log(data);
     return new Promise((resolve, reject) => {
@@ -78,12 +61,20 @@ class pay {
         'timeStamp': data.timeStamp,
         'nonceStr': data.nonceStr,
         'package': data.package,
-        'signType': "MD5",
+        'signType': data.signType,
         'paySign': data.sign,
         success: (res) => {
           resolve(res);
         }
       })
+    })
+  }
+
+  showLoading ({title, mark}) {
+    mark = mark || true;
+    wx.showLoading({
+      mark: mark,
+      title: title
     })
   }
 }
