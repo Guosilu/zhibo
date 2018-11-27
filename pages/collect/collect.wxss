@@ -30,7 +30,7 @@
   font-size:26rpx;margin-left: 10rpx;
 }
 .wenzi11{
-  font-size:22rpx;color:#5e5e5e;padding: 0 10rpx;
+  font-size:22rpx;color:#5e5e5e;padding: 0 10rpx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
 }
 .tm{
   width: 47%;float: left;
