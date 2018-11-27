@@ -13,7 +13,8 @@
     "pages/login/login",
     "pages/buy/buy",
     "pages/show/show",
-    "pages/upload/upload"
+    "pages/upload/upload",
+    "pages/load/load"
   ],
   "window": {
     "backgroundTextStyle": "dark",
