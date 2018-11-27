@@ -48,6 +48,9 @@ page {
   top:0; width: 100%;height: 100%;
   overflow: hidden;z-index:1;
 }
+.add-video{
+  background: #fff;padding-bottom: 1em;
+}
 .delete {    
   position:absolute;
   right:0; top:0;opacity:1;
