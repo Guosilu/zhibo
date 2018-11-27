@@ -55,3 +55,9 @@ page {
   font-weight:700;padding:0 8rpx 0 10rpx;
   color: #999;z-index: 9999;
 }
+.charge{
+  font-size: 32rpx;padding: .75em;background: #ffffff;overflow: hidden;
+}
+.charge text{
+  float: left;margin-right: 10rpx;
+}

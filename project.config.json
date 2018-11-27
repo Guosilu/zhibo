@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.1",
 	"appid": "wxd3a3d4ee9ea470d4",
-	"projectname": "111",
+	"projectname": "zhibo",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -105,10 +105,16 @@
 					"query": "id=o1pr70BEvwaV8huWPFP3SFcdAFcM"
 				},
 				{
+					"id": 11,
+					"name": "upload",
+					"pathName": "pages/upload/upload",
+					"query": ""
+				},
+				{
 					"id": -1,
-					"name": "uplod",
-					"pathName": "pages/upload/uplod",
-					"query": "id=o1pr70BEvwaV8huWPFP3SFcdAFcM"
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": ""
 				}
 			]
 		}
