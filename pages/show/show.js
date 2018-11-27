@@ -79,82 +79,33 @@ Page({
     console.log(itemid);
   },
 
-  reward: function () {
+  wxPay: function () {
     payFile.pay({
       body: "直播",
-      total_fee: '1',
+      total_fee: 1,
       openId: app.globalData.openId,
       onExec: (res) => {
-        console.log(res);
+        if (res.errMsg == "requestPayment:ok") {
+
+        }
       } 
     });
   },
 
-  reward1: function (e) {
-    var randa = new Date().getTime().toString();
-    var randb = Math.round(Math.random() * 10000).toString();
-    var that = this;
+  addData: function () {
     wx.request({
       url: config.payApi,
       dataType: "json",
       method: "post",
       data: {
-        action: "unifiedOrder",
-        out_trade_no: randa + randb, //商户订单号
-        body: "赛脉平台赏金", //商品描述
-        total_fee: that.data.money, //金额 单位:分
-        trade_type: "JSAPI", //交易类型
-        openId: app.globalData.openId
+        "action": "AddData",
+        "total_fee": that.data.money,
+        "type": 'activity_order',
+        "id": that.data.detail.id
       },
       success: function (res) {
-        console.log(res.data);
-        var data = res.data;
-        //生成签名
-        wx.request({
-          url: config.payApi,
-          dataType: "json",
-          method: "post",
-          data: {
-            "action": "getSign",
-            'package': "prepay_id=" + data.prepay_id
-          },
-          success: function (res) {
-            var signData = res.data;
-            console.log(res.data);
-            wx.requestPayment({
-              'timeStamp': signData.timeStamp,
-              'nonceStr': signData.nonceStr,
-              'package': signData.package,
-              'signType': "MD5",
-              'paySign': signData.sign,
-              success: function (res) {
-                console.log(res);
-                // 添加数据库信息
-                wx.request({
-                  url: config.payApi,
-                  dataType: "json",
-                  method: "post",
-                  data: {
-                    "action": "AddData",
-                    "total_fee": that.data.money,
-                    "type": 'activity_order',
-                    "id": that.data.detail.id
-                  },
-                  success: function (res) {
-                    wx.showToast({
-                      title: '赞赏成功',
-                    })
-                  }
-                })
-                that.setData({
-                  payOpen: false
-                })
-              },
-              fail: function (res) {
-                console.log(res);
-              }
-            })
-          }
+        wx.showToast({
+          title: '赞赏成功',
         })
       }
     })

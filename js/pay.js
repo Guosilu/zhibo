@@ -12,9 +12,17 @@ class pay {
     console.log(this.total_fee);
     console.log(this.openId);
     this.unifiedOrder()
+      .catch(function (error) {
+        console.log('error: ' + error);
+      })
       .then(this.getSign)
+      .catch(function (error) {
+        console.log('error: ' + error);
+      })
       .then(this.requestPayment)
-      .then(this.AddData)
+      .catch(function (error) {
+        console.log('error: ' + error);
+      })
       .then(this.onExec);
   }
 
@@ -38,37 +46,44 @@ class pay {
           trade_type: "JSAPI", //交易类型
           openId: openId
         },
-        success: function (res) {
+        success: (res) => {
           resolve(res.data);
         }
       })
     })
   }
 
-  getSign(a) {
+  getSign(data) {
+    console.log(data);
     return new Promise((resolve, reject) => {
-      setTimeout(function () {
-        console.log(a);
-        resolve("getSign");
-      }, 1000);
+      wx.request({
+        url: config.payApi,
+        dataType: "json",
+        method: "post",
+        data: {
+          "action": "getSign",
+          'package': "prepay_id=" + data.prepay_id
+        },
+        success: (res) => {
+          resolve(res.data);
+        }
+      })
     })
   }
 
-  requestPayment(b) {
+  requestPayment(data) {
+    console.log(data);
     return new Promise((resolve, reject) => {
-      setTimeout(function () {
-        console.log(b);
-        resolve("requestPayment");
-      }, 1000);
-    })
-  }
-
-  AddData(c) {
-    return new Promise((resolve, reject) => {
-      setTimeout(function () {
-        console.log(c);
-        resolve("success");
-      }, 1000);
+      wx.requestPayment({
+        'timeStamp': data.timeStamp,
+        'nonceStr': data.nonceStr,
+        'package': data.package,
+        'signType': "MD5",
+        'paySign': data.sign,
+        success: (res) => {
+          resolve(res);
+        }
+      })
     })
   }
 }
