@@ -4,7 +4,8 @@ page {
     font-size:1em;
 }
 .photo-add .desc {
-  border-bottom:#eee solid 1px;padding:.5em;
+  border-bottom:#eee solid 1px;
+  padding:.5em;
   background:#FFFFFF;font-size:32rpx;
 }
 .photo-add .desc textarea {
@@ -22,11 +23,12 @@ page {
     padding:1em 2em;
 }
 .photo-add .video-box {
-  margin-top:1em;text-align:center;
+  /* margin-top:1em; */
+  text-align:center;
   width: 100%
 }
 .photo-add .add-video {
-  padding-top:1em;
+  /* padding-top:1em; */
   text-align:center;
 }
 .picker {
@@ -39,7 +41,7 @@ page {
 }
 .item {    
   position:relative;
-  margin:0 60rpx;box-sizing: border-box;
+  margin:0 45rpx;box-sizing: border-box;
   height:400rpx;border:1rpx solid #D9D9D9;
   overflow:hidden;
 }
@@ -49,7 +51,10 @@ page {
   overflow: hidden;z-index:1;
 }
 .add-video{
-  background: #fff;padding-bottom: 1em;
+  background: #fff;padding: 1em 0;
+}
+.video-box{
+  background: #ffffff;padding-top: 1em;
 }
 .delete {    
   position:absolute;
