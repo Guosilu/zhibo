@@ -3,7 +3,7 @@
   <video duration="{{duration}}" bindtimeupdate="payTip" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
   </view>
   <view wx:else if = "{{watchPower === true}}">
-  <video id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  <video bindtimeupdate="timeupdate" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
   </view>
   <view class="btn-area" wx:if="{{detail.is_charge == 1 && detail.power == 0}}">观看完整版需支付{{detail.charge}}元，您可以试看5秒</view>
   <view class="btn-area"  wx:if="{{detail.is_charge == 1 && detail.power == 1}}">已付款</view>
@@ -17,12 +17,21 @@
     <text>{{detail.nickName ? detail.nickName : "管理员"}}</text>
   </view>
 </view>
+
+<!-- 弹幕-->
+<form>
+<view class="danmuGrop">
+  <input type="text" class="danmuinput" placeholder='说点什么吧~~~' bindblur='getInput'></input>
+  <button class="sendDanmu" bindtap='sendDanmu' form-type='reset'>发送</button>
+</view>
+</form>
+
 <!-- <view bindtap='wxPay'>pay</view> -->
 <view class="comment_release">
   <view class="left">
     <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="写评论" />
     <view class="line" />
   </view>
-  <button form-type="submit" class="submit" bindtap=''>发送</button>
-    <!-- <button bindtap="bindSendDanmu" class='submit'>发送</button> -->
+  <!-- <button form-type="submit" class="submit" bindtap=''>发送</button> -->
+    <button bindtap="bindSendDanmu" class='submit'>发送</button>
 </view>
