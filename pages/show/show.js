@@ -99,12 +99,14 @@ Page({
 
   //监听播放时间
   timeupdate: function (e) {
-    let currentTime = e.detail.currentTime;
+    let currentTime = parseFloat(e.detail.currentTime);
     let watchPower = this.data.watchPower;
-    let duration = this.data.duration;
+    let duration = parseFloat(this.data.duration);
     this.setData({
       currentTime: currentTime
     })
+    console.log(currentTime);
+    console.log(duration);
     if (watchPower === false && currentTime >= duration) this.payTip();
   },
 

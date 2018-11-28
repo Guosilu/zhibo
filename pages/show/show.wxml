@@ -1,6 +1,6 @@
 <view class="section tc">
  <view wx:if="{{watchPower === false}}">
-  <video duration="{{duration}}" bindtimeupdate="payTip" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  <video duration="{{duration}}" bindtimeupdate="timeupdate" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
   </view>
   <view wx:else if = "{{watchPower === true}}">
   <video bindtimeupdate="timeupdate" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
