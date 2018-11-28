@@ -43,7 +43,6 @@ Page({
     this.showLoading('正在加载...');
     let itemid = options.itemid
     this.getDetail(itemid);
-    console.log(itemid);
   },
 
   //详情
@@ -56,12 +55,13 @@ Page({
         action: 'detail',
         post: {
           itemid: itemid,
+          openId: app.globalData.openId,
         },
       }
     }
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
-      watchPower = res.charge > 0 ? false : true;
+      watchPower = res.is_charge == 1 && res.power == 0 ? false : true;
       console.log(watchPower);
       that.setData({
         detail: res,
@@ -75,11 +75,11 @@ Page({
     let that = this;
     let watchPower = this.data.watchPower;
     let currentTime = e.detail.currentTime;
-    let duration = this.data.duration
+    let duration = this.data.duration;
     let money = this.data.detail.charge;
     console.log(currentTime)
     if (watchPower === false && currentTime >= duration) {
-      this.videoContext.stop();
+      this.videoContext.stop();//终止视频播放
       wx.showModal({
         title: '提示',
         content: '是否支付' + money + '元购买该视频完整版？',
@@ -87,7 +87,6 @@ Page({
         cancelText: "不买",
         success(res) {
           if (res.confirm) {
-            console.log('支付成功')
             that.wxPay();//调起支付
           } else if (res.cancel) {}
         }
@@ -106,30 +105,37 @@ Page({
       onExec: (res) => {
         if (res.errMsg == "requestPayment:ok") {
           console.log("存储数据")
-          that.setData({
-            watchPower: true
-          })
-          wx.showToast({
-            title: '支付成功',
-          })
+          that.showLoading('正在处理数据...');
+          that.addData();
         }
       }
     });
   },
 
-  //支付成功后操作
+  //支付成功后添加数据
   addData: function () {
     let that = this;
+    let itemid = that.data.detail.itemid;
+    let openId = app.globalData.openId;
+    let money = this.data.detail.charge;
     let dataObj = {
-      url: config.payApi,
+      url: config.videoUrl,
       data: {
-        action: "AddData",
-        "id": that.data.detail.id
+        action: "pay",
+        post: {
+          itemid: itemid,
+          openId: openId,
+          money: money
+        }
       }
     }
-    commonFun.request(dataObjList).then(function (res) {
+    commonFun.request(dataObj).then(function (res) {
       wx.showToast({
-        title: '支付成功',
+        icon: "none",
+        title: res,
+      })
+      that.setData({
+        watchPower: true
       })
     });
   },
