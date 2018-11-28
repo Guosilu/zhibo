@@ -15,22 +15,59 @@ function getRandomColor() {
 Page({
   data: {
     detail: {},
-    inputValue: '',
+    inputValue: '6666666666666666666',
     src: '',
     watchPower: null,
     duration: 5,
-    danmuList: [
-      {
-        text: '第 1s 出现的弹幕',
-        color: '#ff0000',
-        time: 1
-      },
-      {
-        text: '第 3s 出现的弹幕',
-        color: '#ff00ff',
-        time: 3
+    danmuList: []
+  },
+
+  //获取输入弹幕
+  getInput: function (e) {
+    this.setData({
+      danmu: e.detail.value
+    });
+  },
+
+  //发送弹幕
+  sendDanmu: function () {
+    let that = this;
+    let itemid = that.data.detail.itemid;
+    let danmuList = this.data.danmuList;
+    //let content = this.data.danmu;
+    let content = Math.random().toString(36).substr(2);
+    let color = getRandomColor();
+    let currentTime = Math.ceil(this.data.currentTime);
+    let danmuListAdd = {
+      text: content,
+      color: color,
+      time: currentTime
+    }
+    console.log(danmuListAdd)
+    this.videoContext.sendDanmu({
+      text: content,
+      color: color
+    })
+    this.setData({
+      danmu: "",
+      danmuList: danmuList.concat(danmuListAdd)
+    });
+    console.log(this.data.danmuList)
+    commonFun.request({
+      url: config.videoUrl,
+      data: {
+        action: 'danmu',
+        post: {
+          itemid: itemid,
+          openId: app.globalData.openId,
+          playtime: currentTime,
+          content: content,
+          color: color
+        },
       }
-    ]
+    }).then(res => {
+      console.log(res);
+    });
   },
 
   //生命周期函数onReady
@@ -55,43 +92,51 @@ Page({
         action: 'detail',
         post: {
           itemid: itemid,
-          openId: app.globalData.openId,
+          openId: app.globalData.openId
         },
       }
     }
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
       watchPower = res.is_charge == 1 && res.power == 0 ? false : true;
-      console.log(watchPower);
+      console.log(res.danmu);
       that.setData({
         detail: res,
-        watchPower: watchPower
+        watchPower: watchPower,
+        danmuList: res.danmu
       })
     });
+  }, 
+
+  //监听播放时间
+  timeupdate: function (e) {
+    let currentTime = parseFloat(e.detail.currentTime);
+    let watchPower = this.data.watchPower;
+    let duration = parseFloat(this.data.duration);
+    this.setData({
+      currentTime: currentTime
+    })
+    // console.log(currentTime);
+    if (watchPower === false && currentTime >= duration) this.payTip();
   },
 
   //提示支付
-  payTip: function (e) {
+  payTip: function () {
     let that = this;
-    let watchPower = this.data.watchPower;
-    let currentTime = e.detail.currentTime;
-    let duration = this.data.duration;
     let money = this.data.detail.charge;
-    console.log(currentTime)
-    if (watchPower === false && currentTime >= duration) {
-      this.videoContext.stop();//终止视频播放
-      wx.showModal({
-        title: '提示',
-        content: '是否支付' + money + '元购买该视频完整版？',
-        confirmText: "买",
-        cancelText: "不买",
-        success(res) {
-          if (res.confirm) {
-            that.wxPay();//调起支付
-          } else if (res.cancel) {}
-        }
-      });
-    }
+    this.videoContext.stop();//终止视频播放
+    // console.log(currentTime)
+    wx.showModal({
+      title: '提示',
+      content: '试看还满意吗？' + money + '元支持一下把！',
+      confirmText: "好的",
+      cancelText: "不了",
+      success(res) {
+        if (res.confirm) {
+          that.wxPay();//调起支付
+        } else if (res.cancel) {}
+      }
+    });
   },
 
   //调起支付
@@ -135,7 +180,8 @@ Page({
         title: res,
       })
       that.setData({
-        watchPower: true
+        watchPower: true,
+        'detail.power': 1
       })
     });
   },
@@ -199,7 +245,8 @@ Page({
 
   },
 
-  getRandomColor: function () {
+  //获取随机色
+  /*getRandomColor: function () {
     let rgb = []
     for (let i = 0; i < 3; ++i) {
       let color = Math.floor(Math.random() * 256).toString(16)
@@ -226,9 +273,11 @@ Page({
   //   })
   // },
   bindSendDanmu: function () {
+    console.log();
+    this.videoContext.play();
     this.videoContext.sendDanmu({
       text: this.inputValue,
       color: getRandomColor()
     })
-  }
+  }*/
 })
