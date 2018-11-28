@@ -82,9 +82,9 @@ Page({
       this.videoContext.stop();//终止视频播放
       wx.showModal({
         title: '提示',
-        content: '是否支付' + money + '元购买该视频完整版？',
-        confirmText: "买",
-        cancelText: "不买",
+        content: '试看还满意吗？' + money + '元支持一下把！',
+        confirmText: "好的",
+        cancelText: "不了",
         success(res) {
           if (res.confirm) {
             that.wxPay();//调起支付
@@ -135,7 +135,8 @@ Page({
         title: res,
       })
       that.setData({
-        watchPower: true
+        watchPower: true,
+        'detail.power': 1
       })
     });
   },
