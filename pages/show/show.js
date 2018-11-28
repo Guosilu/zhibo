@@ -33,15 +33,26 @@ Page({
   sendDanmu: function () {
     let that = this;
     let itemid = that.data.detail.itemid;
+    let danmuList = this.data.danmuList;
     //let content = this.data.danmu;
     let content = Math.random().toString(36).substr(2);
     let color = getRandomColor();
     let currentTime = Math.ceil(this.data.currentTime);
+    let danmuListAdd = {
+      text: content,
+      color: color,
+      time: currentTime
+    }
+    console.log(danmuListAdd)
     this.videoContext.sendDanmu({
       text: content,
       color: color
     })
-    this.setData({danmu: ""});
+    this.setData({
+      danmu: "",
+      danmuList: danmuList.concat(danmuListAdd)
+    });
+    console.log(this.data.danmuList)
     commonFun.request({
       url: config.videoUrl,
       data: {
@@ -105,8 +116,7 @@ Page({
     this.setData({
       currentTime: currentTime
     })
-    console.log(currentTime);
-    console.log(duration);
+    // console.log(currentTime);
     if (watchPower === false && currentTime >= duration) this.payTip();
   },
 
