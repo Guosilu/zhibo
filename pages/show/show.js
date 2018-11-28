@@ -17,6 +17,8 @@ Page({
     detail: {},
     inputValue: '',
     src: '',
+    watchPower: null,
+    duration: 5,
     danmuList: [
       {
         text: '第 1s 出现的弹幕',
@@ -47,6 +49,7 @@ Page({
   //详情
   getDetail: function (itemid) {
     let that = this;
+    let watchPower;
     let dataObj = {
       url: config.videoUrl,
       data: {
@@ -58,43 +61,57 @@ Page({
     }
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
-      console.log(res);
+      watchPower = res.charge > 0 ? false : true;
+      console.log(watchPower);
       that.setData({
         detail: res,
+        watchPower: watchPower
       })
     });
   },
 
   //提示支付
   payTip: function (e) {
+    let that = this;
+    let watchPower = this.data.watchPower;
     let currentTime = e.detail.currentTime;
-    if(currentTime > 5) {
+    let duration = this.data.duration
+    let money = this.data.detail.charge;
+    console.log(currentTime)
+    if (watchPower === false && currentTime >= duration) {
       this.videoContext.stop();
-      //this.videoContext.pause();
       wx.showModal({
-        title: '进度条没了~',
-        content: '是否要付费观看？',
-        confirmText: "买吧",
-        cancelText: "算了",
+        title: '提示',
+        content: '是否支付' + money + '元购买该视频完整版？',
+        confirmText: "买",
+        cancelText: "不买",
         success(res) {
           if (res.confirm) {
             console.log('支付成功')
-          } else if (res.cancel) {
-          }
+            that.wxPay();//调起支付
+          } else if (res.cancel) {}
         }
-      })
+      });
     }
   },
 
   //调起支付
   wxPay: function () {
+    let that = this;
+    let total_fee = parseFloat(this.data.detail.charge) * 100;
     payFile.pay({
       body: "山东正大视频消费",
-      total_fee: '1',
+      total_fee: total_fee,
       openId: app.globalData.openId,
       onExec: (res) => {
         if (res.errMsg == "requestPayment:ok") {
           console.log("存储数据")
+          that.setData({
+            watchPower: true
+          })
+          wx.showToast({
+            title: '支付成功',
+          })
         }
       }
     });
@@ -102,6 +119,7 @@ Page({
 
   //支付成功后操作
   addData: function () {
+    let that = this;
     let dataObj = {
       url: config.payApi,
       data: {
@@ -111,7 +129,7 @@ Page({
     }
     commonFun.request(dataObjList).then(function (res) {
       wx.showToast({
-        title: '赞赏成功！',
+        title: '支付成功',
       })
     });
   },

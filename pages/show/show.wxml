@@ -1,6 +1,12 @@
 <view class="section tc">
-  <video bindtimeupdate="payTip" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
-  <view class="btn-area"></view>
+ <view wx:if="{{watchPower === false}}">
+  <video duration="{{duration}}" bindtimeupdate="payTip" id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  </view>
+  <view wx:else if = "{{watchPower === true}}">
+  <video id="myVideo" src="{{detail.video}}" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+  </view>
+  <view class="btn-area" wx:if="{{detail.charge > 0}}">观看完整版需支付{{detail.charge}}元，您可以试看5秒</view>
+  <view class="btn-area" wx:else>您可以免费观看本视频</view>
 </view>
 <!-- 评论 -->
 <view class="tool">
