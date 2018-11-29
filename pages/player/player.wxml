@@ -26,8 +26,8 @@
           <cover-view>{{item.roomName}}</cover-view>
         </cover-view>
       </cover-view>
-      <cover-view class='follow-right' bindtap='{{collect_status ? "collect_cancel" : "collect"}}'>
-        <cover-view>{{collect_status ? '已关注' : '+关注'}}</cover-view>
+      <cover-view class='follow-right' bindtap='collect'>
+        <cover-view>{{collect_status == 1 ? '已关注' : '+关注'}}</cover-view>
       </cover-view>
     </cover-view>
     <!-- <cover-image hidden="{{playing}}" style="width:100%; height: 100%; position:absolute;" src="https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png"></cover-image> -->

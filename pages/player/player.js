@@ -1,5 +1,6 @@
 const config = require("../../config/config.js");
-const collectFun = require("../../js/collectFun.js");
+const commonFun = require("../../js/commonFun.js");
+const collectFile = require("../../js/collect.js");
 const app = getApp();
 Page({
   data: {
@@ -35,82 +36,65 @@ Page({
   //足迹
   history: function (id) {
     var that = this;
-    var param = {
-      action: 'history',
-      post: {
-        id: id,
-        openId: app.globalData.openId
+    commonFun.request({
+      url: config.playerUrl,
+      data: {
+        action: 'history',
+        post: {
+          id: id,
+          openId: app.globalData.openId
+        },
       }
-    }
-    collectFun.collect(config.playerUrl, param).then(function (data) {
-      console.log(data);
+    }).then((res) => {
+      console.log(res);
     });
   },
   
   //关注
   is_collect: function (id) {
     var that = this;
-    var param = {
-      action: 'is_collect',
-      post: {
-        id: id,
-        openId: app.globalData.openId
+    commonFun.request({
+      url: config.playerUrl,
+      data: {
+        action: 'is_collect',
+        post: {
+          id: id,
+          openId: app.globalData.openId
+        },
       }
-    }
-    collectFun.collect(config.playerUrl, param).then(function (data) {
+    }).then((res) => {
       that.setData({
-        collect_status: data
+        collect_status: res
       })
     });
   },
 
   //关注
   collect: function () {
-    this.collectFunPart('add');
-  },
-  //关注
-  collect_cancel: function () {
-    this.collectFunPart('minus');
-  },
-
-  //关注
-  collectFunPart: function (act) {
-    var that = this, collect_status, confirm, tipTitle;
-    if (this.data.id == app.globalData.openId) {
+    let that = this;
+    let id = this.data.id;
+    let collect_status = this.data.collect_status;
+    let act = collect_status == 1 ? "minus" : "add";
+    if (id == app.globalData.openId) {
       wx.showToast({
         icon: 'none',
         title: '您不能关注自己！'
       });
       return false;
     }
-    var param = {
-      action: 'collect_add_minus',
-      post: {
-        id: this.data.id,
-        openId: app.globalData.openId,
-        act: act
+    collectFile.collect({
+      id: id,
+      act: act,
+      itemType: "live",
+      onExec: (res) => {
+        if (res == 1) {
+          let collect_status = act == "add" ? 1 : 0;
+          that.setData({
+            collect_status: collect_status
+          });
+        }
       }
-    }
-    if (act == 'add') {
-      collect_status = 1;
-      confirm = '';
-      tipTitle = '已关注！';
-    } else if (act == 'minus') {
-      collect_status = 0;
-      confirm = 1;
-      tipTitle = '已取消！';
-    }
-    collectFun.collect(config.playerUrl, param, confirm).then(function (data) {
-      if (data.success == 1) {
-        that.setData({
-          collect_status: collect_status,
-        })
-        wx.showToast({
-          icon: 'none',
-          title: tipTitle
-        });
-      }
-    });
+    })
   },
   
   //
