@@ -15,7 +15,6 @@ function getRandomColor() {
 Page({
   data: {
     detail: {},
-    inputValue: '6666666666666666666',
     src: '',
     watchPower: null,
     duration: 5,
@@ -43,14 +42,14 @@ Page({
       color: color,
       time: currentTime
     }
-    console.log(danmuListAdd)
+    this.data.danmuList.push(danmuListAdd)
+    console.log(this.data.danmuList)
     this.videoContext.sendDanmu({
       text: content,
       color: color
     })
     this.setData({
-      danmu: "",
-      danmuList: danmuList.concat(danmuListAdd)
+      danmu: ""
     });
     console.log(this.data.danmuList)
     commonFun.request({
@@ -116,7 +115,6 @@ Page({
     this.setData({
       currentTime: currentTime
     })
-    // console.log(currentTime);
     if (watchPower === false && currentTime >= duration) this.payTip();
   },
 
