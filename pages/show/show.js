@@ -27,6 +27,7 @@ Page({
   collect: function () {
     let that = this;
     let id = this.data.detail.itemid;
+    let cur_collect = parseInt(this.data.detail.collect);
     let collect_status = this.data.collect_status;
     let act = collect_status == 1 ? "minus" : "add";
     if (this.data.detail.openId == app.globalData.openId) {
@@ -43,8 +44,10 @@ Page({
       onExec: (res) => {
         if(res == 1) {
           let collect_status = act == "add" ? 1 : 0;
+          let collect = act == "add" ? cur_collect + 1 : cur_collect - 1;
           that.setData({
-            collect_status: collect_status
+            collect_status: collect_status,
+            'detail.collect': collect
           });
         } 
       }

@@ -48,29 +48,6 @@ class collect {
       });
     });
   }
-
-    //确认
-  showConfirm() {
-    let act = this.act;
-    console.log(act);
-    return new Promise(function (resolve, reject) {
-      if (act == "add") {
-      wx.showModal({
-        title: '提示',
-        content: '确定取消关注吗？',
-        success: function (confirm) {
-          if (confirm.confirm) {
-            resolve(1);
-          } else {
-            reject("取消");
-          }
-        }
-        });
-      } else if (act == "add") {
-        resolve(1);
-      }
-    });
-  }
 }
 
 var doCollect = (opt) => {
