@@ -28,14 +28,14 @@
     <view class='swiper_con'>
 
       <view  wx:for='{{allList.historyList}}' class='tm2'>
-        <navigator url='../player/player?id={{item.room_openId}}'>
-          <image class='hezi2' src='{{item.avatarUrl}}'></image>
+        <navigator url='{{item.linkurl}}'>
+          <image class='hezi2' src='{{item.thumb}}'></image>
           <view class='wztop'>
             <view class='wenzi2'>{{item.roomName}}</view>
           </view>
             <view class='wenzi2'>{{item.nickName}}</view>
             <view class='wenzi2'>{{item.edittime}}</view>
-          
+            <view class='wenzi2'>类型：{{item.typeName}}</view>
         </navigator>
       </view>
       
