@@ -1,5 +1,4 @@
 const config = require('../../config/config.js');
-const collectFun = require("../../js/collectFun.js");
 const commonFun = require("../../js/commonFun.js");
 const app = getApp();
 Page({
