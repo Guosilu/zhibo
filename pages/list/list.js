@@ -1,4 +1,5 @@
 const config = require("../../config/config.js");
+const commonFun = require("../../js/commonFun.js");
 Page({
 
   /**
@@ -10,7 +11,37 @@ Page({
     page: 1,
     pagesize: 10,
   },
-  getList: function (refresh) {
+
+
+  //列表
+  getList: function () {
+    let that = this;
+    let dataObjList = [
+      {
+        name: 'free_video_list',
+        url: config.videoUrl,
+        data: {
+          action: "list", pagesize: 4, post: { charge: 0 }
+        }
+      },
+      {
+        name: 'charge_video_list',
+        url: config.videoUrl,
+        data: {
+          action: "list", pagesize: 4, post:{charge: 1}
+        }
+      }
+    ];
+    commonFun.getList(dataObjList).then(function (res) {
+      that.setData({
+        allList: res
+      });
+      that.stopRefresh();
+      console.log(res);
+    });
+  },
+
+  getList1: function (refresh) {
     var that = this;
     var refresh = refresh || '';
     if (refresh == 1) {
@@ -56,6 +87,7 @@ Page({
       }
     })
   },
+
   stopRefresh: function () {
     wx.hideLoading();
     wx.hideNavigationBarLoading() //完成停止加载
