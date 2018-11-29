@@ -8,9 +8,7 @@ class pay {
   }
   
   exec() {
-    console.log(this.body);
-    console.log(this.total_fee);
-    console.log(this.openId);
+    //console.log(this.body);
     this.getSign()
       .catch(function (error) {
         console.log('error: ' + error);

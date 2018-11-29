@@ -2,6 +2,7 @@ const app = getApp();
 const config = require('../../config/config.js');
 const commonFun = require("../../js/commonFun.js");
 const payFile = require("../../js/pay.js");
+const collectFile = require("../../js/collect.js");
 function getRandomColor() {
   let rgb = []
   for (let i = 0; i < 3; ++i) {
@@ -16,9 +17,38 @@ Page({
   data: {
     detail: {},
     src: '',
-    watchPower: null,
-    duration: 5,
-    danmuList: []
+    watchPower: null,//试看,完整权限
+    collect_status: null, //关注
+    duration: 5,//视频长度
+    danmuList: []//弹幕
+  },
+  
+  //关注
+  collect: function () {
+    let that = this;
+    let id = this.data.detail.itemid;
+    let collect_status = this.data.collect_status;
+    let act = collect_status == 1 ? "minus" : "add";
+    if (this.data.detail.openId == app.globalData.openId) {
+      wx.showToast({
+        icon: 'none',
+        title: '您不能关注自己！'
+      });
+      return false;
+    }
+    collectFile.collect({
+      id: id, 
+      act: act, 
+      itemType: "video",
+      onExec: (res) => {
+        if(res == 1) {
+          let collect_status = act == "add" ? 1 : 0;
+          that.setData({
+            collect_status: collect_status
+          });
+        } 
+      }
+    })
   },
 
   //获取输入弹幕
@@ -98,11 +128,12 @@ Page({
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
       watchPower = res.is_charge == 1 && res.power == 0 ? false : true;
-      console.log(res.danmu);
+      console.log(res);
       that.setData({
         detail: res,
         watchPower: watchPower,
-        danmuList: res.danmu
+        danmuList: res.danmu,
+        collect_status: res.collect_status
       })
     });
   }, 
