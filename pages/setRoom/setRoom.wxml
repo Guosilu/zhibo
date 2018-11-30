@@ -1,3 +1,4 @@
+<block wx:if='{{lock === true}}'>
 <view class='setform'>
 <form bindsubmit="formSubmit">
   <view>
@@ -128,3 +129,4 @@
   <button formType="submit" class='submit'>提交</button>
 </form>
 </view>
+</block>
