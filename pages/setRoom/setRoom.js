@@ -1,4 +1,5 @@
 const config = require("../../config/config.js");
+const uploadFile = require("../../js/upload.js");
 const app = getApp();
 Page({
 
@@ -6,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    lock: false,
     openId:"",
     roomName:"",//直播间名
     roomIntroduce:"",//直播间简介
@@ -47,6 +49,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.showLoading('正在加载...');
     var openId = app.globalData.openId ? app.globalData.openId :""
     this.query(openId);
   },
@@ -63,6 +66,8 @@ Page({
       success: function (res) {
         var value = JSON.parse(res.data);
         console.log(value);
+        var thumbPath = [];
+        var thumb = value.thumb;//封面图片
         var roomName = value.roomName;//直播间名
         var roomIntroduce = value.roomIntroduce;//直播间简介
         var anchorName = value.anchorName;//主播名
@@ -85,6 +90,7 @@ Page({
         var background_mute = value.background_mute;//进入后台时是否静音
 
         that.setData({
+          thumbPath: thumbPath.concat(thumb),
           roomName: roomName,//直播间名
           roomIntroduce: roomIntroduce,//直播间简介
           anchorName: anchorName,//主播名
@@ -105,7 +111,9 @@ Page({
           zoom: zoom,           //调整焦距
           device_position: device_position, //前置或后置，值为front, back
           background_mute: background_mute,//进入后台时是否静音
+          lock: true
         })
+        wx.hideLoading();
       }
     })
   },
@@ -149,69 +157,95 @@ Page({
   formSubmit: function (e) {
     var that = this;
     var result = e.detail.value;
+    let fileObjList = this.fileParamConfig();
     if ((!result.roomName.trim()) || (!result.roomIntroduce.trim()) || (!result.anchorName.trim()) |(!result.anchorIntroduce.trim())){
       wx.showToast({
         title:"请全部填写完毕后提交",
         icon:"none"
       })
-      return;
     }
-    wx.request({
-      url: config.coreUrl+'setRoom.php',
-      method:'post',
-      dataType:"JSON",
-      header: {
-        // 'content-type': 'application/json'
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data:{
-        openId: app.globalData.openId,
-        roomName: result.roomName.trim(),//直播间名
-        roomIntroduce: result.roomIntroduce.trim(),//直播间简介
-        anchorName: result.anchorName.trim(),//主播名
-        anchorIntroduce: result.anchorIntroduce.trim(),//主播简介
-        mode: result.mode,//画质
-        autopush: result.autopush,//自动推流
-        muted: result.muted,//是否静音
-        camera: result.camera,//开启摄像头
-        focus: result.focus,//自动聚集
-        orientation: result.orientation,//方向
-        beauty: result.beauty,//美颜
-        whiteness: result.whiteness,//美白
-        aspect: result.aspect,//宽高比
-        min_bitrate: result.min_bitrate,//最小码率
-        max_bitrate: result.max_bitrate,//最大码率
-        zoom: result.zoom,//调整焦距
-        device_position: result.device_position,//前置或后置
-        background_mute: result.background_mute//进入后台时是否静音
-      },
-      success:function(data){
-        let result = data.data;
-        console.log(result);
-        if (result){
-          wx.showToast({
-            title: '添加成功'
-          })
-          //that.query(app.globalData.openId);
-          setTimeout(function(){
-            wx.navigateBack({
-              delta: 1
+    this.showLoading('正在上传文件...');
+    console.log(fileObjList);
+    uploadFile.upload({
+      fileObjList: fileObjList,
+      onExec: (res) => {
+        if (res.length < 1) return;
+        console.log(res);
+        let thumb = res[0].fileUrl;
+        that.showLoading('正在提交数据...');
+        wx.request({
+          url: config.coreUrl + 'setRoom.php',
+          method: 'post',
+          dataType: "JSON",
+          header: {
+            // 'content-type': 'application/json'
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            thumb: thumb,
+            openId: app.globalData.openId,
+            roomName: result.roomName.trim(),//直播间名
+            roomIntroduce: result.roomIntroduce.trim(),//直播间简介
+            anchorName: result.anchorName.trim(),//主播名
+            anchorIntroduce: result.anchorIntroduce.trim(),//主播简介
+            mode: result.mode,//画质
+            autopush: result.autopush,//自动推流
+            muted: result.muted,//是否静音
+            camera: result.camera,//开启摄像头
+            focus: result.focus,//自动聚集
+            orientation: result.orientation,//方向
+            beauty: result.beauty,//美颜
+            whiteness: result.whiteness,//美白
+            aspect: result.aspect,//宽高比
+            min_bitrate: result.min_bitrate,//最小码率
+            max_bitrate: result.max_bitrate,//最大码率
+            zoom: result.zoom,//调整焦距
+            device_position: result.device_position,//前置或后置
+            background_mute: result.background_mute//进入后台时是否静音
+          },
+          success: function (data) {
+            let result = data.data;
+            console.log(result);
+            if (result) {
+              wx.showToast({
+                title: '添加成功'
+              })
+              //that.query(app.globalData.openId);
+              setTimeout(function () {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1500)
+              wx.hideLoading();
+            } else {
+              wx.showToast({
+                title: '添加异常,请稍后重试1',
+                icon: 'none'
+              })
+            }
+          },
+          fail: function () {
+            wx.showToast({
+              title: '添加异常,请稍后重试',
+              icon: 'none'
             })
-          },1500)
-        }else{
-          wx.showToast({
-            title: '添加异常,请稍后重试1',
-            icon: 'none'
-          })
-        }
-      },
-      fail:function(){
-        wx.showToast({
-          title: '添加异常,请稍后重试',
-          icon:'none'
+          }
         })
       }
     })
+    return;
+  },
+
+
+
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var fileObjList = [];
+    fileObjList.push({
+      filePath: this.data.thumbPath[0],
+      columnName: 'thumb',
+    });
+    return fileObjList;
   },
   /**
    * 设置单选
@@ -227,6 +261,23 @@ Page({
       }
     }
     return data;
+  },
+
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || true;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

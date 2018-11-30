@@ -7,7 +7,7 @@ Page({
    */
   data: {
     limit: 4,//显示数据量
-    list: [],
+    allList: [],
     page: 1,
     pagesize: 10,
   },
