@@ -28,7 +28,7 @@
 /**第一个红色的容器
  *大概想法就是给flex-direction赋一个colomn的值，并列放置
  */
-.comment_release.left{
+.comment_release .left{
   display: flex;
   flex-direction: column;
 }
