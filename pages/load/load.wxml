@@ -1,9 +1,9 @@
 <view class='allshow'>
-  <view  wx:for='{{allList.historyList}}' class='tm2'>
-    <navigator url='../player/player?id={{item.room_openId}}'>
-      <image class='hezi2' src='{{item.avatarUrl}}'></image>
+  <view  wx:for='{{list}}' class='tm2'>
+    <navigator url='{{item.linkurl}}'>
+      <image class='hezi2' src='{{item.thumb}}'></image>
       <view class='wztop'>
-        <view class='wenzi2'>{{item.roomName}}</view>
+        <view class='wenzi2'>{{item.title}}</view>
       </view>
       <view class='wenzi2'>{{item.nickName}}</view>
       <view class='wenzi2'>{{item.edittime}}</view>
