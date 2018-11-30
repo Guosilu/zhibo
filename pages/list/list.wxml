@@ -4,11 +4,11 @@
   <view class='video_more'><navigator url=''>更多</navigator></view>
 </view>
 <view class='allshow'>
-  <view class='showdetail' wx:for='{{list}}'>
-      <navigator url=''>
+  <view class='showdetail' wx:for='{{allList.free_video_list}}'>
+      <navigator url='{{item.linkurl}}'>
     <view class='contant'>
-      <image src='{{item.avatarUrl}}'></image>
-      <text>{{item.roomName}}</text>
+      <image src='{{item.thumb}}'></image>
+      <text>{{item.title}}</text>
     </view>
     <view class='introduce'>{{item.roomIntroduce}}</view>
       </navigator>
@@ -19,11 +19,11 @@
   <view class='video_more'><navigator url=''>更多</navigator></view>
 </view>
 <view class='allshow'>
-  <view class='showdetail' wx:for='{{list}}'>
-      <navigator url=''>
+  <view class='showdetail' wx:for='{{allList.charge_video_list}}'>
+      <navigator url='{{item.linkurl}}'>
     <view class='contant'>
-      <image src='{{item.avatarUrl}}'></image>
-      <text>{{item.roomName}}</text>
+      <image src='{{item.thumb}}'></image>
+      <text>{{item.title}}</text>
     </view>
     <view class='introduce'>{{item.roomIntroduce}}</view>
       </navigator>

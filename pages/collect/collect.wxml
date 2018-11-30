@@ -14,12 +14,13 @@
   <swiper-item>
     <view class='swiper_con'>
       <view wx:for='{{allList.collectList}}' class='tm'>
-      <navigator url='../player/player?id={{item.room_openId}}'>
+      <navigator url='{{item.linkurl}}'>
         <view class='hezi1'>
-          <image src='{{item.avatarUrl}}'></image>
+          <image src='{{item.thumb}}'></image>
         </view>
         <view class='wenzi1'>{{item.nickName}}</view>
-        <view class='wenzi11'>{{item.roomName}}</view>
+        <view class='wenzi11'>{{item.title}}</view>
+        <view class='wenzi2'>类型：{{item.typeName}}</view>
       </navigator>
       </view>
     </view>
@@ -31,7 +32,7 @@
         <navigator url='{{item.linkurl}}'>
           <image class='hezi2' src='{{item.thumb}}'></image>
           <view class='wztop'>
-            <view class='wenzi2'>{{item.roomName}}</view>
+            <view class='wenzi2'>{{item.title}}</view>
           </view>
             <view class='wenzi2'>{{item.nickName}}</view>
             <view class='wenzi2'>{{item.edittime}}</view>
