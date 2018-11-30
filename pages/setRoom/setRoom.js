@@ -118,38 +118,6 @@ Page({
     })
   },
 
-  //选择图片
-  chooseImage: function () {
-    var that = this;
-    var thumbPath = [];
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-        that.setData({
-          thumbPath: thumbPath.concat(res.tempFiles[0].path),
-          thumbSize: res.tempFiles[0].size,
-        });
-      }
-    })
-  },
-
-  //删除图片
-  deleteImage: function () {
-    this.setData({
-      thumbPath: '',
-      thumbSize: '',
-    })
-  },
-  //图片预览
-  previewImage: function (e) {
-    var image = e.target.dataset.src
-    wx.previewImage({
-      current: image,
-      urls: [image]
-    })
-  },
   /**
    * 自定义方法区域
    */
@@ -236,8 +204,6 @@ Page({
     return;
   },
 
-
-
   //上传文件参数配置
   fileParamConfig: function () {
     var fileObjList = [];
@@ -261,6 +227,39 @@ Page({
       }
     }
     return data;
+  },
+
+  //选择图片
+  chooseImage: function () {
+    var that = this;
+    var thumbPath = [];
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        that.setData({
+          thumbPath: thumbPath.concat(res.tempFiles[0].path),
+          thumbSize: res.tempFiles[0].size,
+        });
+      }
+    })
+  },
+
+  //删除图片
+  deleteImage: function () {
+    this.setData({
+      thumbPath: '',
+      thumbSize: '',
+    })
+  },
+  //图片预览
+  previewImage: function (e) {
+    var image = e.target.dataset.src
+    wx.previewImage({
+      current: image,
+      urls: [image]
+    })
   },
 
   //提示方法
