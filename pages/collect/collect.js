@@ -13,6 +13,17 @@ Page({
     loadingComplate: 0,
     currentData: 0,
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.getList();
+  },
+
   //列表
   getList: function () {
     let dataObjList = [
@@ -20,9 +31,11 @@ Page({
         name: 'collectList',
         url: config.collectUrl,
         data: {
-          action: 'list',
+          action: 'collect',
           post: {
-            openId: app.globalData.openId
+            where:{
+              openId: app.globalData.openId
+            }
           }
         }
       },
@@ -32,7 +45,9 @@ Page({
         data: {
           action: 'history',
           post: {
-            openId: app.globalData.openId
+            where: {
+              openId: app.globalData.openId
+            }
           }
         }
       }
@@ -46,6 +61,13 @@ Page({
       console.log(res);
     });
   },
+  
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    this.getList();
+  },
 
   stopRefresh: function () {
     this.setData({
@@ -58,21 +80,21 @@ Page({
     wx.stopPullDownRefresh();
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.showLoading({
-      title: '正在加载...',
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
     })
-    this.getList();
   },
-  
-  // 下拉刷新
-  onPullDownRefresh: function () {
-    // 显示顶部刷新图标
-    wx.showNavigationBarLoading();
-    this.getList();
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
+    })
   },
 
   onShow: function (options) {

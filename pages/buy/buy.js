@@ -28,9 +28,13 @@ Page({
       url: config.myUrl,
       data: {
         action: 'my_buy',
-        page: page,
-        pagesize: pagesize,
-        post: { openId: optnId }
+        post: {
+          page: page,
+          pagesize: pagesize,
+          where: {
+            openId: optnId
+          }
+        }
       }
     }).then((res) => {
       let list = pages === true ? that.data.list.concat(res) : res;
