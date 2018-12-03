@@ -66,8 +66,8 @@ Page({
     let that = this;
     let itemid = that.data.detail.itemid;
     let danmuList = this.data.danmuList;
-    //let content = this.data.danmu;
-    let content = Math.random().toString(36).substr(2);
+    let content = this.data.danmu;
+    //let content = Math.random().toString(36).substr(2);
     let color = getRandomColor();
     let currentTime = Math.ceil(this.data.currentTime);
     let danmuListAdd = {
@@ -130,7 +130,8 @@ Page({
     }
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
-      watchPower = (that.data.detail.openId == app.globalData.openId) === true ? true : (res.is_charge == 1 && res.power == 0 ? false : true);
+      watchPower = (res.openId == app.globalData.openId) === true ? true : (res.is_charge == 1 && res.power == 0 ? false : true);
+      res.is_charge = (res.openId == app.globalData.openId) === true ? 0 : 1;
       console.log(res);
       that.setData({
         detail: res,
