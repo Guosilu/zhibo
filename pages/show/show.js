@@ -52,7 +52,7 @@ Page({
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
       watchPower = (res.openId == app.globalData.openId) === true ? true : (res.is_charge == 1 && res.power == 0 ? false : true);
-      res.is_charge = (res.openId == app.globalData.openId) === true ? 0 : 1;
+      res.is_charge = (res.openId == app.globalData.openId) === true ? 0 : res.is_charge;
       console.log(res);
       that.setData({
         detail: res,
