@@ -130,7 +130,7 @@ Page({
     }
     commonFun.request(dataObj).then(res => {
       wx.hideLoading();
-      watchPower = res.is_charge == 1 && res.power == 0 ? false : true;
+      watchPower = (that.data.detail.openId == app.globalData.openId) === true ? true : (res.is_charge == 1 && res.power == 0 ? false : true);
       console.log(res);
       that.setData({
         detail: res,

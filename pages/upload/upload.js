@@ -172,7 +172,7 @@ Page({
       success(res) {
         console.log(res)
         that.setData({
-          thumbPath: thumbPath.concat(res.thumbTempFilePath),
+          //thumbPath: thumbPath.concat(res.thumbTempFilePath),
           videoPath: videoPath.concat(res.tempFilePath),
           videoSize: (res.size / (1024 * 1024)).toFixed(2),
         });

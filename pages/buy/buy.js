@@ -7,44 +7,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: {},
-    history_list: {},
-    allList: {},
-    loadingComplate: 0,
-    currentData: 0,
+    list: [],
+    loadingComplate: 0
   },
 
   //列表
   getList: function () {
-    let dataObjList = [
-      {
-        name: 'collectList',
-        url: config.collectUrl,
-        data: {
-          action: 'list',
-          post: {
-            openId: app.globalData.openId
-          }
-        }
-      },
-      {
-        name: 'historyList',
-        url: config.collectUrl,
-        data: {
-          action: 'history',
-          post: {
-            openId: app.globalData.openId
-          }
-        }
-      }
-    ]
     let that = this;
-    commonFun.getList(dataObjList).then(function (res) {
+    let optnId = app.globalData.openId;
+    commonFun.request({
+      url: config.myUrl,
+      data: {
+        action: 'my_buy',
+        pagesize: 111,
+        post: { openId: optnId },
+      }
+    }).then(res => {
       that.setData({
-        allList: res
+        list: res
       });
-      that.stopRefresh();
       console.log(res);
+      wx.hideLoading();
     });
   },
 
@@ -78,32 +61,5 @@ Page({
 
   onShow: function (options) {
 
-  },
-
-  player: function () {
-    wx.navigateTo({
-      url: config.player,
-    })
-  },
-
-  //获取当前滑块的index
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
-    })
-  },
-
-  //点击切换，滑块index赋值
-  checkCurrent: function (e) {
-    const that = this;
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
   }
 })

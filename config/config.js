@@ -11,7 +11,8 @@ const playerUrl = baseUrl + 'wechatProgram/api/playerApi.php';
 const collectUrl = baseUrl + 'wechatProgram/api/collectApi.php';
 const videoUrl = baseUrl + 'wechatProgram/api/videoApi.php';
 const uploadUrl = baseUrl + 'wechatProgram/api/uploadApi.php';
-const payApi = baseUrl + 'wechatProgram/pay/GetSth.php'
+const myUrl = baseUrl + 'wechatProgram/api/myApi.php';
+const payApi = baseUrl + 'wechatProgram/pay/GetSth.php';
 
 // 页面常量
 const pusher = '../pusher/pusher';
@@ -37,6 +38,7 @@ module.exports = {
   playerUrl: playerUrl,
   collectUrl: collectUrl,
   payApi: payApi,
+  myUrl: myUrl,
 
   // 页面
   pusher: pusher,
