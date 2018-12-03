@@ -10,7 +10,15 @@
 .vbox video{
   width: 100%;
 }
-
+.out-frame{
+  overflow: hidden;font-size:28rpx;padding: 0 10rpx;
+}
+.follow-right{
+  float: right;background: #e4393c;color: #fff;border-radius: 8rpx;padding: 8rpx 12rpx;
+}
+.btn-area{
+  float: left;padding: 8rpx 0;
+}
 /* 评论 */
 /*整体样式，就是黑色的容器*/
 .comment_release{
@@ -56,12 +64,6 @@
 }
 /*发送按钮*/
 .comment_release .submit{ 
-  width: 60px;height: 27px;
-  line-height: 27px;text-align: center;
-  margin-right: 10px;background-color: #4B5CD7;
-  color: #ffffff;font-size: 12px;
-}
-.sendDanmu{ 
   width: 60px;height: 27px;
   line-height: 27px;text-align: center;
   margin-right: 10px;background-color: #4B5CD7;
