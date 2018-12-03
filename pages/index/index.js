@@ -37,7 +37,8 @@ Page({
         name: 'videoList',
         url: config.videoUrl,
         data: {
-          action: "list", pagesize: 3,
+          action: "list", 
+          post: {pagesize: 3},
         }
       }
     ];
