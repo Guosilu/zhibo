@@ -61,6 +61,12 @@
   margin-right: 10px;background-color: #4B5CD7;
   color: #ffffff;font-size: 12px;
 }
+.sendDanmu{ 
+  width: 60px;height: 27px;
+  line-height: 27px;text-align: center;
+  margin-right: 10px;background-color: #4B5CD7;
+  color: #ffffff;font-size: 12px;
+}
 .tool{
   text-align: left;line-height: 50rpx;
   margin:10rpx 0;
