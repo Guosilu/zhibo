@@ -21,14 +21,14 @@ Page({
         name: 'free_video_list',
         url: config.videoUrl,
         data: {
-          action: "list", pagesize: 4, post: { charge: 0 }
+          action: "list", pagesize: 8, post: { charge: 0 }
         }
       },
       {
         name: 'charge_video_list',
         url: config.videoUrl,
         data: {
-          action: "list", pagesize: 4, post:{charge: 1}
+          action: "list", pagesize: 8, post:{charge: 1}
         }
       }
     ];

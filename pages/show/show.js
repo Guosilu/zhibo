@@ -22,85 +22,6 @@ Page({
     duration: 5,//视频长度
     danmuList: []//弹幕
   },
-  
-  //关注
-  collect: function () {
-    let that = this;
-    let id = this.data.detail.itemid;
-    let cur_collect = parseInt(this.data.detail.collect);
-    let collect_status = this.data.collect_status;
-    let act = collect_status == 1 ? "minus" : "add";
-    if (this.data.detail.openId == app.globalData.openId) {
-      wx.showToast({
-        icon: 'none',
-        title: '您不能关注自己！'
-      });
-      return false;
-    }
-    collectFile.collect({
-      id: id, 
-      act: act, 
-      itemType: "video",
-      onExec: (res) => {
-        if(res == 1) {
-          let collect_status = act == "add" ? 1 : 0;
-          let collect = act == "add" ? cur_collect + 1 : cur_collect - 1;
-          that.setData({
-            collect_status: collect_status,
-            'detail.collect': collect
-          });
-        } 
-      }
-    })
-  },
-
-  //获取输入弹幕
-  getInput: function (e) {
-    this.setData({
-      danmu: e.detail.value
-    });
-  },
-
-  //发送弹幕
-  sendDanmu: function () {
-    let that = this;
-    let itemid = that.data.detail.itemid;
-    let danmuList = this.data.danmuList;
-    let content = this.data.danmu;
-    //let content = Math.random().toString(36).substr(2);
-    let color = getRandomColor();
-    let currentTime = Math.ceil(this.data.currentTime);
-    let danmuListAdd = {
-      text: content,
-      color: color,
-      time: currentTime
-    }
-    this.data.danmuList.push(danmuListAdd)
-    console.log(this.data.danmuList)
-    this.videoContext.sendDanmu({
-      text: content,
-      color: color
-    })
-    this.setData({
-      danmu: ""
-    });
-    console.log(this.data.danmuList)
-    commonFun.request({
-      url: config.videoUrl,
-      data: {
-        action: 'danmu',
-        post: {
-          itemid: itemid,
-          openId: app.globalData.openId,
-          playtime: currentTime,
-          content: content,
-          color: color
-        },
-      }
-    }).then(res => {
-      console.log(res);
-    });
-  },
 
   //生命周期函数onReady
   onReady: function (res) {
@@ -216,6 +137,85 @@ Page({
         watchPower: true,
         'detail.power': 1
       })
+    });
+  },
+
+  //关注
+  collect: function () {
+    let that = this;
+    let id = this.data.detail.itemid;
+    let cur_collect = parseInt(this.data.detail.collect);
+    let collect_status = this.data.collect_status;
+    let act = collect_status == 1 ? "minus" : "add";
+    if (this.data.detail.openId == app.globalData.openId) {
+      wx.showToast({
+        icon: 'none',
+        title: '您不能关注自己！'
+      });
+      return false;
+    }
+    collectFile.collect({
+      id: id,
+      act: act,
+      itemType: "video",
+      onExec: (res) => {
+        if (res == 1) {
+          let collect_status = act == "add" ? 1 : 0;
+          let collect = act == "add" ? cur_collect + 1 : cur_collect - 1;
+          that.setData({
+            collect_status: collect_status,
+            'detail.collect': collect
+          });
+        }
+      }
+    })
+  },
+
+  //获取输入弹幕
+  getInput: function (e) {
+    this.setData({
+      danmu: e.detail.value
+    });
+  },
+
+  //发送弹幕
+  sendDanmu: function () {
+    let that = this;
+    let itemid = that.data.detail.itemid;
+    let danmuList = this.data.danmuList;
+    let content = this.data.danmu;
+    //let content = Math.random().toString(36).substr(2);
+    let color = getRandomColor();
+    let currentTime = Math.ceil(this.data.currentTime);
+    let danmuListAdd = {
+      text: content,
+      color: color,
+      time: currentTime
+    }
+    this.data.danmuList.push(danmuListAdd)
+    console.log(this.data.danmuList)
+    this.videoContext.sendDanmu({
+      text: content,
+      color: color
+    })
+    this.setData({
+      danmu: ""
+    });
+    console.log(this.data.danmuList)
+    commonFun.request({
+      url: config.videoUrl,
+      data: {
+        action: 'danmu',
+        post: {
+          itemid: itemid,
+          openId: app.globalData.openId,
+          playtime: currentTime,
+          content: content,
+          color: color
+        },
+      }
+    }).then(res => {
+      console.log(res);
     });
   },
   
