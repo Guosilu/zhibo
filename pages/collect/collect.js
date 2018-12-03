@@ -7,10 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: {},
+    list: [],
+    loadingComplate: 0,
+    page: 1,
+    pagesize: 10,
     history_list: {},
     allList: {},
-    loadingComplate: 0,
     currentData: 0,
   },
 
@@ -24,41 +26,58 @@ Page({
     this.getList();
   },
 
-  //列表
-  getList: function () {
-    let dataObjList = [
-      {
-        name: 'collectList',
-        url: config.collectUrl,
-        data: {
-          action: 'collect',
-          post: {
-            where:{
-              openId: app.globalData.openId
-            }
-          }
-        }
-      },
-      {
-        name: 'historyList',
-        url: config.collectUrl,
-        data: {
-          action: 'history',
-          post: {
-            where: {
-              openId: app.globalData.openId
-            }
-          }
-        }
-      }
-    ]
+  //点击切换，滑块index赋值
+  checkCurrent: function (e) {
     let that = this;
-    commonFun.getList(dataObjList).then(function (res) {
-      that.setData({
-        allList: res
+    let currentData = that.data.currentData;
+    let current = e.target.dataset.current;
+    let action = current == 1 ? 'history' : 'collect';
+    if (currentData === current) {
+      return false;
+    } else {
+      console.log(action);
+      this.getList(action).then((res) => {
+        that.setData({
+          currentData: e.target.dataset.current
+        })
+      })
+    }
+  },
+
+  //列表
+  getList: function (action, pages) {
+    var action = action || 'collect'; 
+    var pages = pages || false;
+    let that = this;
+    let optnId = app.globalData.openId;
+    let page = (pages === true) ? this.data.page + 1 : 1;
+    let pagesize = this.data.pagesize;
+    return new Promise((resolve) => {
+      commonFun.request({
+        url: config.collectUrl,
+        data: {
+          action: action,
+          post: {
+            page: page,
+            pagesize: pagesize,
+            where: {
+              openId: optnId
+            }
+          }
+        }
+      }).then(res => {
+        let list = pages === true ? that.data.list.concat(res) : res;
+        if (res.length > 0) {
+          that.setData({
+            list: list,
+            page: page
+          });
+        } else {
+          that.showTip('已到达末尾');
+        }
+        that.stopRefresh();
+        resolve(1);
       });
-      that.stopRefresh();
-      console.log(res);
     });
   },
   
@@ -114,17 +133,4 @@ Page({
       currentData: e.detail.current
     })
   },
-
-  //点击切换，滑块index赋值
-  checkCurrent: function (e) {
-    const that = this;
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
-  }
 })

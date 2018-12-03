@@ -13,7 +13,7 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
-      <view wx:for='{{allList.collectList}}' class='tm'>
+      <view wx:for='{{list}}' class='tm'>
       <navigator url='{{item.linkurl}}'>
         <view class='hezi1'>
           <image src='{{item.thumb}}'></image>
@@ -28,7 +28,7 @@
   <swiper-item>
     <view class='swiper_con'>
 
-      <view  wx:for='{{allList.historyList}}' class='tm2'>
+      <view  wx:for='{{list}}' class='tm2'>
         <navigator url='{{item.linkurl}}'>
           <image class='hezi2' src='{{item.thumb}}'></image>
           <view class='wztop'>
