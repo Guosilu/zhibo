@@ -7,7 +7,7 @@
         <view class='wenzi2'>{{item.title}}</view>
       </view>
       <view class='wenzi2'>{{item.nickName}}</view>
-      <view class='wenzi2'>{{item.edittime}}</view>
+      <view class='wenzi2' style="float:right;">{{item.edittime}}</view>
     </navigator>
   </view>
 </view>
