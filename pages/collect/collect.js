@@ -7,12 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: [],
     loadingComplate: 0,
     page: 1,
     pagesize: 10,
     history_list: {},
-    allList: {},
+    list: {
+      collect: [],
+      history: []
+    },
     currentData: 0,
   },
 
@@ -67,9 +69,10 @@ Page({
         }
       }).then(res => {
         let list = pages === true ? that.data.list.concat(res) : res;
+        let listName = action === 'collect' ? 'list.collect' : 'list.history';
         if (res.length > 0) {
           that.setData({
-            list: list,
+            listName: list,
             page: page
           });
         } else {
