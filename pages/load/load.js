@@ -19,11 +19,48 @@ Page({
     this.getList();
   },
 
+  myDelete: function (e) {
+    let that = this;
+    let itemid = e.target.dataset.itemid;
+    let openId = app.globalData.openId;
+    let pagesize = (this.data.pagesize) * (this.data.page);
+    wx.showModal({
+      title: '提示',
+      content: '视频及内容将永久删除！',
+      success(res) {
+        if (res.confirm) {
+          this.showLoading('正在删除...');
+          commonFun.request({
+            url: config.myUrl,
+            data: {
+              action: 'my_delete',
+              post: {
+                where: {
+                  itemid: itemid,
+                  openId: openId
+                }
+              }
+            }
+          }).then(res => {
+            if(res) {
+              that.showTip('success', '已删除！');
+              that.setData({
+                pagesize: pagesize,
+                page: 1
+              });
+              that.getList();
+            }
+          })
+        } else if (res.cancel) {}
+      }
+    })
+  },
+
   //列表
   getList: function (pages) {
     var pages = pages || false; 
     let that = this;
-    let optnId = app.globalData.openId;
+    let openId = app.globalData.openId;
     let page = (pages === true) ? this.data.page + 1 : 1;
     let pagesize = this.data.pagesize;
     commonFun.request({
@@ -34,7 +71,7 @@ Page({
           page: page,
           pagesize: pagesize,
           where: {
-            openId: optnId
+            openId: openId
           }
         }
       }
@@ -43,7 +80,8 @@ Page({
       if(res.length > 0) {
         that.setData({
           list: list,
-          page: page
+          page: page,
+          pagesize: 10
         });
       }else{
         that.showTip('已到达末尾');
@@ -77,9 +115,10 @@ Page({
   },
 
   //提示方法
-  showTip: function (msg) {
+  showTip: function (icon, msg) {
+    var icon = icon || 'none'
     wx.showToast({
-      icon: 'none',
+      icon: icon,
       title: msg,
     })
   },

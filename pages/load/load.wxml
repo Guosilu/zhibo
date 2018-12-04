@@ -9,6 +9,7 @@
       <view class='wenzi2'>{{item.nickName}}</view>
       <view class='wenzi2' style="float:right;">{{item.edittime}}</view>
     </navigator>
+    <view bindtap='myDelete' data-itemid='{{item.itemid}}'>删除</view>
   </view>
 </view>
 </block>
