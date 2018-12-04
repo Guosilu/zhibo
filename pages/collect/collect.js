@@ -80,7 +80,7 @@ Page({
             action: action
           });
         } else {
-          that.showTip('已到达末尾');
+          that.showTip('无数据');
         }
         resolve(1);
       });
