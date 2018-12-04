@@ -37,7 +37,7 @@ Page({
     if (currentData === current) {
       return false;
     } else {
-      console.log(action);
+      this.data.page = 1;
       this.getList(action).then((res) => {
         that.setData({
           currentData: e.target.dataset.current
@@ -48,9 +48,9 @@ Page({
 
   //列表
   getList: function (action, pages) {
+    let that = this;
     var action = action || 'collect'; 
     var pages = pages || false;
-    let that = this;
     let optnId = app.globalData.openId;
     let page = (pages === true) ? this.data.page + 1 : 1;
     let pagesize = this.data.pagesize;
@@ -68,17 +68,20 @@ Page({
           }
         }
       }).then(res => {
-        let list = pages === true ? that.data.list.concat(res) : res;
+        that.stopRefresh();
         let listName = action === 'collect' ? 'list.collect' : 'list.history';
+        let list = pages === true ? (action === 'collect' ? that.data.list.collect.concat(res) : that.data.list.history.concat(res)) : res;
+        console.log(that.data.list);
+        console.log(listName);
         if (res.length > 0) {
           that.setData({
-            listName: list,
-            page: page
+            [listName]: list,
+            page: page,
+            action: action
           });
         } else {
           that.showTip('已到达末尾');
         }
-        that.stopRefresh();
         resolve(1);
       });
     });
@@ -87,13 +90,24 @@ Page({
   // 下拉刷新
   onPullDownRefresh: function () {
     // 显示顶部刷新图标
+    let action = this.data.action;
+    this.setData({
+      page: 1
+    })
     wx.showNavigationBarLoading();
-    this.getList();
+    this.getList(action);
+  },
+
+  //页面上拉触底事件的处理函数
+  onReachBottom: function () {
+    let action = this.data.action;
+    this.showLoading('正在加载...', true);
+    this.getList(action, true);
   },
 
   stopRefresh: function () {
     this.setData({
-      loadingComplate: 1,
+      loadingComplate: 1
     })
     wx.hideLoading();
     // 隐藏导航栏加载框
