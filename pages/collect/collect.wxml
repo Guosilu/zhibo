@@ -33,10 +33,10 @@
           <image class='hezi2' src='{{item.thumb}}'></image>
           <view class='wztop'>
             <view class='wenzi2'>{{item.title}}</view>
+            <view class='wenzi2' style='float:right;'>类型：{{item.typeName}}</view>
           </view>
             <view class='wenzi2'>{{item.nickName}}</view>
-            <view class='wenzi2'>{{item.edittime}}</view>
-            <view class='wenzi2'>类型：{{item.typeName}}</view>
+            <view class='wenzi2' style='float:right;'>{{item.edittime}}</view>
         </navigator>
       </view>
       
