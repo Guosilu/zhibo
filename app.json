@@ -33,7 +33,7 @@
         "selectedIconPath": "img/11.png"
       },
       {
-        "pagePath": "pages/list/list",
+        "pagePath": "pages/videolist/videolist",
         "text": "视频",
         "iconPath": "img/2.png",
         "selectedIconPath": "img/22.png"

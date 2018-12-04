@@ -1,45 +1,168 @@
-// pages/tabbar_zb/tabbar_zb.js
+const config = require('../../config/config.js');
+const commonFun = require("../../js/commonFun.js");
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-    image_sp: [{
-      img: "../image/4.jpg",
-      title: "【英雄联盟官方赛事】恭喜lpl获得亚洲对抗赛冠军"
-    }, {
-      img: "../image/5.jpg",
-      title: "【Riot、LCS】欧美对抗赛决赛-TSMvsUOL重播"
-    }, {
-      img: "../image/6.jpg",
-      title: "【主播油条】不正紧的中单变态流小剑圣！"
-    }, {
-      img: "../image/7.jpg",
-      title: "【暴走的鲨鱼辣椒】国服第一刀妹带你上王者"
-    }, {
-      img: "../image/8.jpg",
-      title: "【边缘OB】 2017LCK夏季赛7月11日重播"
-    }, {
-      img: "../image/9.jpg",
-      title: "【太原马超】中单王者游戏理解，让你制霸三路"
-    }],
-    navbarpageone: ['全部', '热门游戏', '音乐', '美食', '星颜', '教育',],
-    navbarpagetwo: ['英语', '动漫', '主播镜头', '科技', '家居', '交流'],
+    loadingComplate: 0,
+    page: 1,
+    pagesize: 10,
+    list: [],
+    catid: '',
+    category: [
+      { catid: '', catname: '全部' },
+      { catid: 'hot', catname: '热门游戏' },
+      { catid: 'free', catname: '免费' },
+      { catid: 'charge', catname: '收费' }
+    ],
     currentTab: 0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  navbarTap: function (e) {
-    this.setData({
-      currentTab: e.currentTarget.dataset.idx
+
+  //生命周期函数--监听页面加载
+  onLoad: function (options) {
+    this.showLoading('正在加载...')
+    let promistAll = [];
+    promistAll.push(this.getCat(), this.getList());
+    console.log(promistAll);
+    Promise.all(promistAll).then(() => {
+      this.stopRefresh();
     })
   },
-  onLoad: function (options) {
 
+  //tab切换
+  navbarTap: function (e) {
+    let that = this;
+    let currentTab = e.currentTarget.dataset.idx;
+    let catid = e.currentTarget.dataset.catid;
+    if (currentTab === this.data.currentTab) {
+      return false;
+    } else {
+      //this.showLoading('正在加载...')
+      this.setData({
+        catid: catid,
+        page: 1
+      })
+      this.getList().then(() => {
+        that.setData({
+          currentTab: currentTab
+        })
+      })
+    }
+  },
+
+  //列表
+  getList: function (pages) {
+    let that = this;
+    let loadingComplate = this.data.loadingComplate;
+    let catid = this.data.catid;
+    console.log(catid);
+    var pages = pages || false;
+    let openId = app.globalData.openId;
+    let page = (pages === true) ? this.data.page + 1 : 1;
+    let pagesize = this.data.pagesize;
+    return new Promise((resolve) => {
+      commonFun.request({
+        url: config.videoUrl,
+        data: {
+          action: 'list',
+          post: {
+            page: page,
+            pagesize: pagesize,
+            where: {
+              catid: catid
+            }
+          }
+        }
+      }).then(res => {
+        let list = pages === true ? that.data.list.concat(res) : res;
+        if (res.length > 0) {
+          that.setData({
+            list: list,
+            page: page
+          });
+        } else {
+          that.showTip('搜不到了~');
+          if (page == 1) {
+            that.setData({
+              list: []
+            });
+          }
+        }
+        if (loadingComplate == 1) that.stopRefresh();
+        resolve(true);
+      });
+    });
+  },
+
+  //tab切换
+  getCat: function () {
+    let that = this;
+    return new Promise((resolve) => {
+      commonFun.request({
+        url: config.videoUrl,
+        data: {
+          action: 'category'
+        }
+      }).then(res => {
+        if (res.length > 0) {
+          console.log(res);
+          that.setData({
+            category: that.data.category.concat(res)
+          });
+        }
+        resolve(true);
+      });
+    });
+  },
+
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    // 显示顶部刷新图标
+    let action = this.data.action;
+    this.setData({
+      page: 1
+    })
+    wx.showNavigationBarLoading();
+    this.getList();
+  },
+
+  //页面上拉触底事件的处理函数
+  onReachBottom: function () {
+    let action = this.data.action;
+    this.showLoading('正在加载...', true);
+    this.getList(true);
+  },
+
+  stopRefresh: function () {
+    this.setData({
+      loadingComplate: 1
+    })
+    wx.hideLoading();
+    // 隐藏导航栏加载框
+    wx.hideNavigationBarLoading();
+    // 停止下拉动作
+    wx.stopPullDownRefresh();
+  },
+
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
+    })
   },
 
   /**
@@ -67,20 +190,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

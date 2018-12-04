@@ -1,30 +1,36 @@
+<block wx:if='{{loadingComplate == 1}}'>
 <swiper class="navban_zb" duration="1000">
   <swiper-item>
 <view class="navbar">
- <text  wx:for="{{navbarpageone}}"
+ <text  wx:for="{{category}}"
         data-idx="{{index}}"
         class="item {{currentTab==index ? 'active' : ''}}"
-        wx:key="unique" bindtap="navbarTap">{{item}}</text>
+        wx:key="unique" bindtap="navbarTap" data-catid="{{item.catid}}">{{item.catname}}</text>
 </view>
 </swiper-item>
-<swiper-item>
+</swiper>
+<view>
+<view class="recommend_sp">
+  <block wx:for = "{{list}}" wx:key="{{title}}">
+    <navigator url='{{item.linkurl}}'>
+    <view style= "width:350rpx;" class="recommend_sp_img">
+      <image class="image1" src="{{item.thumb}}" mode="aspectFill"></image>
+      <text class="shiping"> 标题: {{item.title}}</text>
+      <text class="shiping"> 浏览: {{item.hits}}</text>
+      <text class="shiping"> 点赞: {{item.collect}}</text>
+      <text class="shiping"> {{item.charge > 0 ? '收费' : '免费'}}</text>
+    </view>
+    </navigator>
+  </block>
+</view>
+</view>
+</block>
+<!-- <swiper-item>
 <view class="navbar">
 <text  wx:for="{{navbarpagetwo}}"
       data-idx="{{index}}"
       class="item {{currentTab==index ? 'active' : ''}}"
       wx:key="unique" bindtap="navbarTap">{{item}}</text>
 </view>
-</swiper-item>
-</swiper>
-<view hidden="{{currentTab!==0}}">
-<view class="recommend_sp">
-  <block wx:for = "{{image_sp}}" wx:key="{{title}}">
-    <view style= "width:350rpx;" class="recommend_sp_img">
-      <image class="image1" src="{{item.img}}" mode="aspectFill"></image>
-      <text class="shiping">{{item.title}}</text>
-    </view>
-  </block>
-</view>
-</view>
-
+</swiper-item> -->
 
