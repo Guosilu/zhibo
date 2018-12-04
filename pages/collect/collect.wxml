@@ -13,15 +13,15 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
-      <view wx:for='{{list}}' class='tm'>
-      <navigator url='{{item.linkurl}}'>
-        <view class='hezi1'>
-          <image src='{{item.thumb}}'></image>
-        </view>
-        <view class='wenzi1'>{{item.nickName}}</view>
-        <view class='wenzi11'>{{item.title}}</view>
-        <view class='wenzi2'>类型：{{item.typeName}}</view>
-      </navigator>
+      <view wx:for='{{allList.collectList}}' class='tm'>
+        <navigator url='{{item.linkurl}}'>
+          <view class='hezi1'>
+            <image src='{{item.thumb}}'></image>
+          </view>
+          <view class='wenzi1'>{{item.nickName}}</view>
+          <view class='wenzi11'>{{item.title}}</view>
+          <view class='wenzi2'>类型：{{item.typeName}}</view>
+        </navigator>
       </view>
     </view>
   </swiper-item> 
