@@ -5,7 +5,9 @@ const app = getApp();
 Page({
   data: {
     id: null,
-    collect_status: null,    
+    detail: {},
+    collect_status: null,   
+    loadingComplate: 0,
     playing: false,
     videoContext: {},
     img:config.img, //图片地址
@@ -23,49 +25,39 @@ Page({
      * 生命周期函数--监听页面加载
      */
   onLoad: function (options) {
+    this.showLoading('正在加载...');
     var that = this;
+    let room_openId = options.id;
     that.setData({
-      playUrl: "rtmp://118.190.98.53:1935/live/" + options.id,
-      id: options.id
+      playUrl: "rtmp://118.190.98.53:1935/live/" + room_openId,
+      id: room_openId
     })
-    this.is_collect(options.id);
-    this.history(options.id);
+    this.detail(room_openId);
     console.log("rtmp://118.190.98.53:1935/live/" + options.id)
   },
 
-  //足迹
-  history: function (id) {
+  //详情
+  detail: function (room_openId) {
     var that = this;
     commonFun.request({
       url: config.playerUrl,
       data: {
-        action: 'history',
+        action: 'detail',
         post: {
-          id: id,
+          room_openId: room_openId,
           openId: app.globalData.openId
         },
       }
     }).then((res) => {
+      if(res.openId) {
+        that.setData({
+          collect_status: res.collect_status,
+          loadingComplate: 1,
+          detail: res
+        })
+      }
+      wx.hideLoading();
       console.log(res);
-    });
-  },
-  
-  //关注
-  is_collect: function (id) {
-    var that = this;
-    commonFun.request({
-      url: config.playerUrl,
-      data: {
-        action: 'is_collect',
-        post: {
-          id: id,
-          openId: app.globalData.openId
-        },
-      }
-    }).then((res) => {
-      that.setData({
-        collect_status: res
-      })
     });
   },
 
@@ -330,6 +322,23 @@ Page({
       self.setData({
         'tapTime': new Date()
       });
+    })
+  },
+
+  //提示方法
+  showTip: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
     })
   },
 

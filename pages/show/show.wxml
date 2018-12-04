@@ -19,7 +19,7 @@
 <view class="tool">
   <view class='videotit'>{{detail.title}}</view> 
   <view class="tool-item">
-    <image src=""></image>
+    <image src="{{detail.avatarUrl}}"></image>
     <text>{{detail.nickName ? detail.nickName : "管理员"}}</text>
   </view>
 </view>

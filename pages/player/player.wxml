@@ -1,4 +1,4 @@
-<block wx:if='{{collect_status !== null && id}}'>
+<block wx:if='{{loadingComplate == 1}}'>
 <view class="page-body">
   <view class="page-section tc">
     <live-player
@@ -20,10 +20,10 @@
      
     <cover-view class='live-follow'>
       <cover-view class='follow-left'>
-        <cover-image src='{{item.avatarUrl}}'></cover-image>
+        <cover-image src='{{detail.avatarUrl}}'></cover-image>
         <cover-view>
-          <cover-view>{{item.nickName}}</cover-view>
-          <cover-view>{{item.roomName}}</cover-view>
+          <cover-view>{{detail.nickName}}</cover-view>
+          <cover-view>{{detail.roomName}}</cover-view>
         </cover-view>
       </cover-view>
       <cover-view class='follow-right' bindtap='collect'>
