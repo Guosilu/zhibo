@@ -29,7 +29,7 @@ Page({
       content: '视频及内容将永久删除！',
       success(res) {
         if (res.confirm) {
-          this.showLoading('正在删除...');
+          that.showLoading('正在删除...');
           commonFun.request({
             url: config.myUrl,
             data: {
@@ -43,7 +43,7 @@ Page({
             }
           }).then(res => {
             if(res) {
-              that.showTip('success', '已删除！');
+              that.showTip('已删除！', 'success');
               that.setData({
                 pagesize: pagesize,
                 page: 1
@@ -76,6 +76,7 @@ Page({
         }
       }
     }).then(res => {
+      that.stopRefresh();
       let list = pages === true ? that.data.list.concat(res) : res;
       if(res.length > 0) {
         that.setData({
@@ -84,9 +85,8 @@ Page({
           pagesize: 10
         });
       }else{
-        that.showTip('已到达末尾');
+        that.showTip('无数据');
       }
-      that.stopRefresh();
     });
   },
 
@@ -115,7 +115,7 @@ Page({
   },
 
   //提示方法
-  showTip: function (icon, msg) {
+  showTip: function (msg, icon) {
     var icon = icon || 'none'
     wx.showToast({
       icon: icon,

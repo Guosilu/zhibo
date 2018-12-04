@@ -44,7 +44,7 @@ Page({
           page: page
         });
       } else {
-        that.showTip('已到达末尾');
+        that.showTip('无数据');
       }
       that.stopRefresh();
     });
