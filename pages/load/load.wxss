@@ -3,6 +3,10 @@
 }
 .tm2{
   box-shadow: 0px 0px 10px 1px #ddd;border-radius: 10px;margin: 20rpx;overflow: hidden;
+  position: relative;
+}
+.delete{
+  position: absolute;top: 0;right: 0;font-size: 28rpx;background: #e4393c;color: #fff;margin: 10rpx;padding:2rpx 5rpx;border-radius: 10rpx ;
 }
 .hezi2{
   background-color:#000;
