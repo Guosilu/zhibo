@@ -14,7 +14,6 @@ Page({
     catid: '',
     category: [
       { catid: '', catname: '全部' },
-      { catid: 'hot', catname: '热门游戏' },
       { catid: 'free', catname: '免费' },
       { catid: 'charge', catname: '收费' }
     ],

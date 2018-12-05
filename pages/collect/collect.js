@@ -33,15 +33,12 @@ Page({
     let that = this;
     let currentData = that.data.currentData;
     let current = e.target.dataset.current;
-    let action = current == 1 ? 'history' : 'collect';
     if (currentData === current) {
       return false;
     } else {
-      this.data.page = 1;
-      this.getList(action).then((res) => {
-        that.setData({
-          currentData: e.target.dataset.current
-        })
+      this.setData({
+        currentData: current,
+        page: 1
       })
     }
   },
@@ -145,9 +142,15 @@ Page({
 
   //获取当前滑块的index
   bindchange: function (e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
+    this.showLoading('正在加载...');
+    let that = this;
+    let current = e.detail.current;
+    let action = current == 1 ? 'history' : 'collect';
+    this.setData({
+      currentData: current,
+      page: 1
+    })
+    this.getList(action).then((res) => {
     })
   },
 })
