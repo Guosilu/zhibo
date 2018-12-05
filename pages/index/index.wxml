@@ -18,7 +18,7 @@
       <view class='bt-det' wx:key="*this" wx:for="{{allList.startTimeList}}">
         <navigator url='../player/player?id={{item.openId}}'>
           <view class='bt-img'>
-            <image src="{{item.thumb}}"></image>
+            <image src="{{item.thumb ? item.thumb : defImg}}"></image>
           </view>
           <view class='bt-txt'>
             <text class='bt-txt-tit'>{{item.roomName}}</text>
@@ -38,7 +38,7 @@
     <view class='bt-list'>
       <view class='rm-det' wx:key="*this" wx:for="{{allList.hotList}}">
         <navigator url='../player/player?id={{item.openId}}'>
-          <image class='rm-img' src='{{item.thumb}}'></image>
+          <image class='rm-img' src='{{item.thumb ? item.thumb : defImg}}'></image>
           <text class='rm-txt-tit'>{{item.nickName}}</text>
           <text class='rm-txt-con'>{{item.roomName}}</text>
         </navigator>
@@ -53,7 +53,7 @@
     <view class='bt-list'>
       <view class='zj-det' wx:key="*this" wx:for="{{allList.videoList}}">
         <navigator url='../show/show?itemid={{item.itemid}}'>
-          <image class='zj-img' src='{{item.thumb}}'></image>
+          <image class='zj-img' src='{{item.thumb ? item.thumb : defImg}}'></image>
           <text class='zj-txt-name'>{{item.title}}</text>
           <!-- <text class='zj-txt-con'>{{item.introduce}}</text> -->
         </navigator>

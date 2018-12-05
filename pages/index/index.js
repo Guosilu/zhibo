@@ -7,12 +7,18 @@ Page({
   data: {
     loadingComplate: 0,
     allList: {},
+    defImg: ''
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: config.log
+
+  //生命周期函数--监听页面加载
+  onLoad: function (options) {
+    this.setData({
+      defImg: config.defImg
     })
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.getList();
   },
 
   //列表
@@ -51,6 +57,13 @@ Page({
     });
   },
 
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    this.getList();
+  },
+
   stopRefresh: function() {
     this.setData({
       loadingComplate: 1,
@@ -61,21 +74,12 @@ Page({
     // 停止下拉动作
     wx.stopPullDownRefresh();
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.showLoading({
-      title: '正在加载...',
-    })
-    this.getList();
-  },
 
-  // 下拉刷新
-  onPullDownRefresh: function () {
-    // 显示顶部刷新图标
-    wx.showNavigationBarLoading();
-    this.getList();
+  //事件处理函数
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: config.log
+    })
   },
 
   /**

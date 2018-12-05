@@ -24,7 +24,7 @@ const list = '../list/list';
 const my = '../my/my';
 const setRoom = '../setRoom/setRoom';
 const log = '../log/log';
-
+const defImg = '/img/def.png'
 // 对外接口
 module.exports = {
   appid: appid,
@@ -50,6 +50,7 @@ module.exports = {
   my: my,
   log: log,
   setRoom: setRoom,
+  defImg: defImg
 
 
 }
