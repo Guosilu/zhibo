@@ -15,10 +15,8 @@
     <navigator url='{{item.linkurl}}'>
     <view style= "width:350rpx;" class="recommend_sp_img">
       <image class="image1" src="{{item.thumb}}" mode="aspectFill"></image>
-      <text class="shiping"> 标题: {{item.title}}</text>
-      <text class="shiping"> 浏览: {{item.hits}}</text>
-      <text class="shiping"> 点赞: {{item.collect}}</text>
-      <text class="shiping"> {{item.charge > 0 ? '收费' : '免费'}}</text>
+      <text class="shiping">{{item.title}}</text>
+      <!-- <text class="shiping"> {{item.charge > 0 ? '收费' : '免费'}}</text> -->
     </view>
     </navigator>
   </block>
