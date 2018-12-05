@@ -142,7 +142,7 @@ Page({
 
   //获取当前滑块的index
   bindchange: function (e) {
-    this.showLoading('正在加载...');
+    this.showLoading('正在加载...', true);
     let that = this;
     let current = e.detail.current;
     let action = current == 1 ? 'history' : 'collect';

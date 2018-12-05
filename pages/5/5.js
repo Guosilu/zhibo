@@ -9,7 +9,10 @@ Page({
     list: [],
     page: 1,
     pagesize: 10,
+    defImg: ''
   },
+
+
   getList: function (refresh) {
     var that = this;
     var refresh = refresh || '';
@@ -65,6 +68,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      defImg: config.defImg
+    })
     wx.showLoading({
       title: '正在加载...',
     })
@@ -81,7 +87,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log(123)
     this.getList();
   },
   /**

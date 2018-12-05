@@ -2,7 +2,7 @@
   <view class='showdetail' wx:for='{{list}}'>
     <navigator url='../player/player?id={{item.openId}}'>
       <view class='contant'>
-        <image src='{{item.avatarUrl}}'></image>
+        <image src='{{item.thumb ? item.thumb : defImg}}'></image>
         <text>{{item.roomName}}</text>
       </view>
       <view class='introduce'>{{item.roomIntroduce}}</view>
