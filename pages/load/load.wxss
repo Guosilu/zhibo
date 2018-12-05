@@ -6,7 +6,7 @@
   position: relative;
 }
 .delete{
-  position: absolute;top: 0;right: 0;font-size: 28rpx;background: #e4393c;color: #fff;margin: 10rpx;padding:2rpx 5rpx;border-radius: 10rpx ;
+  position: absolute;top: 0;right: 0;font-size: 28rpx;background: #181717;color: #fff;margin: 10rpx;padding:2rpx 10rpx;border-radius: 10rpx ;
 }
 .hezi2{
   background-color:#000;
