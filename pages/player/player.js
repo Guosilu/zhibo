@@ -33,7 +33,7 @@ Page({
       id: room_openId
     })
     this.detail(room_openId);
-    console.log("rtmp://118.190.98.53:1935/live/" + options.id)
+    console.log("rtmp://118.190.98.53:1935/live/" + room_openId)
   },
 
   //详情

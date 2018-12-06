@@ -5,17 +5,17 @@
      id="pusher"
      url="{{pusherUrl}}"
      mode="{{setting.mode}}" 
-     muted="{{setting.muted}}" 
-     enable-camera="{{setting.camera}}" 
-     auto-focus="{{setting.focus}}" 
+     muted="{{setting.muted == 1 ? true : false}}" 
+     enable-camera="{{setting.camera == 1 ? true : false}}" 
+     auto-focus="{{setting.focu == 1 ? true : falses}}" 
      orientation="{{setting.orientation}}" 
      beauty="{{setting.beauty}}" 
      whiteness="{{setting.whiteness}}" 
      aspect="{{setting.aspect}}" 
-     zoom="{{setting.zoom}}" 
+     zoom="{{setting.zoom == 1 ? true : false}}" 
      device-position="{{device_position}}" 
-     background-mute="{{setting.background_mute}}"
-     autopush
+     background-mute="{{setting.background_mute == 1 ? true : false}}"
+     autopush = "{{setting.autopush == 1 ? true : false}}"
      style="width:100%;height:100%; position:absolute;">
 
     <cover-view class="operate">
