@@ -15,7 +15,7 @@
      zoom="{{setting.zoom == 1 ? true : false}}" 
      device-position="{{device_position}}" 
      background-mute="{{setting.background_mute == 1 ? true : false}}"
-     autopush = "{{setting.autopush == 1 ? true : false}}"
+     autopush
      style="width:100%;height:100%; position:absolute;">
 
     <cover-view class="operate">

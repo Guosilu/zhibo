@@ -96,7 +96,7 @@ Page({
           anchorName: anchorName,//主播名
           anchorIntroduce: anchorIntroduce,//主播简介
           mode: mode,    //画质
-          autopush: 0,   //自动推流
+          autopush: autopush,   //自动推流
           muted: muted,     //是否静音
           camera: camera,     //开启摄像头
           focus: focus,       //自动聚集 

@@ -48,7 +48,7 @@
   <view class='main'>
     <view class='jy-title'>
       <view class='jy-tit-l'>视频中心</view>
-      <navigator url='../list/list?type={{video}}' class='jy-tit-m'>更多></navigator>
+      <view bindtap='videoTab' class='jy-tit-m'>更多></view>
     </view>
     <view class='bt-list'>
       <view class='zj-det' wx:key="*this" wx:for="{{allList.videoList}}">

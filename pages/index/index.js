@@ -82,6 +82,13 @@ Page({
     })
   },
 
+  //事件处理函数
+  videoTab: function () {
+    wx.switchTab({
+      url: '/pages/videolist/videolist'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
