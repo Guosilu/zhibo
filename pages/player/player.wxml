@@ -21,7 +21,7 @@
     <cover-view class='live-follow'>
       <cover-view class='follow-left'>
         <cover-image src='{{detail.avatarUrl}}'></cover-image>
-        <cover-view>
+        <cover-view class='follow-tit'>
           <cover-view>{{detail.nickName}}</cover-view>
           <cover-view>{{detail.roomName}}</cover-view>
         </cover-view>
