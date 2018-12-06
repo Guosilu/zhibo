@@ -73,10 +73,10 @@ Page({
         var anchorName = value.anchorName;//主播名
         var anchorIntroduce = value.anchorIntroduce;//主播简介
         var mode = that.setSth('mode', value.mode);//画质
-        var autopush = value.autopush;//自动推流
-        var muted = value.muted;//是否静音
-        var camera = value.camera;//开启摄像头
-        var focus = value.focus; //自动聚集
+        var autopush = Boolean(parseInt(value.autopush));//自动推流
+        var muted = Boolean(parseInt(value.muted));//是否静音
+        var camera = Boolean(parseInt(value.camera));//开启摄像头
+        var focus = Boolean(parseInt(value.focus)); //自动聚集
         var orientation = that.setSth('orientation', value.orientation);//方向
         var beauty = value.beauty;//美颜
         var whiteness = value.whiteness;//美白
@@ -85,9 +85,9 @@ Page({
         var max_bitrate = 1000;//最大码率
         // var waiting_image = '';//进去后台时推流的等待画面
         // var waiting_image_hash = '';//等待画面资源的MD5值
-        var zoom = value.zoom;//调整焦距
+        var zoom = Boolean(parseInt(value.zoom));//调整焦距
         var device_position = that.setSth('device_position', value.device_position);//前置或后置 device_position
-        var background_mute = value.background_mute;//进入后台时是否静音
+        var background_mute = Boolean(parseInt(value.background_mute));//进入后台时是否静音
 
         that.setData({
           thumbPath: thumbPath.concat(thumb),
@@ -96,7 +96,7 @@ Page({
           anchorName: anchorName,//主播名
           anchorIntroduce: anchorIntroduce,//主播简介
           mode: mode,    //画质
-          autopush: autopush,   //自动推流
+          autopush: 0,   //自动推流
           muted: muted,     //是否静音
           camera: camera,     //开启摄像头
           focus: focus,       //自动聚集 
@@ -157,19 +157,19 @@ Page({
             anchorName: result.anchorName.trim(),//主播名
             anchorIntroduce: result.anchorIntroduce.trim(),//主播简介
             mode: result.mode,//画质
-            autopush: result.autopush,//自动推流
-            muted: result.muted,//是否静音
-            camera: result.camera,//开启摄像头
-            focus: result.focus,//自动聚集
+            autopush: result.autopush ? 1 : 0,//自动推流
+            muted: result.muted ? 1 : 0,//是否静音
+            camera: result.camera ? 1 : 0,//开启摄像头
+            focus: result.focus ? 1 : 0,//自动聚集
             orientation: result.orientation,//方向
             beauty: result.beauty,//美颜
             whiteness: result.whiteness,//美白
             aspect: result.aspect,//宽高比
             min_bitrate: result.min_bitrate,//最小码率
             max_bitrate: result.max_bitrate,//最大码率
-            zoom: result.zoom,//调整焦距
+            zoom: result.zoom ? 1 : 0,//调整焦距
             device_position: result.device_position,//前置或后置
-            background_mute: result.background_mute//进入后台时是否静音
+            background_mute: result.background_mute ? 1 : 0//进入后台时是否静音
           },
           success: function (data) {
             let result = data.data;
